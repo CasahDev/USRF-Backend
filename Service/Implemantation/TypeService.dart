@@ -42,4 +42,24 @@ class TypeService with ITypeService {
   Future<Response> getMatchById(int id) {
     return dao.getMatchById(id);
   }
+
+  @override
+  Future<Response> addPlayerToLineUp(int playerId, String id) {
+    return dao.addPlayerToLineUp(playerId, id);
+  }
+
+  @override
+  Future<Response> getLineup(String id) {
+    return dao.getLineUpByMatchId(int.parse(id));
+  }
+
+  @override
+  Future<Response> addEventToMatchHistory(String id, Map<String, dynamic> body) {
+    return dao.addEventToMatchHistory(id, body);
+  }
+
+  @override
+  Future<Response> getMatchHistory(String matchId) {
+    return dao.getMatchHistory(matchId);
+  }
 }

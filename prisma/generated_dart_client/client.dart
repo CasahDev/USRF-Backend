@@ -245,6 +245,38 @@ class UserDelegate {
     );
   }
 
+  _i1.ActionClient<Iterable<_i2.CreateManyuserAndReturnOutputType>>
+      createManyAndReturn({
+    required _i1
+        .PrismaUnion<_i3.UserCreateManyInput, Iterable<_i3.UserCreateManyInput>>
+        data,
+    bool? skipDuplicates,
+    _i3.CreateManyuserAndReturnOutputTypeSelect? select,
+  }) {
+    final args = {
+      'data': data,
+      'skipDuplicates': skipDuplicates,
+      'select': select,
+    };
+    final query = _i1.serializeJsonQuery(
+      args: args,
+      modelName: 'user',
+      action: _i1.JsonQueryAction.createManyAndReturn,
+      datamodel: PrismaClient.datamodel,
+    );
+    final result = _client.$engine.request(
+      query,
+      headers: _client.$transaction.headers,
+      transaction: _client.$transaction.transaction,
+    );
+    return _i1.ActionClient<Iterable<_i2.CreateManyuserAndReturnOutputType>>(
+      action: 'createManyuserAndReturn',
+      result: result,
+      factory: (values) => (values as Iterable)
+          .map((e) => _i2.CreateManyuserAndReturnOutputType.fromJson(e)),
+    );
+  }
+
   _i1.ActionClient<_i2.User?> update({
     required _i1.PrismaUnion<_i3.UserUpdateInput, _i3.UserUncheckedUpdateInput>
         data,
@@ -699,6 +731,38 @@ class TeamDelegate {
       action: 'createManyteam',
       result: result,
       factory: (e) => _i3.AffectedRowsOutput.fromJson(e),
+    );
+  }
+
+  _i1.ActionClient<Iterable<_i2.CreateManyteamAndReturnOutputType>>
+      createManyAndReturn({
+    required _i1
+        .PrismaUnion<_i3.TeamCreateManyInput, Iterable<_i3.TeamCreateManyInput>>
+        data,
+    bool? skipDuplicates,
+    _i3.CreateManyteamAndReturnOutputTypeSelect? select,
+  }) {
+    final args = {
+      'data': data,
+      'skipDuplicates': skipDuplicates,
+      'select': select,
+    };
+    final query = _i1.serializeJsonQuery(
+      args: args,
+      modelName: 'team',
+      action: _i1.JsonQueryAction.createManyAndReturn,
+      datamodel: PrismaClient.datamodel,
+    );
+    final result = _client.$engine.request(
+      query,
+      headers: _client.$transaction.headers,
+      transaction: _client.$transaction.transaction,
+    );
+    return _i1.ActionClient<Iterable<_i2.CreateManyteamAndReturnOutputType>>(
+      action: 'createManyteamAndReturn',
+      result: result,
+      factory: (values) => (values as Iterable)
+          .map((e) => _i2.CreateManyteamAndReturnOutputType.fromJson(e)),
     );
   }
 
@@ -1157,6 +1221,38 @@ class PlayerDelegate {
       action: 'createManyplayer',
       result: result,
       factory: (e) => _i3.AffectedRowsOutput.fromJson(e),
+    );
+  }
+
+  _i1.ActionClient<Iterable<_i2.CreateManyplayerAndReturnOutputType>>
+      createManyAndReturn({
+    required _i1.PrismaUnion<_i3.PlayerCreateManyInput,
+            Iterable<_i3.PlayerCreateManyInput>>
+        data,
+    bool? skipDuplicates,
+    _i3.CreateManyplayerAndReturnOutputTypeSelect? select,
+  }) {
+    final args = {
+      'data': data,
+      'skipDuplicates': skipDuplicates,
+      'select': select,
+    };
+    final query = _i1.serializeJsonQuery(
+      args: args,
+      modelName: 'player',
+      action: _i1.JsonQueryAction.createManyAndReturn,
+      datamodel: PrismaClient.datamodel,
+    );
+    final result = _client.$engine.request(
+      query,
+      headers: _client.$transaction.headers,
+      transaction: _client.$transaction.transaction,
+    );
+    return _i1.ActionClient<Iterable<_i2.CreateManyplayerAndReturnOutputType>>(
+      action: 'createManyplayerAndReturn',
+      result: result,
+      factory: (values) => (values as Iterable)
+          .map((e) => _i2.CreateManyplayerAndReturnOutputType.fromJson(e)),
     );
   }
 
@@ -1621,6 +1717,40 @@ class MatchDelegate {
     );
   }
 
+  _i1.ActionClient<Iterable<_i2.CreateManymatchAndReturnOutputType>>
+      createManyAndReturn({
+    required _i1.PrismaUnion<_i3.MatchCreateManyInput,
+            Iterable<_i3.MatchCreateManyInput>>
+        data,
+    bool? skipDuplicates,
+    _i3.CreateManymatchAndReturnOutputTypeSelect? select,
+    _i3.CreateManymatchAndReturnOutputTypeInclude? include,
+  }) {
+    final args = {
+      'data': data,
+      'skipDuplicates': skipDuplicates,
+      'select': select,
+      'include': include,
+    };
+    final query = _i1.serializeJsonQuery(
+      args: args,
+      modelName: 'match',
+      action: _i1.JsonQueryAction.createManyAndReturn,
+      datamodel: PrismaClient.datamodel,
+    );
+    final result = _client.$engine.request(
+      query,
+      headers: _client.$transaction.headers,
+      transaction: _client.$transaction.transaction,
+    );
+    return _i1.ActionClient<Iterable<_i2.CreateManymatchAndReturnOutputType>>(
+      action: 'createManymatchAndReturn',
+      result: result,
+      factory: (values) => (values as Iterable)
+          .map((e) => _i2.CreateManymatchAndReturnOutputType.fromJson(e)),
+    );
+  }
+
   _i1.ActionClient<_i2.Match?> update({
     required _i1
         .PrismaUnion<_i3.MatchUpdateInput, _i3.MatchUncheckedUpdateInput>
@@ -2079,6 +2209,40 @@ class PlayedDelegate {
       action: 'createManyplayed',
       result: result,
       factory: (e) => _i3.AffectedRowsOutput.fromJson(e),
+    );
+  }
+
+  _i1.ActionClient<Iterable<_i2.CreateManyplayedAndReturnOutputType>>
+      createManyAndReturn({
+    required _i1.PrismaUnion<_i3.PlayedCreateManyInput,
+            Iterable<_i3.PlayedCreateManyInput>>
+        data,
+    bool? skipDuplicates,
+    _i3.CreateManyplayedAndReturnOutputTypeSelect? select,
+    _i3.CreateManyplayedAndReturnOutputTypeInclude? include,
+  }) {
+    final args = {
+      'data': data,
+      'skipDuplicates': skipDuplicates,
+      'select': select,
+      'include': include,
+    };
+    final query = _i1.serializeJsonQuery(
+      args: args,
+      modelName: 'played',
+      action: _i1.JsonQueryAction.createManyAndReturn,
+      datamodel: PrismaClient.datamodel,
+    );
+    final result = _client.$engine.request(
+      query,
+      headers: _client.$transaction.headers,
+      transaction: _client.$transaction.transaction,
+    );
+    return _i1.ActionClient<Iterable<_i2.CreateManyplayedAndReturnOutputType>>(
+      action: 'createManyplayedAndReturn',
+      result: result,
+      factory: (values) => (values as Iterable)
+          .map((e) => _i2.CreateManyplayedAndReturnOutputType.fromJson(e)),
     );
   }
 
@@ -2543,6 +2707,40 @@ class CanPlayDelegate {
     );
   }
 
+  _i1.ActionClient<Iterable<_i2.CreateManycanPlayAndReturnOutputType>>
+      createManyAndReturn({
+    required _i1.PrismaUnion<_i3.CanPlayCreateManyInput,
+            Iterable<_i3.CanPlayCreateManyInput>>
+        data,
+    bool? skipDuplicates,
+    _i3.CreateManycanPlayAndReturnOutputTypeSelect? select,
+    _i3.CreateManycanPlayAndReturnOutputTypeInclude? include,
+  }) {
+    final args = {
+      'data': data,
+      'skipDuplicates': skipDuplicates,
+      'select': select,
+      'include': include,
+    };
+    final query = _i1.serializeJsonQuery(
+      args: args,
+      modelName: 'can_play',
+      action: _i1.JsonQueryAction.createManyAndReturn,
+      datamodel: PrismaClient.datamodel,
+    );
+    final result = _client.$engine.request(
+      query,
+      headers: _client.$transaction.headers,
+      transaction: _client.$transaction.transaction,
+    );
+    return _i1.ActionClient<Iterable<_i2.CreateManycanPlayAndReturnOutputType>>(
+      action: 'createManycan_playAndReturn',
+      result: result,
+      factory: (values) => (values as Iterable)
+          .map((e) => _i2.CreateManycanPlayAndReturnOutputType.fromJson(e)),
+    );
+  }
+
   _i1.ActionClient<_i2.CanPlay?> update({
     required _i1
         .PrismaUnion<_i3.CanPlayUpdateInput, _i3.CanPlayUncheckedUpdateInput>
@@ -3001,6 +3199,40 @@ class HistoryDelegate {
       action: 'createManyhistory',
       result: result,
       factory: (e) => _i3.AffectedRowsOutput.fromJson(e),
+    );
+  }
+
+  _i1.ActionClient<Iterable<_i2.CreateManyhistoryAndReturnOutputType>>
+      createManyAndReturn({
+    required _i1.PrismaUnion<_i3.HistoryCreateManyInput,
+            Iterable<_i3.HistoryCreateManyInput>>
+        data,
+    bool? skipDuplicates,
+    _i3.CreateManyhistoryAndReturnOutputTypeSelect? select,
+    _i3.CreateManyhistoryAndReturnOutputTypeInclude? include,
+  }) {
+    final args = {
+      'data': data,
+      'skipDuplicates': skipDuplicates,
+      'select': select,
+      'include': include,
+    };
+    final query = _i1.serializeJsonQuery(
+      args: args,
+      modelName: 'history',
+      action: _i1.JsonQueryAction.createManyAndReturn,
+      datamodel: PrismaClient.datamodel,
+    );
+    final result = _client.$engine.request(
+      query,
+      headers: _client.$transaction.headers,
+      transaction: _client.$transaction.transaction,
+    );
+    return _i1.ActionClient<Iterable<_i2.CreateManyhistoryAndReturnOutputType>>(
+      action: 'createManyhistoryAndReturn',
+      result: result,
+      factory: (values) => (values as Iterable)
+          .map((e) => _i2.CreateManyhistoryAndReturnOutputType.fromJson(e)),
     );
   }
 
@@ -3465,6 +3697,39 @@ class OpponentDelegate {
     );
   }
 
+  _i1.ActionClient<Iterable<_i2.CreateManyOpponentAndReturnOutputType>>
+      createManyAndReturn({
+    required _i1.PrismaUnion<_i3.OpponentCreateManyInput,
+            Iterable<_i3.OpponentCreateManyInput>>
+        data,
+    bool? skipDuplicates,
+    _i3.CreateManyOpponentAndReturnOutputTypeSelect? select,
+  }) {
+    final args = {
+      'data': data,
+      'skipDuplicates': skipDuplicates,
+      'select': select,
+    };
+    final query = _i1.serializeJsonQuery(
+      args: args,
+      modelName: 'Opponent',
+      action: _i1.JsonQueryAction.createManyAndReturn,
+      datamodel: PrismaClient.datamodel,
+    );
+    final result = _client.$engine.request(
+      query,
+      headers: _client.$transaction.headers,
+      transaction: _client.$transaction.transaction,
+    );
+    return _i1.ActionClient<
+        Iterable<_i2.CreateManyOpponentAndReturnOutputType>>(
+      action: 'createManyOpponentAndReturn',
+      result: result,
+      factory: (values) => (values as Iterable)
+          .map((e) => _i2.CreateManyOpponentAndReturnOutputType.fromJson(e)),
+    );
+  }
+
   _i1.ActionClient<_i2.Opponent?> update({
     required _i1
         .PrismaUnion<_i3.OpponentUpdateInput, _i3.OpponentUncheckedUpdateInput>
@@ -3739,6 +4004,36 @@ class PrismaClient extends _i1.BasePrismaClient<PrismaClient> {
           },
           {
             'name': 'Striker',
+            'dbName': null,
+          },
+          {
+            'name': 'Substitute',
+            'dbName': null,
+          },
+        ],
+        'dbName': null,
+      },
+      {
+        'name': 'GameState',
+        'values': [
+          {
+            'name': 'notStarted',
+            'dbName': null,
+          },
+          {
+            'name': 'firstHalf',
+            'dbName': null,
+          },
+          {
+            'name': 'halfTime',
+            'dbName': null,
+          },
+          {
+            'name': 'secondHalf',
+            'dbName': null,
+          },
+          {
+            'name': 'end',
             'dbName': null,
           },
         ],
@@ -4319,6 +4614,19 @@ class PrismaClient extends _i1.BasePrismaClient<PrismaClient> {
             'isGenerated': false,
             'isUpdatedAt': false,
           },
+          {
+            'name': 'state',
+            'kind': 'enum',
+            'isList': false,
+            'isRequired': true,
+            'isUnique': false,
+            'isId': false,
+            'isReadOnly': false,
+            'hasDefaultValue': false,
+            'type': 'GameState',
+            'isGenerated': false,
+            'isUpdatedAt': false,
+          },
         ],
         'primaryKey': null,
         'uniqueFields': [],
@@ -4634,7 +4942,7 @@ class PrismaClient extends _i1.BasePrismaClient<PrismaClient> {
             'name': 'author',
             'kind': 'object',
             'isList': false,
-            'isRequired': true,
+            'isRequired': false,
             'isUnique': false,
             'isId': false,
             'isReadOnly': false,
@@ -4779,6 +5087,80 @@ class PrismaClient extends _i1.BasePrismaClient<PrismaClient> {
       },
     ],
     'types': [],
+    'indexes': [
+      {
+        'model': 'user',
+        'type': 'id',
+        'isDefinedOnField': true,
+        'fields': [
+          {'name': 'id'}
+        ],
+      },
+      {
+        'model': 'user',
+        'type': 'unique',
+        'isDefinedOnField': true,
+        'fields': [
+          {'name': 'email'}
+        ],
+      },
+      {
+        'model': 'team',
+        'type': 'id',
+        'isDefinedOnField': true,
+        'fields': [
+          {'name': 'id'}
+        ],
+      },
+      {
+        'model': 'player',
+        'type': 'id',
+        'isDefinedOnField': true,
+        'fields': [
+          {'name': 'id'}
+        ],
+      },
+      {
+        'model': 'match',
+        'type': 'id',
+        'isDefinedOnField': true,
+        'fields': [
+          {'name': 'id'}
+        ],
+      },
+      {
+        'model': 'played',
+        'type': 'id',
+        'isDefinedOnField': true,
+        'fields': [
+          {'name': 'id'}
+        ],
+      },
+      {
+        'model': 'can_play',
+        'type': 'id',
+        'isDefinedOnField': true,
+        'fields': [
+          {'name': 'id'}
+        ],
+      },
+      {
+        'model': 'history',
+        'type': 'id',
+        'isDefinedOnField': true,
+        'fields': [
+          {'name': 'id'}
+        ],
+      },
+      {
+        'model': 'Opponent',
+        'type': 'id',
+        'isDefinedOnField': true,
+        'fields': [
+          {'name': 'id'}
+        ],
+      },
+    ],
   });
 
   _i1.Engine? _engine;
@@ -4808,7 +5190,7 @@ class PrismaClient extends _i1.BasePrismaClient<PrismaClient> {
   @override
   get $engine => _engine ??= _i5.BinaryEngine(
         schema:
-            'generator client {\n  provider = "dart run orm"\n}\n\ndatasource db {\n  provider = "postgresql"\n  url      = env("DATABASE_URL")\n}\n\nmodel user {\n  id         Int       @id @default(autoincrement())\n  email      String    @unique\n  first_name String\n  last_name  String\n  password   String\n  salt       String\n  history    history[]\n}\n\nmodel team {\n  id      Int     @id @default(autoincrement())\n  name    String\n  fffId  Int\n  matches match[] @relation("matchteam")\n}\n\nenum Position {\n  Goalkeeper\n  CenterBack\n  LeftBack\n  RightBack\n  DefensiveMidfielder\n  CentralMidfielder\n  AttackingMidfielder\n  LeftWinger\n  RightWinger\n  Striker\n}\n\nmodel player {\n  id         Int        @id @default(autoincrement())\n  first_name String\n  last_name  String\n  played     played[]\n  can_play   can_play[] @relation("can_play")\n}\n\nmodel match {\n  id            Int      @id @default(autoincrement())\n  team          team?    @relation("matchteam", fields: [teamId], references: [id])\n  teamId        Int?\n  opponent      Opponent @relation("matchOpponent", fields: [opponentId], references: [id])\n  opponentId    Int\n  teamScore     Int\n  opponentScore Int\n  address       String\n  date          DateTime\n  isHome        Boolean\n  coach         String\n  played        played[]\n}\n\nmodel played {\n  id           Int      @id @default(autoincrement())\n  match        match    @relation(fields: [matchId], references: [id])\n  matchId      Int\n  player       player   @relation(fields: [playerId], references: [id])\n  playerId     Int\n  jerseyNumber Int\n  entryTime    DateTime\n  leaveTime    DateTime\n  goals        Int\n  blocked      Int\n  onTarget     Int\n  offTarget    Int\n  assists      Int\n  yellow       Boolean\n  red          Boolean\n}\n\nmodel can_play {\n  id       Int      @id @default(autoincrement())\n  player   player   @relation("can_play", fields: [playerId], references: [id])\n  playerId Int\n  position Position\n}\n\nenum action_type {\n  CREATE_USER\n  UPDATE_USER\n  DELETE_USER\n  CREATE_TEAM\n  UPDATE_TEAM\n  DELETE_TEAM\n  CREATE_PLAYER\n  UPDATE_PLAYER\n  DELETE_PLAYER\n  CREATE_MATCH\n  UPDATE_MATCH\n  DELETE_MATCH\n  CREATE_PLAYED\n  UPDATE_PLAYED\n  DELETE_PLAYED\n  CREATE_CAN_PLAY\n  UPDATE_CAN_PLAY\n  DELETE_CAN_PLAY\n  ADD_GOAL\n  REMOVE_GOAL\n  ADD_ASSIST\n  REMOVE_ASSIST\n  ADD_YELLOW_CARD\n  REMOVE_YELLOW_CARD\n  ADD_RED_CARD\n  REMOVE_RED_CARD\n  ADD_BLOCKED_SHOT\n  REMOVE_BLOCKED_SHOT\n  ADD_ON_TARGET_SHOT\n  REMOVE_ON_TARGET_SHOT\n  ADD_OFF_TARGET_SHOT\n  REMOVE_OFF_TARGET_SHOT\n  SWITCH_PLAYER\n}\n\nmodel history {\n  id                       Int         @id @default(autoincrement())\n  author                   user        @relation(fields: [authorId], references: [id])\n  authorId                 Int\n  created_at               DateTime    @default(now())\n  action_type              action_type\n  additionnal_informations String\n}\n\nmodel Opponent {\n  id   Int    @id @default(autoincrement())\n  name String\n  fffId Int\n  matches match[] @relation("matchOpponent")\n}',
+            'generator client {\n  provider = "dart run orm"\n}\n\ndatasource db {\n  provider = "postgresql"\n  url      = env("DATABASE_URL")\n}\n\nmodel user {\n  id         Int       @id @default(autoincrement())\n  email      String    @unique\n  first_name String\n  last_name  String\n  password   String\n  salt       String\n  history    history[]\n}\n\nmodel team {\n  id      Int     @id @default(autoincrement())\n  name    String\n  fffId   Int\n  matches match[] @relation("matchteam")\n}\n\nenum Position {\n  Goalkeeper\n  CenterBack\n  LeftBack\n  RightBack\n  DefensiveMidfielder\n  CentralMidfielder\n  AttackingMidfielder\n  LeftWinger\n  RightWinger\n  Striker\n  Substitute\n}\n\nmodel player {\n  id         Int        @id @default(autoincrement())\n  first_name String\n  last_name  String\n  played     played[]\n  can_play   can_play[] @relation("can_play")\n}\n\nmodel match {\n  id            Int       @id @default(autoincrement())\n  team          team?     @relation("matchteam", fields: [teamId], references: [id])\n  teamId        Int?\n  opponent      Opponent  @relation("matchOpponent", fields: [opponentId], references: [id])\n  opponentId    Int\n  teamScore     Int\n  opponentScore Int\n  address       String\n  date          DateTime\n  isHome        Boolean\n  coach         String\n  played        played[]\n  state         GameState\n}\n\nenum GameState {\n  notStarted\n  firstHalf\n  halfTime\n  secondHalf\n  end\n}\n\nmodel played {\n  id           Int      @id @default(autoincrement())\n  match        match    @relation(fields: [matchId], references: [id])\n  matchId      Int\n  player       player   @relation(fields: [playerId], references: [id])\n  playerId     Int\n  jerseyNumber Int\n  entryTime    DateTime\n  leaveTime    DateTime\n  goals        Int\n  blocked      Int\n  onTarget     Int\n  offTarget    Int\n  assists      Int\n  yellow       Boolean\n  red          Boolean\n}\n\nmodel can_play {\n  id       Int      @id @default(autoincrement())\n  player   player   @relation("can_play", fields: [playerId], references: [id])\n  playerId Int\n  position Position\n}\n\nenum action_type {\n  CREATE_USER\n  UPDATE_USER\n  DELETE_USER\n  CREATE_TEAM\n  UPDATE_TEAM\n  DELETE_TEAM\n  CREATE_PLAYER\n  UPDATE_PLAYER\n  DELETE_PLAYER\n  CREATE_MATCH\n  UPDATE_MATCH\n  DELETE_MATCH\n  CREATE_PLAYED\n  UPDATE_PLAYED\n  DELETE_PLAYED\n  CREATE_CAN_PLAY\n  UPDATE_CAN_PLAY\n  DELETE_CAN_PLAY\n  ADD_GOAL\n  REMOVE_GOAL\n  ADD_ASSIST\n  REMOVE_ASSIST\n  ADD_YELLOW_CARD\n  REMOVE_YELLOW_CARD\n  ADD_RED_CARD\n  REMOVE_RED_CARD\n  ADD_BLOCKED_SHOT\n  REMOVE_BLOCKED_SHOT\n  ADD_ON_TARGET_SHOT\n  REMOVE_ON_TARGET_SHOT\n  ADD_OFF_TARGET_SHOT\n  REMOVE_OFF_TARGET_SHOT\n  SWITCH_PLAYER\n}\n\nmodel history {\n  id                       Int         @id @default(autoincrement())\n  author                   user?       @relation(fields: [authorId], references: [id])\n  authorId                 Int\n  created_at               DateTime    @default(now())\n  action_type              action_type\n  additionnal_informations String\n}\n\nmodel Opponent {\n  id      Int     @id @default(autoincrement())\n  name    String\n  fffId   Int\n  matches match[] @relation("matchOpponent")\n}\n',
         datasources: const {
           'db': _i1.Datasource(
             _i1.DatasourceType.environment,

@@ -20,7 +20,7 @@ model user {
 model team {
   id      Int     @id @default(autoincrement())
   name    String
-  fffId  Int
+  fffId   Int
   matches match[] @relation("matchteam")
 }
 
@@ -35,6 +35,7 @@ enum Position {
   LeftWinger
   RightWinger
   Striker
+  Substitute
 }
 
 model player {
@@ -46,10 +47,10 @@ model player {
 }
 
 model match {
-  id            Int      @id @default(autoincrement())
-  team          team?    @relation("matchteam", fields: [teamId], references: [id])
+  id            Int       @id @default(autoincrement())
+  team          team?     @relation("matchteam", fields: [teamId], references: [id])
   teamId        Int?
-  opponent      Opponent @relation("matchOpponent", fields: [opponentId], references: [id])
+  opponent      Opponent  @relation("matchOpponent", fields: [opponentId], references: [id])
   opponentId    Int
   teamScore     Int
   opponentScore Int
@@ -58,6 +59,15 @@ model match {
   isHome        Boolean
   coach         String
   played        played[]
+  state         GameState
+}
+
+enum GameState {
+  notStarted
+  firstHalf
+  halfTime
+  secondHalf
+  end
 }
 
 model played {
@@ -131,8 +141,8 @@ model history {
 }
 
 model Opponent {
-  id   Int    @id @default(autoincrement())
-  name String
-  fffId Int
+  id      Int     @id @default(autoincrement())
+  name    String
+  fffId   Int
   matches match[] @relation("matchOpponent")
 }

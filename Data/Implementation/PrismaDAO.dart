@@ -1,14 +1,12 @@
 import 'dart:convert';
-import 'dart:isolate';
-import 'dart:js_interop';
 import 'dart:mirrors';
 
 import 'package:dart_frog/dart_frog.dart';
 import 'package:orm/orm.dart';
 
-import '../../Database/generated_dart_client/client.dart';
-import '../../Database/generated_dart_client/model.dart';
-import '../../Database/generated_dart_client/prisma.dart';
+import '../../prisma/generated_dart_client/client.dart';
+import '../../prisma/generated_dart_client/model.dart';
+import '../../prisma/generated_dart_client/prisma.dart';
 import '../DataFormating/Interface/IHashClient.dart';
 import '../Interface/ITypeDAO.dart';
 
@@ -69,7 +67,7 @@ class PrismaDAO with ITypeDAO {
   @override
   Future<Response> getUserById(int id) async {
     final user =
-        await prismaClient.user.findUnique(where: UserWhereUniqueInput(id: id));
+    await prismaClient.user.findUnique(where: UserWhereUniqueInput(id: id));
     if (user.toString() == '') {
       return Response.json(
         body: {'message': 'User not found'},
@@ -98,14 +96,15 @@ class PrismaDAO with ITypeDAO {
         'message': 'Users found',
         'users': users
             .map(
-              (e) => {
-                'id': e.id,
-                'firstName': e.firstName,
-                'lastName': e.lastName,
-                'email': e.email,
-                'history': e.history,
-              },
-            )
+              (e) =>
+          {
+            'id': e.id,
+            'firstName': e.firstName,
+            'lastName': e.lastName,
+            'email': e.email,
+            'history': e.history,
+          },
+        )
             .toList(),
       },
     );
@@ -150,7 +149,7 @@ class PrismaDAO with ITypeDAO {
       );
     }
     final hashedPassword =
-        hashClient.hash(user.salt! + (data['password'] as String));
+    hashClient.hash(user.salt! + (data['password'] as String));
     if (user.password == hashedPassword) {
       return Response.json(
         body: {
@@ -206,7 +205,7 @@ class PrismaDAO with ITypeDAO {
   @override
   Future<Response> getNextMatchs() async {
     final teamCount =
-        await prismaClient.$raw.query('SELECT COUNT(*) FROM Team;');
+    await prismaClient.$raw.query('SELECT COUNT(*) FROM Team;');
 
     final result = StringBuffer();
     for (var i = 0; i < teamCount.length; i++) {
@@ -231,13 +230,16 @@ class PrismaDAO with ITypeDAO {
             team: TeamCreateNestedOneWithoutMatchesInput(
               connect: TeamWhereUniqueInput(id: data['teamId'] as int),
             ),
-            opponent: data['opponent'] as String,
+            opponent: OpponentCreateNestedOneWithoutMatchesInput(
+              connect: OpponentWhereUniqueInput(id: data['opponentId'] as int),
+            ),
             teamScore: data['teamScore'] as int,
             opponentScore: data['opponentScore'] as int,
             date: data['date'] as DateTime,
             address: data['address'] as String,
             isHome: data['isHome'] as bool,
             coach: data['coach'] as String,
+            state: GameState.notStarted,
           ),
         ),
       );
@@ -274,7 +276,7 @@ class PrismaDAO with ITypeDAO {
             'isHome': match?.isHome,
             'coach': match?.coach,
             'lineups': (jsonEncode((await getLineUpByMatchId(matchId)).body())
-                as Map<String, dynamic>)['lineup'],
+            as Map<String, dynamic>)['lineup'],
           },
         },
       );
@@ -300,8 +302,85 @@ class PrismaDAO with ITypeDAO {
     return Response.json(
       body: {
         'message': message,
-        'lineup': response,
+        'lineup': jsonEncode(response),
       },
     );
+  }
+
+  @override
+  Future<Response> addPlayerToLineUp(int playerId, String id) async {
+    await prismaClient.played.create(
+      data: PrismaUnion.$1(
+        PlayedCreateInput(
+          player: PlayerCreateNestedOneWithoutPlayedInput(
+            connect: PlayerWhereUniqueInput(id: playerId),
+          ),
+          match: MatchCreateNestedOneWithoutPlayedInput(
+            connect: MatchWhereUniqueInput(id: int.parse(id)),
+          ),
+          assists: 0,
+          blocked: 0,
+          goals: 0,
+          offTarget: 0,
+          red: false,
+          onTarget: 0,
+          yellow: false,
+          jerseyNumber: 0,
+          entryTime: DateTime(2024),
+          leaveTime: DateTime(2024),
+        ),
+      ),
+    );
+
+    return Response.json(
+      body: {
+        'message': 'Player added to lineup',
+      },
+    );
+  }
+
+  @override
+  Future<Response> addEventToMatchHistory(String id,
+      Map<String, dynamic> body) async {
+    await prismaClient.history.create(
+      data: PrismaUnion.$1(
+        HistoryCreateInput(
+          additionnalInformations: body['additionnalInformations'] as String,
+          actionType: body['actionType'] as ActionType,
+          author: body["author"] as UserCreateNestedOneWithoutHistoryInput,
+        ),
+      ),
+    );
+
+    return Response.json(
+      body: {
+        'message': 'Event added to match history',
+      },
+    );
+  }
+
+  @override
+  Future<Response> getMatchHistory(String matchId) async {
+    final history = await prismaClient.history.findMany(
+      where: HistoryWhereInput(
+        additionnalInformations: PrismaUnion.$1(
+            StringFilter(contains: PrismaUnion.$1(matchId)),),),
+    );
+
+    if (history.isEmpty) {
+      return Response.json(
+        body: {
+          'message': 'No history found for this match',
+        },
+      );
+    }
+
+    return Response.json(
+      body: {
+        'message': 'History found !',
+        'history': history,
+      },
+    );
+
   }
 }

@@ -148,6 +148,61 @@ class User {
       };
 }
 
+class CreateManyuserAndReturnOutputType {
+  const CreateManyuserAndReturnOutputType({
+    this.id,
+    this.email,
+    this.firstName,
+    this.lastName,
+    this.password,
+    this.salt,
+  });
+
+  factory CreateManyuserAndReturnOutputType.fromJson(Map json) =>
+      CreateManyuserAndReturnOutputType(
+        id: json['id'],
+        email: json['email'],
+        firstName: json['first_name'],
+        lastName: json['last_name'],
+        password: json['password'],
+        salt: json['salt'],
+      );
+
+  final int? id;
+
+  final String? email;
+
+  final String? firstName;
+
+  final String? lastName;
+
+  final String? password;
+
+  final String? salt;
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'email': email,
+        'first_name': firstName,
+        'last_name': lastName,
+        'password': password,
+        'salt': salt,
+      };
+}
+
+enum GameState implements _i1.PrismaEnum {
+  notStarted._('notStarted'),
+  firstHalf._('firstHalf'),
+  halfTime._('halfTime'),
+  secondHalf._('secondHalf'),
+  end._('end');
+
+  const GameState._(this.name);
+
+  @override
+  final String name;
+}
+
 class Opponent {
   const Opponent({
     this.id,
@@ -197,7 +252,8 @@ enum Position implements _i1.PrismaEnum {
   attackingMidfielder._('AttackingMidfielder'),
   leftWinger._('LeftWinger'),
   rightWinger._('RightWinger'),
-  striker._('Striker');
+  striker._('Striker'),
+  substitute._('Substitute');
 
   const Position._(this.name);
 
@@ -390,6 +446,7 @@ class Match {
     this.date,
     this.isHome,
     this.coach,
+    this.state,
     this.team,
     this.opponent,
     this.played,
@@ -410,6 +467,9 @@ class Match {
         },
         isHome: json['isHome'],
         coach: json['coach'],
+        state: json['state'] != null
+            ? _i2.GameState.values.firstWhere((e) => e.name == json['state'])
+            : null,
         team: json['team'] is Map ? _i2.Team.fromJson(json['team']) : null,
         opponent: json['opponent'] is Map
             ? _i2.Opponent.fromJson(json['opponent'])
@@ -439,6 +499,8 @@ class Match {
 
   final String? coach;
 
+  final _i2.GameState? state;
+
   final _i2.Team? team;
 
   final _i2.Opponent? opponent;
@@ -457,6 +519,7 @@ class Match {
         'date': date?.toIso8601String(),
         'isHome': isHome,
         'coach': coach,
+        'state': state?.name,
         'team': team?.toJson(),
         'opponent': opponent?.toJson(),
         'played': played?.map((e) => e.toJson()),
@@ -500,5 +563,347 @@ class Team {
         'fffId': fffId,
         'matches': matches?.map((e) => e.toJson()),
         '_count': $count?.toJson(),
+      };
+}
+
+class CreateManyteamAndReturnOutputType {
+  const CreateManyteamAndReturnOutputType({
+    this.id,
+    this.name,
+    this.fffId,
+  });
+
+  factory CreateManyteamAndReturnOutputType.fromJson(Map json) =>
+      CreateManyteamAndReturnOutputType(
+        id: json['id'],
+        name: json['name'],
+        fffId: json['fffId'],
+      );
+
+  final int? id;
+
+  final String? name;
+
+  final int? fffId;
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'fffId': fffId,
+      };
+}
+
+class CreateManyplayerAndReturnOutputType {
+  const CreateManyplayerAndReturnOutputType({
+    this.id,
+    this.firstName,
+    this.lastName,
+  });
+
+  factory CreateManyplayerAndReturnOutputType.fromJson(Map json) =>
+      CreateManyplayerAndReturnOutputType(
+        id: json['id'],
+        firstName: json['first_name'],
+        lastName: json['last_name'],
+      );
+
+  final int? id;
+
+  final String? firstName;
+
+  final String? lastName;
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'first_name': firstName,
+        'last_name': lastName,
+      };
+}
+
+class CreateManymatchAndReturnOutputType {
+  const CreateManymatchAndReturnOutputType({
+    this.id,
+    this.teamId,
+    this.opponentId,
+    this.teamScore,
+    this.opponentScore,
+    this.address,
+    this.date,
+    this.isHome,
+    this.coach,
+    this.state,
+    this.team,
+    this.opponent,
+  });
+
+  factory CreateManymatchAndReturnOutputType.fromJson(Map json) =>
+      CreateManymatchAndReturnOutputType(
+        id: json['id'],
+        teamId: json['teamId'],
+        opponentId: json['opponentId'],
+        teamScore: json['teamScore'],
+        opponentScore: json['opponentScore'],
+        address: json['address'],
+        date: switch (json['date']) {
+          DateTime value => value,
+          String value => DateTime.parse(value),
+          _ => json['date']
+        },
+        isHome: json['isHome'],
+        coach: json['coach'],
+        state: json['state'] != null
+            ? _i2.GameState.values.firstWhere((e) => e.name == json['state'])
+            : null,
+        team: json['team'] is Map ? _i2.Team.fromJson(json['team']) : null,
+        opponent: json['opponent'] is Map
+            ? _i2.Opponent.fromJson(json['opponent'])
+            : null,
+      );
+
+  final int? id;
+
+  final int? teamId;
+
+  final int? opponentId;
+
+  final int? teamScore;
+
+  final int? opponentScore;
+
+  final String? address;
+
+  final DateTime? date;
+
+  final bool? isHome;
+
+  final String? coach;
+
+  final _i2.GameState? state;
+
+  final _i2.Team? team;
+
+  final _i2.Opponent? opponent;
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'teamId': teamId,
+        'opponentId': opponentId,
+        'teamScore': teamScore,
+        'opponentScore': opponentScore,
+        'address': address,
+        'date': date?.toIso8601String(),
+        'isHome': isHome,
+        'coach': coach,
+        'state': state?.name,
+        'team': team?.toJson(),
+        'opponent': opponent?.toJson(),
+      };
+}
+
+class CreateManyplayedAndReturnOutputType {
+  const CreateManyplayedAndReturnOutputType({
+    this.id,
+    this.matchId,
+    this.playerId,
+    this.jerseyNumber,
+    this.entryTime,
+    this.leaveTime,
+    this.goals,
+    this.blocked,
+    this.onTarget,
+    this.offTarget,
+    this.assists,
+    this.yellow,
+    this.red,
+    this.match,
+    this.player,
+  });
+
+  factory CreateManyplayedAndReturnOutputType.fromJson(Map json) =>
+      CreateManyplayedAndReturnOutputType(
+        id: json['id'],
+        matchId: json['matchId'],
+        playerId: json['playerId'],
+        jerseyNumber: json['jerseyNumber'],
+        entryTime: switch (json['entryTime']) {
+          DateTime value => value,
+          String value => DateTime.parse(value),
+          _ => json['entryTime']
+        },
+        leaveTime: switch (json['leaveTime']) {
+          DateTime value => value,
+          String value => DateTime.parse(value),
+          _ => json['leaveTime']
+        },
+        goals: json['goals'],
+        blocked: json['blocked'],
+        onTarget: json['onTarget'],
+        offTarget: json['offTarget'],
+        assists: json['assists'],
+        yellow: json['yellow'],
+        red: json['red'],
+        match: json['match'] is Map ? _i2.Match.fromJson(json['match']) : null,
+        player:
+            json['player'] is Map ? _i2.Player.fromJson(json['player']) : null,
+      );
+
+  final int? id;
+
+  final int? matchId;
+
+  final int? playerId;
+
+  final int? jerseyNumber;
+
+  final DateTime? entryTime;
+
+  final DateTime? leaveTime;
+
+  final int? goals;
+
+  final int? blocked;
+
+  final int? onTarget;
+
+  final int? offTarget;
+
+  final int? assists;
+
+  final bool? yellow;
+
+  final bool? red;
+
+  final _i2.Match? match;
+
+  final _i2.Player? player;
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'matchId': matchId,
+        'playerId': playerId,
+        'jerseyNumber': jerseyNumber,
+        'entryTime': entryTime?.toIso8601String(),
+        'leaveTime': leaveTime?.toIso8601String(),
+        'goals': goals,
+        'blocked': blocked,
+        'onTarget': onTarget,
+        'offTarget': offTarget,
+        'assists': assists,
+        'yellow': yellow,
+        'red': red,
+        'match': match?.toJson(),
+        'player': player?.toJson(),
+      };
+}
+
+class CreateManycanPlayAndReturnOutputType {
+  const CreateManycanPlayAndReturnOutputType({
+    this.id,
+    this.playerId,
+    this.position,
+    this.player,
+  });
+
+  factory CreateManycanPlayAndReturnOutputType.fromJson(Map json) =>
+      CreateManycanPlayAndReturnOutputType(
+        id: json['id'],
+        playerId: json['playerId'],
+        position: json['position'] != null
+            ? _i2.Position.values.firstWhere((e) => e.name == json['position'])
+            : null,
+        player:
+            json['player'] is Map ? _i2.Player.fromJson(json['player']) : null,
+      );
+
+  final int? id;
+
+  final int? playerId;
+
+  final _i2.Position? position;
+
+  final _i2.Player? player;
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'playerId': playerId,
+        'position': position?.name,
+        'player': player?.toJson(),
+      };
+}
+
+class CreateManyhistoryAndReturnOutputType {
+  const CreateManyhistoryAndReturnOutputType({
+    this.id,
+    this.authorId,
+    this.createdAt,
+    this.actionType,
+    this.additionnalInformations,
+    this.author,
+  });
+
+  factory CreateManyhistoryAndReturnOutputType.fromJson(Map json) =>
+      CreateManyhistoryAndReturnOutputType(
+        id: json['id'],
+        authorId: json['authorId'],
+        createdAt: switch (json['created_at']) {
+          DateTime value => value,
+          String value => DateTime.parse(value),
+          _ => json['created_at']
+        },
+        actionType: json['action_type'] != null
+            ? _i2.ActionType.values
+                .firstWhere((e) => e.name == json['action_type'])
+            : null,
+        additionnalInformations: json['additionnal_informations'],
+        author:
+            json['author'] is Map ? _i2.User.fromJson(json['author']) : null,
+      );
+
+  final int? id;
+
+  final int? authorId;
+
+  final DateTime? createdAt;
+
+  final _i2.ActionType? actionType;
+
+  final String? additionnalInformations;
+
+  final _i2.User? author;
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'authorId': authorId,
+        'created_at': createdAt?.toIso8601String(),
+        'action_type': actionType?.name,
+        'additionnal_informations': additionnalInformations,
+        'author': author?.toJson(),
+      };
+}
+
+class CreateManyOpponentAndReturnOutputType {
+  const CreateManyOpponentAndReturnOutputType({
+    this.id,
+    this.name,
+    this.fffId,
+  });
+
+  factory CreateManyOpponentAndReturnOutputType.fromJson(Map json) =>
+      CreateManyOpponentAndReturnOutputType(
+        id: json['id'],
+        name: json['name'],
+        fffId: json['fffId'],
+      );
+
+  final int? id;
+
+  final String? name;
+
+  final int? fffId;
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'fffId': fffId,
       };
 }
