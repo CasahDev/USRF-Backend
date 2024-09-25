@@ -2,7 +2,11 @@ import 'dart:convert';
 
 import 'package:dart_frog/dart_frog.dart';
 
-import '../../../Service/Service.dart';
+import '../../../Data/Implementation/PlayedDAO.dart';
+import '../../../Service/Implemantation/ServicePlayed.dart';
+import '../../../Service/Interface/IServicePlayed.dart';
+
+IServicePlayed service = ServicePlayed(PlayedDAO());
 
 Future<Response> onRequest(
   RequestContext context,
@@ -17,11 +21,11 @@ Future<Response> onRequest(
 
 Future<Response> _addPlayerToLineUp(RequestContext context, String id) async {
   final data = jsonEncode(await context.request.body()) as Map<String, dynamic>;
-  return Service.getService().addPlayerToLineUp(
+  return service.addPlayerToLineUp(
       int.parse(data['playerId'] as String),
       id);
 }
 
 Future<Response> _getLineup(String id) async {
-  return Service.getService().getLineup(id);
+  return service.getLineup(id);
 }

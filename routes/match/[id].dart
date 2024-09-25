@@ -1,6 +1,10 @@
 import 'package:dart_frog/dart_frog.dart';
 
-import '../../Service/Service.dart';
+import '../../Data/Implementation/MatchDAO.dart';
+import '../../Service/Implemantation/ServiceMatch.dart';
+import '../../Service/Interface/IServiceMatch.dart';
+
+IServiceMatch service = ServiceMatch(MatchDAO());
 
 Future<Response> onRequest(
   RequestContext context,
@@ -14,9 +18,9 @@ Future<Response> onRequest(
 }
 
 Future<Response> _createMatch(RequestContext context) async {
-  return Service.getService().createMatch(context.request.body as Map<String, dynamic>);
+  return service.createMatch(context.request.body as Map<String, dynamic>);
 }
 
 Future<Response> _getMatch(String id) async {
-  return Service.getService().getMatchById(id as int);
+  return service.getMatchById(id as int);
 }

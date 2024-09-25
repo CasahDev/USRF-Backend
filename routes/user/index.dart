@@ -1,6 +1,11 @@
 import 'package:dart_frog/dart_frog.dart';
 
-import '../../Service/Service.dart';
+import '../../Data/DataFormating/HashClient.dart';
+import '../../Data/Implementation/UserDAO.dart';
+import '../../Service/Implemantation/ServiceUser.dart';
+import '../../Service/Interface/IServiceUser.dart';
+
+IServiceUser service = ServiceUser(UserDAO(HashClient()));
 
 Future<Response> onRequest(RequestContext context) async {
   return switch (context.request.method) {
@@ -11,14 +16,14 @@ Future<Response> onRequest(RequestContext context) async {
 }
 
 Future<Response> _getUsers() {
-  return Service.getService().getUsers();
+  return service.getUsers();
 }
 
 Future<Response> _createUser(RequestContext context) async {
   if (context.request.body.toString() == '') {
     return Response(body: 'Request body is required', statusCode: 400);
   }
-  return Service.getService().createUser(
+  return service.createUser(
     context.mountedParams as Map<String, dynamic>,
   );
 }

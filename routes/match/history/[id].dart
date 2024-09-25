@@ -1,6 +1,10 @@
 import 'package:dart_frog/dart_frog.dart';
 
-import '../../../Service/Service.dart';
+import '../../../Data/Implementation/HistoryDAO.dart';
+import '../../../Service/Implemantation/ServiceHistory.dart';
+import '../../../Service/Interface/IServiceHistory.dart';
+
+IServiceHistory service = ServiceHistory(HistoryDAO());
 
 Future<Response> onRequest(
   RequestContext context,
@@ -14,10 +18,10 @@ Future<Response> onRequest(
 }
 
 Future<Response> _getMatchHistory(String id) async {
-  return Service.getService().getMatchHistory(id);
+  return service.getMatchHistory(id);
 }
 
 Future<Response> _addToMatchHistory(RequestContext context, String id) async {
-  return Service.getService().addEventToMatchHistory(id, context.request.body as Map<String, dynamic>);
+  return service.addEventToMatchHistory(id, context.request.body as Map<String, dynamic>);
 }
 

@@ -1,23 +1,21 @@
 import 'DataEnum.dart';
 import 'DataFormating/HashClient.dart';
-import 'Implementation/PrismaDAO.dart';
-import 'Interface/ITypeDAO.dart';
+import 'Implementation/UserDAO.dart';
+import 'Interface/IUserDAO.dart';
 
 class Data {
-  static ITypeDAO? _dao;
+  static IUserDAO? _dao;
 
-  static ITypeDAO getDAO() {
+  static IUserDAO getDAO() {
     _dao ??= Data.createDAO(DataEnum.PRISMA);
     return _dao!;
   }
 
-  static ITypeDAO? createDAO(DataEnum dataEnum) {
+  static IUserDAO? createDAO(DataEnum dataEnum) {
     switch (dataEnum) {
       case DataEnum.PRISMA:
-        _dao = PrismaDAO(HashClient());
+        _dao = UserDAO(HashClient());
         return _dao;
-      _:
-        throw Exception('DAO not found');
     }
   }
 }
