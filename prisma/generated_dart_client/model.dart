@@ -447,6 +447,8 @@ class Match {
     this.isHome,
     this.coach,
     this.state,
+    this.startedTime,
+    this.isCup,
     this.team,
     this.opponent,
     this.played,
@@ -470,6 +472,12 @@ class Match {
         state: json['state'] != null
             ? _i2.GameState.values.firstWhere((e) => e.name == json['state'])
             : null,
+        startedTime: switch (json['startedTime']) {
+          DateTime value => value,
+          String value => DateTime.parse(value),
+          _ => json['startedTime']
+        },
+        isCup: json['isCup'],
         team: json['team'] is Map ? _i2.Team.fromJson(json['team']) : null,
         opponent: json['opponent'] is Map
             ? _i2.Opponent.fromJson(json['opponent'])
@@ -501,6 +509,10 @@ class Match {
 
   final _i2.GameState? state;
 
+  final DateTime? startedTime;
+
+  final bool? isCup;
+
   final _i2.Team? team;
 
   final _i2.Opponent? opponent;
@@ -520,6 +532,8 @@ class Match {
         'isHome': isHome,
         'coach': coach,
         'state': state?.name,
+        'startedTime': startedTime?.toIso8601String(),
+        'isCup': isCup,
         'team': team?.toJson(),
         'opponent': opponent?.toJson(),
         'played': played?.map((e) => e.toJson()),
@@ -632,6 +646,8 @@ class CreateManymatchAndReturnOutputType {
     this.isHome,
     this.coach,
     this.state,
+    this.startedTime,
+    this.isCup,
     this.team,
     this.opponent,
   });
@@ -654,6 +670,12 @@ class CreateManymatchAndReturnOutputType {
         state: json['state'] != null
             ? _i2.GameState.values.firstWhere((e) => e.name == json['state'])
             : null,
+        startedTime: switch (json['startedTime']) {
+          DateTime value => value,
+          String value => DateTime.parse(value),
+          _ => json['startedTime']
+        },
+        isCup: json['isCup'],
         team: json['team'] is Map ? _i2.Team.fromJson(json['team']) : null,
         opponent: json['opponent'] is Map
             ? _i2.Opponent.fromJson(json['opponent'])
@@ -680,6 +702,10 @@ class CreateManymatchAndReturnOutputType {
 
   final _i2.GameState? state;
 
+  final DateTime? startedTime;
+
+  final bool? isCup;
+
   final _i2.Team? team;
 
   final _i2.Opponent? opponent;
@@ -695,6 +721,8 @@ class CreateManymatchAndReturnOutputType {
         'isHome': isHome,
         'coach': coach,
         'state': state?.name,
+        'startedTime': startedTime?.toIso8601String(),
+        'isCup': isCup,
         'team': team?.toJson(),
         'opponent': opponent?.toJson(),
       };

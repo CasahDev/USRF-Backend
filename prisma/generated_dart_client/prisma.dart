@@ -364,16 +364,15 @@ class EnumactionTypeFilter
       };
 }
 
-class UserNullableRelationFilter
-    implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UserNullableRelationFilter({
+class UserRelationFilter implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const UserRelationFilter({
     this.$is,
     this.isNot,
   });
 
-  final _i1.PrismaUnion<_i2.UserWhereInput, _i1.PrismaNull>? $is;
+  final _i2.UserWhereInput? $is;
 
-  final _i1.PrismaUnion<_i2.UserWhereInput, _i1.PrismaNull>? isNot;
+  final _i2.UserWhereInput? isNot;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -413,8 +412,7 @@ class HistoryWhereInput implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i1.PrismaUnion<_i2.StringFilter, String>? additionnalInformations;
 
-  final _i1.PrismaUnion<_i2.UserNullableRelationFilter,
-      _i1.PrismaUnion<_i2.UserWhereInput, _i1.PrismaNull>>? author;
+  final _i1.PrismaUnion<_i2.UserRelationFilter, _i2.UserWhereInput>? author;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -553,12 +551,9 @@ class UserWhereUniqueInput
 
 class HistoryAuthorArgs implements _i1.JsonConvertible<Map<String, dynamic>> {
   const HistoryAuthorArgs({
-    this.where,
     this.select,
     this.include,
   });
-
-  final _i2.UserWhereInput? where;
 
   final _i2.UserSelect? select;
 
@@ -566,7 +561,6 @@ class HistoryAuthorArgs implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   @override
   Map<String, dynamic> toJson() => {
-        'where': where,
         'select': select,
         'include': include,
       };
@@ -705,8 +699,7 @@ class HistoryWhereUniqueInput
 
   final _i1.PrismaUnion<_i2.StringFilter, String>? additionnalInformations;
 
-  final _i1.PrismaUnion<_i2.UserNullableRelationFilter,
-      _i1.PrismaUnion<_i2.UserWhereInput, _i1.PrismaNull>>? author;
+  final _i1.PrismaUnion<_i2.UserRelationFilter, _i2.UserWhereInput>? author;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -3529,6 +3522,8 @@ class MatchWhereInput implements _i1.JsonConvertible<Map<String, dynamic>> {
     this.isHome,
     this.coach,
     this.state,
+    this.startedTime,
+    this.isCup,
     this.team,
     this.opponent,
     this.played,
@@ -3564,6 +3559,10 @@ class MatchWhereInput implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i1.PrismaUnion<_i2.EnumGameStateFilter, _i3.GameState>? state;
 
+  final _i1.PrismaUnion<_i2.DateTimeFilter, DateTime>? startedTime;
+
+  final _i1.PrismaUnion<_i2.BoolFilter, bool>? isCup;
+
   final _i1.PrismaUnion<_i2.TeamNullableRelationFilter,
       _i1.PrismaUnion<_i2.TeamWhereInput, _i1.PrismaNull>>? team;
 
@@ -3587,6 +3586,8 @@ class MatchWhereInput implements _i1.JsonConvertible<Map<String, dynamic>> {
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
         'team': team,
         'opponent': opponent,
         'played': played,
@@ -3823,6 +3824,8 @@ class MatchOrderByWithRelationInput
     this.isHome,
     this.coach,
     this.state,
+    this.startedTime,
+    this.isCup,
     this.team,
     this.opponent,
     this.played,
@@ -3848,6 +3851,10 @@ class MatchOrderByWithRelationInput
 
   final _i2.SortOrder? state;
 
+  final _i2.SortOrder? startedTime;
+
+  final _i2.SortOrder? isCup;
+
   final _i2.TeamOrderByWithRelationInput? team;
 
   final _i2.OpponentOrderByWithRelationInput? opponent;
@@ -3866,6 +3873,8 @@ class MatchOrderByWithRelationInput
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
         'team': team,
         'opponent': opponent,
         'played': played,
@@ -3888,6 +3897,8 @@ class MatchWhereUniqueInput
     this.isHome,
     this.coach,
     this.state,
+    this.startedTime,
+    this.isCup,
     this.team,
     this.opponent,
     this.played,
@@ -3923,6 +3934,10 @@ class MatchWhereUniqueInput
 
   final _i1.PrismaUnion<_i2.EnumGameStateFilter, _i3.GameState>? state;
 
+  final _i1.PrismaUnion<_i2.DateTimeFilter, DateTime>? startedTime;
+
+  final _i1.PrismaUnion<_i2.BoolFilter, bool>? isCup;
+
   final _i1.PrismaUnion<_i2.TeamNullableRelationFilter,
       _i1.PrismaUnion<_i2.TeamWhereInput, _i1.PrismaNull>>? team;
 
@@ -3946,6 +3961,8 @@ class MatchWhereUniqueInput
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
         'team': team,
         'opponent': opponent,
         'played': played,
@@ -3962,7 +3979,9 @@ enum MatchScalar<T> implements _i1.PrismaEnum, _i1.Reference<T> {
   date<DateTime>('date', 'match'),
   isHome<bool>('isHome', 'match'),
   coach<String>('coach', 'match'),
-  state<_i3.GameState>('state', 'match');
+  state<_i3.GameState>('state', 'match'),
+  startedTime<DateTime>('startedTime', 'match'),
+  isCup<bool>('isCup', 'match');
 
   const MatchScalar(
     this.name,
@@ -4917,6 +4936,8 @@ class MatchSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
     this.isHome,
     this.coach,
     this.state,
+    this.startedTime,
+    this.isCup,
     this.team,
     this.opponent,
     this.played,
@@ -4943,6 +4964,10 @@ class MatchSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final bool? state;
 
+  final bool? startedTime;
+
+  final bool? isCup;
+
   final _i1.PrismaUnion<bool, _i2.MatchTeamArgs>? team;
 
   final _i1.PrismaUnion<bool, _i2.MatchOpponentArgs>? opponent;
@@ -4963,6 +4988,8 @@ class MatchSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
         'team': team,
         'opponent': opponent,
         'played': played,
@@ -5675,6 +5702,8 @@ class MatchCreateWithoutTeamInput
     required this.isHome,
     required this.coach,
     required this.state,
+    required this.startedTime,
+    required this.isCup,
     required this.opponent,
     this.played,
   });
@@ -5693,6 +5722,10 @@ class MatchCreateWithoutTeamInput
 
   final _i3.GameState state;
 
+  final DateTime startedTime;
+
+  final bool isCup;
+
   final _i2.OpponentCreateNestedOneWithoutMatchesInput opponent;
 
   final _i2.PlayedCreateNestedManyWithoutMatchInput? played;
@@ -5706,6 +5739,8 @@ class MatchCreateWithoutTeamInput
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
         'opponent': opponent,
         'played': played,
       };
@@ -5756,6 +5791,8 @@ class MatchUncheckedCreateWithoutTeamInput
     required this.isHome,
     required this.coach,
     required this.state,
+    required this.startedTime,
+    required this.isCup,
     this.played,
   });
 
@@ -5777,6 +5814,10 @@ class MatchUncheckedCreateWithoutTeamInput
 
   final _i3.GameState state;
 
+  final DateTime startedTime;
+
+  final bool isCup;
+
   final _i2.PlayedUncheckedCreateNestedManyWithoutMatchInput? played;
 
   @override
@@ -5790,6 +5831,8 @@ class MatchUncheckedCreateWithoutTeamInput
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
         'played': played,
       };
 }
@@ -5825,6 +5868,8 @@ class MatchCreateManyTeamInput
     required this.isHome,
     required this.coach,
     required this.state,
+    required this.startedTime,
+    required this.isCup,
   });
 
   final int? id;
@@ -5845,6 +5890,10 @@ class MatchCreateManyTeamInput
 
   final _i3.GameState state;
 
+  final DateTime startedTime;
+
+  final bool isCup;
+
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -5856,6 +5905,8 @@ class MatchCreateManyTeamInput
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
       };
 }
 
@@ -7050,6 +7101,8 @@ class MatchUpdateWithoutTeamInput
     this.isHome,
     this.coach,
     this.state,
+    this.startedTime,
+    this.isCup,
     this.opponent,
     this.played,
   });
@@ -7070,6 +7123,11 @@ class MatchUpdateWithoutTeamInput
       .PrismaUnion<_i3.GameState, _i2.EnumGameStateFieldUpdateOperationsInput>?
       state;
 
+  final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
+      startedTime;
+
+  final _i1.PrismaUnion<bool, _i2.BoolFieldUpdateOperationsInput>? isCup;
+
   final _i2.OpponentUpdateOneRequiredWithoutMatchesNestedInput? opponent;
 
   final _i2.PlayedUpdateManyWithoutMatchNestedInput? played;
@@ -7083,6 +7141,8 @@ class MatchUpdateWithoutTeamInput
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
         'opponent': opponent,
         'played': played,
       };
@@ -7168,6 +7228,8 @@ class MatchUncheckedUpdateWithoutTeamInput
     this.isHome,
     this.coach,
     this.state,
+    this.startedTime,
+    this.isCup,
     this.played,
   });
 
@@ -7191,6 +7253,11 @@ class MatchUncheckedUpdateWithoutTeamInput
       .PrismaUnion<_i3.GameState, _i2.EnumGameStateFieldUpdateOperationsInput>?
       state;
 
+  final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
+      startedTime;
+
+  final _i1.PrismaUnion<bool, _i2.BoolFieldUpdateOperationsInput>? isCup;
+
   final _i2.PlayedUncheckedUpdateManyWithoutMatchNestedInput? played;
 
   @override
@@ -7204,6 +7271,8 @@ class MatchUncheckedUpdateWithoutTeamInput
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
         'played': played,
       };
 }
@@ -7267,6 +7336,8 @@ class MatchScalarWhereInput
     this.isHome,
     this.coach,
     this.state,
+    this.startedTime,
+    this.isCup,
   });
 
   final _i1.PrismaUnion<_i2.MatchScalarWhereInput,
@@ -7299,6 +7370,10 @@ class MatchScalarWhereInput
 
   final _i1.PrismaUnion<_i2.EnumGameStateFilter, _i3.GameState>? state;
 
+  final _i1.PrismaUnion<_i2.DateTimeFilter, DateTime>? startedTime;
+
+  final _i1.PrismaUnion<_i2.BoolFilter, bool>? isCup;
+
   @override
   Map<String, dynamic> toJson() => {
         'AND': AND,
@@ -7314,6 +7389,8 @@ class MatchScalarWhereInput
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
       };
 }
 
@@ -7327,6 +7404,8 @@ class MatchUpdateManyMutationInput
     this.isHome,
     this.coach,
     this.state,
+    this.startedTime,
+    this.isCup,
   });
 
   final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? teamScore;
@@ -7345,6 +7424,11 @@ class MatchUpdateManyMutationInput
       .PrismaUnion<_i3.GameState, _i2.EnumGameStateFieldUpdateOperationsInput>?
       state;
 
+  final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
+      startedTime;
+
+  final _i1.PrismaUnion<bool, _i2.BoolFieldUpdateOperationsInput>? isCup;
+
   @override
   Map<String, dynamic> toJson() => {
         'teamScore': teamScore,
@@ -7354,6 +7438,8 @@ class MatchUpdateManyMutationInput
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
       };
 }
 
@@ -7369,6 +7455,8 @@ class MatchUncheckedUpdateManyWithoutTeamInput
     this.isHome,
     this.coach,
     this.state,
+    this.startedTime,
+    this.isCup,
   });
 
   final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? id;
@@ -7391,6 +7479,11 @@ class MatchUncheckedUpdateManyWithoutTeamInput
       .PrismaUnion<_i3.GameState, _i2.EnumGameStateFieldUpdateOperationsInput>?
       state;
 
+  final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
+      startedTime;
+
+  final _i1.PrismaUnion<bool, _i2.BoolFieldUpdateOperationsInput>? isCup;
+
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -7402,6 +7495,8 @@ class MatchUncheckedUpdateManyWithoutTeamInput
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
       };
 }
 
@@ -8450,6 +8545,8 @@ class MatchCreateWithoutPlayedInput
     required this.isHome,
     required this.coach,
     required this.state,
+    required this.startedTime,
+    required this.isCup,
     this.team,
     required this.opponent,
   });
@@ -8468,6 +8565,10 @@ class MatchCreateWithoutPlayedInput
 
   final _i3.GameState state;
 
+  final DateTime startedTime;
+
+  final bool isCup;
+
   final _i2.TeamCreateNestedOneWithoutMatchesInput? team;
 
   final _i2.OpponentCreateNestedOneWithoutMatchesInput opponent;
@@ -8481,6 +8582,8 @@ class MatchCreateWithoutPlayedInput
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
         'team': team,
         'opponent': opponent,
       };
@@ -8499,6 +8602,8 @@ class MatchUncheckedCreateWithoutPlayedInput
     required this.isHome,
     required this.coach,
     required this.state,
+    required this.startedTime,
+    required this.isCup,
   });
 
   final int? id;
@@ -8521,6 +8626,10 @@ class MatchUncheckedCreateWithoutPlayedInput
 
   final _i3.GameState state;
 
+  final DateTime startedTime;
+
+  final bool isCup;
+
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -8533,6 +8642,8 @@ class MatchUncheckedCreateWithoutPlayedInput
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
       };
 }
 
@@ -9086,6 +9197,8 @@ class MatchUpdateWithoutPlayedInput
     this.isHome,
     this.coach,
     this.state,
+    this.startedTime,
+    this.isCup,
     this.team,
     this.opponent,
   });
@@ -9106,6 +9219,11 @@ class MatchUpdateWithoutPlayedInput
       .PrismaUnion<_i3.GameState, _i2.EnumGameStateFieldUpdateOperationsInput>?
       state;
 
+  final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
+      startedTime;
+
+  final _i1.PrismaUnion<bool, _i2.BoolFieldUpdateOperationsInput>? isCup;
+
   final _i2.TeamUpdateOneWithoutMatchesNestedInput? team;
 
   final _i2.OpponentUpdateOneRequiredWithoutMatchesNestedInput? opponent;
@@ -9119,6 +9237,8 @@ class MatchUpdateWithoutPlayedInput
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
         'team': team,
         'opponent': opponent,
       };
@@ -9167,6 +9287,8 @@ class MatchUncheckedUpdateWithoutPlayedInput
     this.isHome,
     this.coach,
     this.state,
+    this.startedTime,
+    this.isCup,
   });
 
   final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? id;
@@ -9194,6 +9316,11 @@ class MatchUncheckedUpdateWithoutPlayedInput
       .PrismaUnion<_i3.GameState, _i2.EnumGameStateFieldUpdateOperationsInput>?
       state;
 
+  final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
+      startedTime;
+
+  final _i1.PrismaUnion<bool, _i2.BoolFieldUpdateOperationsInput>? isCup;
+
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -9206,6 +9333,8 @@ class MatchUncheckedUpdateWithoutPlayedInput
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
       };
 }
 
@@ -10409,6 +10538,8 @@ class MatchCreateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
     required this.isHome,
     required this.coach,
     required this.state,
+    required this.startedTime,
+    required this.isCup,
     this.team,
     required this.opponent,
     this.played,
@@ -10428,6 +10559,10 @@ class MatchCreateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i3.GameState state;
 
+  final DateTime startedTime;
+
+  final bool isCup;
+
   final _i2.TeamCreateNestedOneWithoutMatchesInput? team;
 
   final _i2.OpponentCreateNestedOneWithoutMatchesInput opponent;
@@ -10443,6 +10578,8 @@ class MatchCreateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
         'team': team,
         'opponent': opponent,
         'played': played,
@@ -10462,6 +10599,8 @@ class MatchUncheckedCreateInput
     required this.isHome,
     required this.coach,
     required this.state,
+    required this.startedTime,
+    required this.isCup,
     this.played,
   });
 
@@ -10485,6 +10624,10 @@ class MatchUncheckedCreateInput
 
   final _i3.GameState state;
 
+  final DateTime startedTime;
+
+  final bool isCup;
+
   final _i2.PlayedUncheckedCreateNestedManyWithoutMatchInput? played;
 
   @override
@@ -10499,6 +10642,8 @@ class MatchUncheckedCreateInput
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
         'played': played,
       };
 }
@@ -10516,6 +10661,8 @@ class MatchCreateManyInput
     required this.isHome,
     required this.coach,
     required this.state,
+    required this.startedTime,
+    required this.isCup,
   });
 
   final int? id;
@@ -10538,6 +10685,10 @@ class MatchCreateManyInput
 
   final _i3.GameState state;
 
+  final DateTime startedTime;
+
+  final bool isCup;
+
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -10550,6 +10701,8 @@ class MatchCreateManyInput
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
       };
 }
 
@@ -10606,6 +10759,8 @@ class CreateManymatchAndReturnOutputTypeSelect
     this.isHome,
     this.coach,
     this.state,
+    this.startedTime,
+    this.isCup,
     this.team,
     this.opponent,
   });
@@ -10630,6 +10785,10 @@ class CreateManymatchAndReturnOutputTypeSelect
 
   final bool? state;
 
+  final bool? startedTime;
+
+  final bool? isCup;
+
   final _i1.PrismaUnion<bool, _i2.CreateManymatchAndReturnOutputTypeTeamArgs>?
       team;
 
@@ -10649,6 +10808,8 @@ class CreateManymatchAndReturnOutputTypeSelect
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
         'team': team,
         'opponent': opponent,
       };
@@ -10684,6 +10845,8 @@ class MatchUpdateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
     this.isHome,
     this.coach,
     this.state,
+    this.startedTime,
+    this.isCup,
     this.team,
     this.opponent,
     this.played,
@@ -10705,6 +10868,11 @@ class MatchUpdateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
       .PrismaUnion<_i3.GameState, _i2.EnumGameStateFieldUpdateOperationsInput>?
       state;
 
+  final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
+      startedTime;
+
+  final _i1.PrismaUnion<bool, _i2.BoolFieldUpdateOperationsInput>? isCup;
+
   final _i2.TeamUpdateOneWithoutMatchesNestedInput? team;
 
   final _i2.OpponentUpdateOneRequiredWithoutMatchesNestedInput? opponent;
@@ -10720,6 +10888,8 @@ class MatchUpdateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
         'team': team,
         'opponent': opponent,
         'played': played,
@@ -10739,6 +10909,8 @@ class MatchUncheckedUpdateInput
     this.isHome,
     this.coach,
     this.state,
+    this.startedTime,
+    this.isCup,
     this.played,
   });
 
@@ -10767,6 +10939,11 @@ class MatchUncheckedUpdateInput
       .PrismaUnion<_i3.GameState, _i2.EnumGameStateFieldUpdateOperationsInput>?
       state;
 
+  final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
+      startedTime;
+
+  final _i1.PrismaUnion<bool, _i2.BoolFieldUpdateOperationsInput>? isCup;
+
   final _i2.PlayedUncheckedUpdateManyWithoutMatchNestedInput? played;
 
   @override
@@ -10781,6 +10958,8 @@ class MatchUncheckedUpdateInput
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
         'played': played,
       };
 }
@@ -10798,6 +10977,8 @@ class MatchUncheckedUpdateManyInput
     this.isHome,
     this.coach,
     this.state,
+    this.startedTime,
+    this.isCup,
   });
 
   final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? id;
@@ -10825,6 +11006,11 @@ class MatchUncheckedUpdateManyInput
       .PrismaUnion<_i3.GameState, _i2.EnumGameStateFieldUpdateOperationsInput>?
       state;
 
+  final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
+      startedTime;
+
+  final _i1.PrismaUnion<bool, _i2.BoolFieldUpdateOperationsInput>? isCup;
+
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -10837,6 +11023,8 @@ class MatchUncheckedUpdateManyInput
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
       };
 }
 
@@ -10852,6 +11040,8 @@ class MatchCountAggregateOutputType {
     this.isHome,
     this.coach,
     this.state,
+    this.startedTime,
+    this.isCup,
     this.$all,
   });
 
@@ -10867,6 +11057,8 @@ class MatchCountAggregateOutputType {
         isHome: json['isHome'],
         coach: json['coach'],
         state: json['state'],
+        startedTime: json['startedTime'],
+        isCup: json['isCup'],
         $all: json['_all'],
       );
 
@@ -10890,6 +11082,10 @@ class MatchCountAggregateOutputType {
 
   final int? state;
 
+  final int? startedTime;
+
+  final int? isCup;
+
   final int? $all;
 
   Map<String, dynamic> toJson() => {
@@ -10903,6 +11099,8 @@ class MatchCountAggregateOutputType {
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
         '_all': $all,
       };
 }
@@ -10993,6 +11191,8 @@ class MatchMinAggregateOutputType {
     this.isHome,
     this.coach,
     this.state,
+    this.startedTime,
+    this.isCup,
   });
 
   factory MatchMinAggregateOutputType.fromJson(Map json) =>
@@ -11013,6 +11213,12 @@ class MatchMinAggregateOutputType {
         state: json['state'] != null
             ? _i3.GameState.values.firstWhere((e) => e.name == json['state'])
             : null,
+        startedTime: switch (json['startedTime']) {
+          DateTime value => value,
+          String value => DateTime.parse(value),
+          _ => json['startedTime']
+        },
+        isCup: json['isCup'],
       );
 
   final int? id;
@@ -11035,6 +11241,10 @@ class MatchMinAggregateOutputType {
 
   final _i3.GameState? state;
 
+  final DateTime? startedTime;
+
+  final bool? isCup;
+
   Map<String, dynamic> toJson() => {
         'id': id,
         'teamId': teamId,
@@ -11046,6 +11256,8 @@ class MatchMinAggregateOutputType {
         'isHome': isHome,
         'coach': coach,
         'state': state?.name,
+        'startedTime': startedTime?.toIso8601String(),
+        'isCup': isCup,
       };
 }
 
@@ -11061,6 +11273,8 @@ class MatchMaxAggregateOutputType {
     this.isHome,
     this.coach,
     this.state,
+    this.startedTime,
+    this.isCup,
   });
 
   factory MatchMaxAggregateOutputType.fromJson(Map json) =>
@@ -11081,6 +11295,12 @@ class MatchMaxAggregateOutputType {
         state: json['state'] != null
             ? _i3.GameState.values.firstWhere((e) => e.name == json['state'])
             : null,
+        startedTime: switch (json['startedTime']) {
+          DateTime value => value,
+          String value => DateTime.parse(value),
+          _ => json['startedTime']
+        },
+        isCup: json['isCup'],
       );
 
   final int? id;
@@ -11103,6 +11323,10 @@ class MatchMaxAggregateOutputType {
 
   final _i3.GameState? state;
 
+  final DateTime? startedTime;
+
+  final bool? isCup;
+
   Map<String, dynamic> toJson() => {
         'id': id,
         'teamId': teamId,
@@ -11114,6 +11338,8 @@ class MatchMaxAggregateOutputType {
         'isHome': isHome,
         'coach': coach,
         'state': state?.name,
+        'startedTime': startedTime?.toIso8601String(),
+        'isCup': isCup,
       };
 }
 
@@ -11129,6 +11355,8 @@ class MatchGroupByOutputType {
     this.isHome,
     this.coach,
     this.state,
+    this.startedTime,
+    this.isCup,
     this.$count,
     this.$avg,
     this.$sum,
@@ -11153,6 +11381,12 @@ class MatchGroupByOutputType {
         state: json['state'] != null
             ? _i3.GameState.values.firstWhere((e) => e.name == json['state'])
             : null,
+        startedTime: switch (json['startedTime']) {
+          DateTime value => value,
+          String value => DateTime.parse(value),
+          _ => json['startedTime']
+        },
+        isCup: json['isCup'],
         $count: json['_count'] is Map
             ? _i2.MatchCountAggregateOutputType.fromJson(json['_count'])
             : null,
@@ -11190,6 +11424,10 @@ class MatchGroupByOutputType {
 
   final _i3.GameState? state;
 
+  final DateTime? startedTime;
+
+  final bool? isCup;
+
   final _i2.MatchCountAggregateOutputType? $count;
 
   final _i2.MatchAvgAggregateOutputType? $avg;
@@ -11211,6 +11449,8 @@ class MatchGroupByOutputType {
         'isHome': isHome,
         'coach': coach,
         'state': state?.name,
+        'startedTime': startedTime?.toIso8601String(),
+        'isCup': isCup,
         '_count': $count?.toJson(),
         '_avg': $avg?.toJson(),
         '_sum': $sum?.toJson(),
@@ -11232,6 +11472,8 @@ class MatchCountOrderByAggregateInput
     this.isHome,
     this.coach,
     this.state,
+    this.startedTime,
+    this.isCup,
   });
 
   final _i2.SortOrder? id;
@@ -11254,6 +11496,10 @@ class MatchCountOrderByAggregateInput
 
   final _i2.SortOrder? state;
 
+  final _i2.SortOrder? startedTime;
+
+  final _i2.SortOrder? isCup;
+
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -11266,6 +11512,8 @@ class MatchCountOrderByAggregateInput
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
       };
 }
 
@@ -11312,6 +11560,8 @@ class MatchMaxOrderByAggregateInput
     this.isHome,
     this.coach,
     this.state,
+    this.startedTime,
+    this.isCup,
   });
 
   final _i2.SortOrder? id;
@@ -11334,6 +11584,10 @@ class MatchMaxOrderByAggregateInput
 
   final _i2.SortOrder? state;
 
+  final _i2.SortOrder? startedTime;
+
+  final _i2.SortOrder? isCup;
+
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -11346,6 +11600,8 @@ class MatchMaxOrderByAggregateInput
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
       };
 }
 
@@ -11362,6 +11618,8 @@ class MatchMinOrderByAggregateInput
     this.isHome,
     this.coach,
     this.state,
+    this.startedTime,
+    this.isCup,
   });
 
   final _i2.SortOrder? id;
@@ -11384,6 +11642,10 @@ class MatchMinOrderByAggregateInput
 
   final _i2.SortOrder? state;
 
+  final _i2.SortOrder? startedTime;
+
+  final _i2.SortOrder? isCup;
+
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -11396,6 +11658,8 @@ class MatchMinOrderByAggregateInput
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
       };
 }
 
@@ -11442,6 +11706,8 @@ class MatchOrderByWithAggregationInput
     this.isHome,
     this.coach,
     this.state,
+    this.startedTime,
+    this.isCup,
     this.$count,
     this.$avg,
     this.$max,
@@ -11469,6 +11735,10 @@ class MatchOrderByWithAggregationInput
 
   final _i2.SortOrder? state;
 
+  final _i2.SortOrder? startedTime;
+
+  final _i2.SortOrder? isCup;
+
   final _i2.MatchCountOrderByAggregateInput? $count;
 
   final _i2.MatchAvgOrderByAggregateInput? $avg;
@@ -11491,6 +11761,8 @@ class MatchOrderByWithAggregationInput
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
         '_count': $count,
         '_avg': $avg,
         '_max': $max,
@@ -11955,6 +12227,8 @@ class MatchScalarWhereWithAggregatesInput
     this.isHome,
     this.coach,
     this.state,
+    this.startedTime,
+    this.isCup,
   });
 
   final _i1.PrismaUnion<_i2.MatchScalarWhereWithAggregatesInput,
@@ -11987,6 +12261,11 @@ class MatchScalarWhereWithAggregatesInput
   final _i1.PrismaUnion<_i2.EnumGameStateWithAggregatesFilter, _i3.GameState>?
       state;
 
+  final _i1.PrismaUnion<_i2.DateTimeWithAggregatesFilter, DateTime>?
+      startedTime;
+
+  final _i1.PrismaUnion<_i2.BoolWithAggregatesFilter, bool>? isCup;
+
   @override
   Map<String, dynamic> toJson() => {
         'AND': AND,
@@ -12002,6 +12281,8 @@ class MatchScalarWhereWithAggregatesInput
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
       };
 }
 
@@ -12018,6 +12299,8 @@ class MatchCountAggregateOutputTypeSelect
     this.isHome,
     this.coach,
     this.state,
+    this.startedTime,
+    this.isCup,
     this.$all,
   });
 
@@ -12041,6 +12324,10 @@ class MatchCountAggregateOutputTypeSelect
 
   final bool? state;
 
+  final bool? startedTime;
+
+  final bool? isCup;
+
   final bool? $all;
 
   @override
@@ -12055,6 +12342,8 @@ class MatchCountAggregateOutputTypeSelect
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
         '_all': $all,
       };
 }
@@ -12162,6 +12451,8 @@ class MatchMinAggregateOutputTypeSelect
     this.isHome,
     this.coach,
     this.state,
+    this.startedTime,
+    this.isCup,
   });
 
   final bool? id;
@@ -12184,6 +12475,10 @@ class MatchMinAggregateOutputTypeSelect
 
   final bool? state;
 
+  final bool? startedTime;
+
+  final bool? isCup;
+
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -12196,6 +12491,8 @@ class MatchMinAggregateOutputTypeSelect
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
       };
 }
 
@@ -12222,6 +12519,8 @@ class MatchMaxAggregateOutputTypeSelect
     this.isHome,
     this.coach,
     this.state,
+    this.startedTime,
+    this.isCup,
   });
 
   final bool? id;
@@ -12244,6 +12543,10 @@ class MatchMaxAggregateOutputTypeSelect
 
   final bool? state;
 
+  final bool? startedTime;
+
+  final bool? isCup;
+
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -12256,6 +12559,8 @@ class MatchMaxAggregateOutputTypeSelect
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
       };
 }
 
@@ -12282,6 +12587,8 @@ class MatchGroupByOutputTypeSelect
     this.isHome,
     this.coach,
     this.state,
+    this.startedTime,
+    this.isCup,
     this.$count,
     this.$avg,
     this.$sum,
@@ -12309,6 +12616,10 @@ class MatchGroupByOutputTypeSelect
 
   final bool? state;
 
+  final bool? startedTime;
+
+  final bool? isCup;
+
   final _i1.PrismaUnion<bool, _i2.MatchGroupByOutputTypeCountArgs>? $count;
 
   final _i1.PrismaUnion<bool, _i2.MatchGroupByOutputTypeAvgArgs>? $avg;
@@ -12331,6 +12642,8 @@ class MatchGroupByOutputTypeSelect
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
         '_count': $count,
         '_avg': $avg,
         '_sum': $sum,
@@ -15725,7 +16038,7 @@ class HistoryCreateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
     this.createdAt,
     required this.actionType,
     required this.additionnalInformations,
-    this.author,
+    required this.author,
   });
 
   final DateTime? createdAt;
@@ -15734,7 +16047,7 @@ class HistoryCreateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final String additionnalInformations;
 
-  final _i2.UserCreateNestedOneWithoutHistoryInput? author;
+  final _i2.UserCreateNestedOneWithoutHistoryInput author;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -15808,12 +16121,9 @@ class HistoryCreateManyInput
 class CreateManyhistoryAndReturnOutputTypeAuthorArgs
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const CreateManyhistoryAndReturnOutputTypeAuthorArgs({
-    this.where,
     this.select,
     this.include,
   });
-
-  final _i2.UserWhereInput? where;
 
   final _i2.UserSelect? select;
 
@@ -15821,7 +16131,6 @@ class CreateManyhistoryAndReturnOutputTypeAuthorArgs
 
   @override
   Map<String, dynamic> toJson() => {
-        'where': where,
         'select': select,
         'include': include,
       };
@@ -15984,14 +16293,12 @@ class UserUpdateToOneWithWhereWithoutHistoryInput
       };
 }
 
-class UserUpdateOneWithoutHistoryNestedInput
+class UserUpdateOneRequiredWithoutHistoryNestedInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UserUpdateOneWithoutHistoryNestedInput({
+  const UserUpdateOneRequiredWithoutHistoryNestedInput({
     this.create,
     this.connectOrCreate,
     this.upsert,
-    this.disconnect,
-    this.delete,
     this.connect,
     this.update,
   });
@@ -16002,10 +16309,6 @@ class UserUpdateOneWithoutHistoryNestedInput
   final _i2.UserCreateOrConnectWithoutHistoryInput? connectOrCreate;
 
   final _i2.UserUpsertWithoutHistoryInput? upsert;
-
-  final _i1.PrismaUnion<bool, _i2.UserWhereInput>? disconnect;
-
-  final _i1.PrismaUnion<bool, _i2.UserWhereInput>? delete;
 
   final _i2.UserWhereUniqueInput? connect;
 
@@ -16019,8 +16322,6 @@ class UserUpdateOneWithoutHistoryNestedInput
         'create': create,
         'connectOrCreate': connectOrCreate,
         'upsert': upsert,
-        'disconnect': disconnect,
-        'delete': delete,
         'connect': connect,
         'update': update,
       };
@@ -16043,7 +16344,7 @@ class HistoryUpdateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>?
       additionnalInformations;
 
-  final _i2.UserUpdateOneWithoutHistoryNestedInput? author;
+  final _i2.UserUpdateOneRequiredWithoutHistoryNestedInput? author;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -17060,6 +17361,8 @@ class MatchCreateWithoutOpponentInput
     required this.isHome,
     required this.coach,
     required this.state,
+    required this.startedTime,
+    required this.isCup,
     this.team,
     this.played,
   });
@@ -17078,6 +17381,10 @@ class MatchCreateWithoutOpponentInput
 
   final _i3.GameState state;
 
+  final DateTime startedTime;
+
+  final bool isCup;
+
   final _i2.TeamCreateNestedOneWithoutMatchesInput? team;
 
   final _i2.PlayedCreateNestedManyWithoutMatchInput? played;
@@ -17091,6 +17398,8 @@ class MatchCreateWithoutOpponentInput
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
         'team': team,
         'played': played,
       };
@@ -17108,6 +17417,8 @@ class MatchUncheckedCreateWithoutOpponentInput
     required this.isHome,
     required this.coach,
     required this.state,
+    required this.startedTime,
+    required this.isCup,
     this.played,
   });
 
@@ -17129,6 +17440,10 @@ class MatchUncheckedCreateWithoutOpponentInput
 
   final _i3.GameState state;
 
+  final DateTime startedTime;
+
+  final bool isCup;
+
   final _i2.PlayedUncheckedCreateNestedManyWithoutMatchInput? played;
 
   @override
@@ -17142,6 +17457,8 @@ class MatchUncheckedCreateWithoutOpponentInput
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
         'played': played,
       };
 }
@@ -17177,6 +17494,8 @@ class MatchCreateManyOpponentInput
     required this.isHome,
     required this.coach,
     required this.state,
+    required this.startedTime,
+    required this.isCup,
   });
 
   final int? id;
@@ -17197,6 +17516,10 @@ class MatchCreateManyOpponentInput
 
   final _i3.GameState state;
 
+  final DateTime startedTime;
+
+  final bool isCup;
+
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -17208,6 +17531,8 @@ class MatchCreateManyOpponentInput
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
       };
 }
 
@@ -17397,6 +17722,8 @@ class MatchUpdateWithoutOpponentInput
     this.isHome,
     this.coach,
     this.state,
+    this.startedTime,
+    this.isCup,
     this.team,
     this.played,
   });
@@ -17417,6 +17744,11 @@ class MatchUpdateWithoutOpponentInput
       .PrismaUnion<_i3.GameState, _i2.EnumGameStateFieldUpdateOperationsInput>?
       state;
 
+  final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
+      startedTime;
+
+  final _i1.PrismaUnion<bool, _i2.BoolFieldUpdateOperationsInput>? isCup;
+
   final _i2.TeamUpdateOneWithoutMatchesNestedInput? team;
 
   final _i2.PlayedUpdateManyWithoutMatchNestedInput? played;
@@ -17430,6 +17762,8 @@ class MatchUpdateWithoutOpponentInput
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
         'team': team,
         'played': played,
       };
@@ -17447,6 +17781,8 @@ class MatchUncheckedUpdateWithoutOpponentInput
     this.isHome,
     this.coach,
     this.state,
+    this.startedTime,
+    this.isCup,
     this.played,
   });
 
@@ -17473,6 +17809,11 @@ class MatchUncheckedUpdateWithoutOpponentInput
       .PrismaUnion<_i3.GameState, _i2.EnumGameStateFieldUpdateOperationsInput>?
       state;
 
+  final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
+      startedTime;
+
+  final _i1.PrismaUnion<bool, _i2.BoolFieldUpdateOperationsInput>? isCup;
+
   final _i2.PlayedUncheckedUpdateManyWithoutMatchNestedInput? played;
 
   @override
@@ -17486,6 +17827,8 @@ class MatchUncheckedUpdateWithoutOpponentInput
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
         'played': played,
       };
 }
@@ -17545,6 +17888,8 @@ class MatchUncheckedUpdateManyWithoutOpponentInput
     this.isHome,
     this.coach,
     this.state,
+    this.startedTime,
+    this.isCup,
   });
 
   final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? id;
@@ -17570,6 +17915,11 @@ class MatchUncheckedUpdateManyWithoutOpponentInput
       .PrismaUnion<_i3.GameState, _i2.EnumGameStateFieldUpdateOperationsInput>?
       state;
 
+  final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
+      startedTime;
+
+  final _i1.PrismaUnion<bool, _i2.BoolFieldUpdateOperationsInput>? isCup;
+
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -17581,6 +17931,8 @@ class MatchUncheckedUpdateManyWithoutOpponentInput
         'isHome': isHome,
         'coach': coach,
         'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
       };
 }
 

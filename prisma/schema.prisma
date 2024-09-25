@@ -60,6 +60,8 @@ model match {
   coach         String
   played        played[]
   state         GameState
+  startedTime   DateTime
+  isCup         Boolean
 }
 
 enum GameState {

@@ -46,6 +46,10 @@ class HistoryDAO implements IHistoryDAO {
         HistoryCreateInput(
           additionnalInformations: history.additionnalInformations!,
           actionType: history.actionType!,
+          author: UserCreateNestedOneWithoutHistoryInput(
+              connect: UserWhereUniqueInput(id: history.author!.id),
+            ),
+          createdAt: history.createdAt,
         ),
       ),
     );

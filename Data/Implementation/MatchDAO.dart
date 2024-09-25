@@ -41,6 +41,8 @@ class MatchDAO implements IMatchDAO {
           'teamScore': match.teamScore,
           'opponentScore': match.opponentScore,
           'date': match.date,
+          'startingTime' : match.startedTime,
+          'isCup' : match.isCup,
         },
       },
     );
@@ -84,6 +86,8 @@ class MatchDAO implements IMatchDAO {
             isHome: data['isHome'] as bool,
             coach: data['coach'] as String,
             state: GameState.notStarted,
+            isCup: data['isCup'] as bool,
+            startedTime: data['startedTime'] as DateTime,
           ),
         ),
       );
