@@ -1,4 +1,3 @@
-
 import 'package:dart_frog/src/_internal.dart';
 import 'package:orm/orm.dart';
 
@@ -8,10 +7,10 @@ import '../../prisma/generated_dart_client/prisma.dart';
 import '../Interface/IMatchDAO.dart';
 
 class MatchDAO implements IMatchDAO {
-
   MatchDAO() {
     prismaClient = PrismaClient();
   }
+
   late PrismaClient prismaClient;
 
   @override
@@ -50,7 +49,7 @@ class MatchDAO implements IMatchDAO {
   @override
   Future<Response> getNextMatchs() async {
     final teamCount =
-    await prismaClient.$raw.query('SELECT COUNT(*) FROM Team;');
+        await prismaClient.$raw.query('SELECT COUNT(*) FROM Team;');
 
     final result = StringBuffer();
     for (var i = 0; i < teamCount.length; i++) {
@@ -133,9 +132,16 @@ class MatchDAO implements IMatchDAO {
   }
 
   @override
-  Future<Response> deleteMatch(int id) {
-    // TODO: implement deleteMatch
-    throw UnimplementedError();
+  Future<Response> deleteMatch(int id) async {
+    await prismaClient.match.delete(
+      where: MatchWhereUniqueInput(id: id),
+    );
+
+    return Response.json(
+      body: {
+        'message': 'Match deleted !',
+      },
+    );
   }
 
   @override
@@ -150,10 +156,26 @@ class MatchDAO implements IMatchDAO {
   }
 
   @override
-  Future<Response> updateMatch(int id, Map<String, dynamic> data) {
-    // TODO: implement updateMatch
-    throw UnimplementedError();
+  Future<Response> updateMatch(int id, Map<String, dynamic> data) async {
+    await prismaClient.match.update(
+      data: PrismaUnion.$1(
+        MatchUpdateInput(
+          teamScore: PrismaUnion.$1(data['teamScore'] as int),
+          opponentScore: PrismaUnion.$1(data['opponentScore'] as int),
+          date: PrismaUnion.$1(data['date'] as DateTime),
+          address: PrismaUnion.$1(data['address'] as String),
+          isHome: PrismaUnion.$1(data['isHome'] as bool),
+          coach: PrismaUnion.$1(data['coach'] as String),
+          state: PrismaUnion.$1(data['state'] as GameState),
+        ),
+      ),
+      where: MatchWhereUniqueInput(id: id),
+    );
+
+    return Response.json(
+      body: {
+        'message': 'Match updated !',
+      },
+    );
   }
-
-
 }
