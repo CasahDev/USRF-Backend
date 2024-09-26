@@ -14,45 +14,29 @@ class HistoryDAO implements IHistoryDAO {
   late PrismaClient prismaClient;
 
   @override
-  Future<Response> getMatchHistory(String matchId) async {
-    final history = await prismaClient.history.findMany(
-      where: HistoryWhereInput(
-        additionnalInformations: PrismaUnion.$1(
-          StringFilter(contains: PrismaUnion.$1(matchId)),
-        ),
-      ),
-    );
-
-    if (history.isEmpty) {
-      return Response.json(
-        body: {
-          'message': 'No history found for this match',
-        },
-      );
-    }
-
-    return Response.json(
-      body: {
-        'message': 'History found !',
-        'history': history,
-      },
-    );
-  }
-
-  @override
-  Future<Response> addHistory(History history) async {
-    await prismaClient.history.create(
+  Future<Response> addHistory(Map<String, dynamic> history) async {
+    final h = await prismaClient.history.create(
       data: PrismaUnion.$1(
         HistoryCreateInput(
-          additionnalInformations: history.additionnalInformations!,
-          actionType: history.actionType!,
+          additionnalInformations: history["additionnalInformations"] as String,
+          actionType: history["actionType"] as ActionType,
           author: UserCreateNestedOneWithoutHistoryInput(
-              connect: UserWhereUniqueInput(id: history.author!.id),
-            ),
-          createdAt: history.createdAt,
+            connect: UserWhereUniqueInput(id: (history["author"] as User).id),
+          ),
+          createdAt: history["createdAt"] as DateTime,
         ),
       ),
     );
+
+    final created = await prismaClient.history.findUnique(
+      where: HistoryWhereUniqueInput(id: h.id),
+    );
+
+    if (created == null) {
+      return Response.json(body: {
+        'message': 'The history could not be created',
+      }, statusCode: 500);
+    }
 
     return Response.json(
       body: {
@@ -66,8 +50,8 @@ class HistoryDAO implements IHistoryDAO {
     await prismaClient.history.deleteMany();
 
     final isEmpty =
-        (prismaClient.history.findMany() as Map<String, dynamic>)["history"] ==
-            "[]";
+        (prismaClient.history.findMany() as Map<String, dynamic>)['history'] ==
+            '[]';
 
     if (isEmpty) {
       return Response.json(
@@ -77,11 +61,9 @@ class HistoryDAO implements IHistoryDAO {
       );
     }
 
-    return Response.json(
-      body: {
-        'message': 'History could not be cleared !',
-      },
-    );
+    return Response.json(body: {
+      'message': 'History could not be cleared !',
+    }, statusCode: 500);
   }
 
   @override
@@ -90,11 +72,9 @@ class HistoryDAO implements IHistoryDAO {
       where: HistoryWhereUniqueInput(id: history.id),
     );
 
-    return Response.json(
-      body: {
-        'message': 'History succesfully deleted !',
-      },
-    );
+    return Response.json(body: {
+      'message': 'History succesfully deleted !',
+    }, statusCode: 200);
   }
 
   @override
@@ -110,21 +90,58 @@ class HistoryDAO implements IHistoryDAO {
   }
 
   @override
-  Future<Response> addEventToMatchHistory(
-      String id, Map<String, dynamic> body) async {
-    await prismaClient.history.create(
-      data: PrismaUnion.$1(
-        HistoryCreateInput(
-          additionnalInformations: body['additionnalInformations'] as String,
-          actionType: body['actionType'] as ActionType,
-          author: body["author"] as UserCreateNestedOneWithoutHistoryInput,
-        ),
-      ),
+  Future<Response> deleteHistoryById(String id) async {
+    var history = await prismaClient.history
+        .findUnique(where: HistoryWhereUniqueInput(id: int.parse(id)));
+
+    if (history == null) {
+      return Response.json(
+        body: {
+          'message': 'History not found !',
+        },
+        statusCode: 404,
+      );
+    }
+
+    await prismaClient.history
+        .delete(where: HistoryWhereUniqueInput(id: int.parse(id)));
+
+    history = await prismaClient.history
+        .findUnique(where: HistoryWhereUniqueInput(id: int.parse(id)));
+
+    if (history == null) {
+      return Response.json(
+        body: {
+          'message': 'History succesfully deleted !',
+        },
+      );
+    }
+    return Response.json(
+      body: {
+        'message': 'History could not be deleted !',
+      },
+      statusCode: 500,
     );
+  }
+
+  @override
+  Future<Response> getHistoryById(String id) async {
+    final history = await prismaClient.history
+        .findUnique(where: HistoryWhereUniqueInput(id: int.parse(id)));
+
+    if (history == null) {
+      return Response.json(
+        body: {
+          'message': 'History not found !',
+        },
+        statusCode: 404,
+      );
+    }
 
     return Response.json(
       body: {
-        'message': 'Event added to match history',
+        'message': 'History found !',
+        'history': history as Map<String, dynamic>,
       },
     );
   }

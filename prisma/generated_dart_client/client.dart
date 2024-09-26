@@ -3952,6 +3952,507 @@ class OpponentDelegate {
   }
 }
 
+class MatchHistoryDelegate {
+  const MatchHistoryDelegate._(this._client);
+
+  final PrismaClient _client;
+
+  _i1.ActionClient<_i2.MatchHistory?> findUnique({
+    required _i3.MatchHistoryWhereUniqueInput where,
+    _i3.MatchHistorySelect? select,
+    _i3.MatchHistoryInclude? include,
+  }) {
+    final args = {
+      'where': where,
+      'select': select,
+      'include': include,
+    };
+    final query = _i1.serializeJsonQuery(
+      args: args,
+      modelName: 'matchHistory',
+      action: _i1.JsonQueryAction.findUnique,
+      datamodel: PrismaClient.datamodel,
+    );
+    final result = _client.$engine.request(
+      query,
+      headers: _client.$transaction.headers,
+      transaction: _client.$transaction.transaction,
+    );
+    return _i1.ActionClient<_i2.MatchHistory?>(
+      action: 'findUniquematchHistory',
+      result: result,
+      factory: (e) => e != null ? _i2.MatchHistory.fromJson(e) : null,
+    );
+  }
+
+  _i1.ActionClient<_i2.MatchHistory> findUniqueOrThrow({
+    required _i3.MatchHistoryWhereUniqueInput where,
+    _i3.MatchHistorySelect? select,
+    _i3.MatchHistoryInclude? include,
+  }) {
+    final args = {
+      'where': where,
+      'select': select,
+      'include': include,
+    };
+    final query = _i1.serializeJsonQuery(
+      args: args,
+      modelName: 'matchHistory',
+      action: _i1.JsonQueryAction.findUniqueOrThrow,
+      datamodel: PrismaClient.datamodel,
+    );
+    final result = _client.$engine.request(
+      query,
+      headers: _client.$transaction.headers,
+      transaction: _client.$transaction.transaction,
+    );
+    return _i1.ActionClient<_i2.MatchHistory>(
+      action: 'findUniquematchHistoryOrThrow',
+      result: result,
+      factory: (e) => _i2.MatchHistory.fromJson(e),
+    );
+  }
+
+  _i1.ActionClient<_i2.MatchHistory?> findFirst({
+    _i3.MatchHistoryWhereInput? where,
+    _i1.PrismaUnion<Iterable<_i3.MatchHistoryOrderByWithRelationInput>,
+            _i3.MatchHistoryOrderByWithRelationInput>?
+        orderBy,
+    _i3.MatchHistoryWhereUniqueInput? cursor,
+    int? take,
+    int? skip,
+    _i1.PrismaUnion<_i3.MatchHistoryScalar, Iterable<_i3.MatchHistoryScalar>>?
+        distinct,
+    _i3.MatchHistorySelect? select,
+    _i3.MatchHistoryInclude? include,
+  }) {
+    final args = {
+      'where': where,
+      'orderBy': orderBy,
+      'cursor': cursor,
+      'take': take,
+      'skip': skip,
+      'distinct': distinct,
+      'select': select,
+      'include': include,
+    };
+    final query = _i1.serializeJsonQuery(
+      args: args,
+      modelName: 'matchHistory',
+      action: _i1.JsonQueryAction.findFirst,
+      datamodel: PrismaClient.datamodel,
+    );
+    final result = _client.$engine.request(
+      query,
+      headers: _client.$transaction.headers,
+      transaction: _client.$transaction.transaction,
+    );
+    return _i1.ActionClient<_i2.MatchHistory?>(
+      action: 'findFirstmatchHistory',
+      result: result,
+      factory: (e) => e != null ? _i2.MatchHistory.fromJson(e) : null,
+    );
+  }
+
+  _i1.ActionClient<_i2.MatchHistory> findFirstOrThrow({
+    _i3.MatchHistoryWhereInput? where,
+    _i1.PrismaUnion<Iterable<_i3.MatchHistoryOrderByWithRelationInput>,
+            _i3.MatchHistoryOrderByWithRelationInput>?
+        orderBy,
+    _i3.MatchHistoryWhereUniqueInput? cursor,
+    int? take,
+    int? skip,
+    _i1.PrismaUnion<_i3.MatchHistoryScalar, Iterable<_i3.MatchHistoryScalar>>?
+        distinct,
+    _i3.MatchHistorySelect? select,
+    _i3.MatchHistoryInclude? include,
+  }) {
+    final args = {
+      'where': where,
+      'orderBy': orderBy,
+      'cursor': cursor,
+      'take': take,
+      'skip': skip,
+      'distinct': distinct,
+      'select': select,
+      'include': include,
+    };
+    final query = _i1.serializeJsonQuery(
+      args: args,
+      modelName: 'matchHistory',
+      action: _i1.JsonQueryAction.findFirstOrThrow,
+      datamodel: PrismaClient.datamodel,
+    );
+    final result = _client.$engine.request(
+      query,
+      headers: _client.$transaction.headers,
+      transaction: _client.$transaction.transaction,
+    );
+    return _i1.ActionClient<_i2.MatchHistory>(
+      action: 'findFirstmatchHistoryOrThrow',
+      result: result,
+      factory: (e) => _i2.MatchHistory.fromJson(e),
+    );
+  }
+
+  _i1.ActionClient<Iterable<_i2.MatchHistory>> findMany({
+    _i3.MatchHistoryWhereInput? where,
+    _i1.PrismaUnion<Iterable<_i3.MatchHistoryOrderByWithRelationInput>,
+            _i3.MatchHistoryOrderByWithRelationInput>?
+        orderBy,
+    _i3.MatchHistoryWhereUniqueInput? cursor,
+    int? take,
+    int? skip,
+    _i1.PrismaUnion<_i3.MatchHistoryScalar, Iterable<_i3.MatchHistoryScalar>>?
+        distinct,
+    _i3.MatchHistorySelect? select,
+    _i3.MatchHistoryInclude? include,
+  }) {
+    final args = {
+      'where': where,
+      'orderBy': orderBy,
+      'cursor': cursor,
+      'take': take,
+      'skip': skip,
+      'distinct': distinct,
+      'select': select,
+      'include': include,
+    };
+    final query = _i1.serializeJsonQuery(
+      args: args,
+      modelName: 'matchHistory',
+      action: _i1.JsonQueryAction.findMany,
+      datamodel: PrismaClient.datamodel,
+    );
+    final result = _client.$engine.request(
+      query,
+      headers: _client.$transaction.headers,
+      transaction: _client.$transaction.transaction,
+    );
+    return _i1.ActionClient<Iterable<_i2.MatchHistory>>(
+      action: 'findManymatchHistory',
+      result: result,
+      factory: (values) =>
+          (values as Iterable).map((e) => _i2.MatchHistory.fromJson(e)),
+    );
+  }
+
+  _i1.ActionClient<_i2.MatchHistory> create({
+    required _i1.PrismaUnion<_i3.MatchHistoryCreateInput,
+            _i3.MatchHistoryUncheckedCreateInput>
+        data,
+    _i3.MatchHistorySelect? select,
+    _i3.MatchHistoryInclude? include,
+  }) {
+    final args = {
+      'data': data,
+      'select': select,
+      'include': include,
+    };
+    final query = _i1.serializeJsonQuery(
+      args: args,
+      modelName: 'matchHistory',
+      action: _i1.JsonQueryAction.createOne,
+      datamodel: PrismaClient.datamodel,
+    );
+    final result = _client.$engine.request(
+      query,
+      headers: _client.$transaction.headers,
+      transaction: _client.$transaction.transaction,
+    );
+    return _i1.ActionClient<_i2.MatchHistory>(
+      action: 'createOnematchHistory',
+      result: result,
+      factory: (e) => _i2.MatchHistory.fromJson(e),
+    );
+  }
+
+  _i1.ActionClient<_i3.AffectedRowsOutput> createMany({
+    required _i1.PrismaUnion<_i3.MatchHistoryCreateManyInput,
+            Iterable<_i3.MatchHistoryCreateManyInput>>
+        data,
+    bool? skipDuplicates,
+  }) {
+    final args = {
+      'data': data,
+      'skipDuplicates': skipDuplicates,
+    };
+    final query = _i1.serializeJsonQuery(
+      args: args,
+      modelName: 'matchHistory',
+      action: _i1.JsonQueryAction.createMany,
+      datamodel: PrismaClient.datamodel,
+    );
+    final result = _client.$engine.request(
+      query,
+      headers: _client.$transaction.headers,
+      transaction: _client.$transaction.transaction,
+    );
+    return _i1.ActionClient<_i3.AffectedRowsOutput>(
+      action: 'createManymatchHistory',
+      result: result,
+      factory: (e) => _i3.AffectedRowsOutput.fromJson(e),
+    );
+  }
+
+  _i1.ActionClient<Iterable<_i2.CreateManymatchHistoryAndReturnOutputType>>
+      createManyAndReturn({
+    required _i1.PrismaUnion<_i3.MatchHistoryCreateManyInput,
+            Iterable<_i3.MatchHistoryCreateManyInput>>
+        data,
+    bool? skipDuplicates,
+    _i3.CreateManymatchHistoryAndReturnOutputTypeSelect? select,
+    _i3.CreateManymatchHistoryAndReturnOutputTypeInclude? include,
+  }) {
+    final args = {
+      'data': data,
+      'skipDuplicates': skipDuplicates,
+      'select': select,
+      'include': include,
+    };
+    final query = _i1.serializeJsonQuery(
+      args: args,
+      modelName: 'matchHistory',
+      action: _i1.JsonQueryAction.createManyAndReturn,
+      datamodel: PrismaClient.datamodel,
+    );
+    final result = _client.$engine.request(
+      query,
+      headers: _client.$transaction.headers,
+      transaction: _client.$transaction.transaction,
+    );
+    return _i1.ActionClient<
+        Iterable<_i2.CreateManymatchHistoryAndReturnOutputType>>(
+      action: 'createManymatchHistoryAndReturn',
+      result: result,
+      factory: (values) => (values as Iterable).map(
+          (e) => _i2.CreateManymatchHistoryAndReturnOutputType.fromJson(e)),
+    );
+  }
+
+  _i1.ActionClient<_i2.MatchHistory?> update({
+    required _i1.PrismaUnion<_i3.MatchHistoryUpdateInput,
+            _i3.MatchHistoryUncheckedUpdateInput>
+        data,
+    required _i3.MatchHistoryWhereUniqueInput where,
+    _i3.MatchHistorySelect? select,
+    _i3.MatchHistoryInclude? include,
+  }) {
+    final args = {
+      'data': data,
+      'where': where,
+      'select': select,
+      'include': include,
+    };
+    final query = _i1.serializeJsonQuery(
+      args: args,
+      modelName: 'matchHistory',
+      action: _i1.JsonQueryAction.updateOne,
+      datamodel: PrismaClient.datamodel,
+    );
+    final result = _client.$engine.request(
+      query,
+      headers: _client.$transaction.headers,
+      transaction: _client.$transaction.transaction,
+    );
+    return _i1.ActionClient<_i2.MatchHistory?>(
+      action: 'updateOnematchHistory',
+      result: result,
+      factory: (e) => e != null ? _i2.MatchHistory.fromJson(e) : null,
+    );
+  }
+
+  _i1.ActionClient<_i3.AffectedRowsOutput> updateMany({
+    required _i1.PrismaUnion<_i3.MatchHistoryUpdateManyMutationInput,
+            _i3.MatchHistoryUncheckedUpdateManyInput>
+        data,
+    _i3.MatchHistoryWhereInput? where,
+  }) {
+    final args = {
+      'data': data,
+      'where': where,
+    };
+    final query = _i1.serializeJsonQuery(
+      args: args,
+      modelName: 'matchHistory',
+      action: _i1.JsonQueryAction.updateMany,
+      datamodel: PrismaClient.datamodel,
+    );
+    final result = _client.$engine.request(
+      query,
+      headers: _client.$transaction.headers,
+      transaction: _client.$transaction.transaction,
+    );
+    return _i1.ActionClient<_i3.AffectedRowsOutput>(
+      action: 'updateManymatchHistory',
+      result: result,
+      factory: (e) => _i3.AffectedRowsOutput.fromJson(e),
+    );
+  }
+
+  _i1.ActionClient<_i2.MatchHistory> upsert({
+    required _i3.MatchHistoryWhereUniqueInput where,
+    required _i1.PrismaUnion<_i3.MatchHistoryCreateInput,
+            _i3.MatchHistoryUncheckedCreateInput>
+        create,
+    required _i1.PrismaUnion<_i3.MatchHistoryUpdateInput,
+            _i3.MatchHistoryUncheckedUpdateInput>
+        update,
+    _i3.MatchHistorySelect? select,
+    _i3.MatchHistoryInclude? include,
+  }) {
+    final args = {
+      'where': where,
+      'create': create,
+      'update': update,
+      'select': select,
+      'include': include,
+    };
+    final query = _i1.serializeJsonQuery(
+      args: args,
+      modelName: 'matchHistory',
+      action: _i1.JsonQueryAction.upsertOne,
+      datamodel: PrismaClient.datamodel,
+    );
+    final result = _client.$engine.request(
+      query,
+      headers: _client.$transaction.headers,
+      transaction: _client.$transaction.transaction,
+    );
+    return _i1.ActionClient<_i2.MatchHistory>(
+      action: 'upsertOnematchHistory',
+      result: result,
+      factory: (e) => _i2.MatchHistory.fromJson(e),
+    );
+  }
+
+  _i1.ActionClient<_i2.MatchHistory?> delete({
+    required _i3.MatchHistoryWhereUniqueInput where,
+    _i3.MatchHistorySelect? select,
+    _i3.MatchHistoryInclude? include,
+  }) {
+    final args = {
+      'where': where,
+      'select': select,
+      'include': include,
+    };
+    final query = _i1.serializeJsonQuery(
+      args: args,
+      modelName: 'matchHistory',
+      action: _i1.JsonQueryAction.deleteOne,
+      datamodel: PrismaClient.datamodel,
+    );
+    final result = _client.$engine.request(
+      query,
+      headers: _client.$transaction.headers,
+      transaction: _client.$transaction.transaction,
+    );
+    return _i1.ActionClient<_i2.MatchHistory?>(
+      action: 'deleteOnematchHistory',
+      result: result,
+      factory: (e) => e != null ? _i2.MatchHistory.fromJson(e) : null,
+    );
+  }
+
+  _i1.ActionClient<_i3.AffectedRowsOutput> deleteMany(
+      {_i3.MatchHistoryWhereInput? where}) {
+    final args = {'where': where};
+    final query = _i1.serializeJsonQuery(
+      args: args,
+      modelName: 'matchHistory',
+      action: _i1.JsonQueryAction.deleteMany,
+      datamodel: PrismaClient.datamodel,
+    );
+    final result = _client.$engine.request(
+      query,
+      headers: _client.$transaction.headers,
+      transaction: _client.$transaction.transaction,
+    );
+    return _i1.ActionClient<_i3.AffectedRowsOutput>(
+      action: 'deleteManymatchHistory',
+      result: result,
+      factory: (e) => _i3.AffectedRowsOutput.fromJson(e),
+    );
+  }
+
+  _i1.ActionClient<Iterable<_i3.MatchHistoryGroupByOutputType>> groupBy({
+    _i3.MatchHistoryWhereInput? where,
+    _i1.PrismaUnion<Iterable<_i3.MatchHistoryOrderByWithAggregationInput>,
+            _i3.MatchHistoryOrderByWithAggregationInput>?
+        orderBy,
+    required _i1
+        .PrismaUnion<Iterable<_i3.MatchHistoryScalar>, _i3.MatchHistoryScalar>
+        by,
+    _i3.MatchHistoryScalarWhereWithAggregatesInput? having,
+    int? take,
+    int? skip,
+    _i3.MatchHistoryGroupByOutputTypeSelect? select,
+  }) {
+    final args = {
+      'where': where,
+      'orderBy': orderBy,
+      'by': _i1.JsonQuery.groupBySerializer(by),
+      'having': having,
+      'take': take,
+      'skip': skip,
+      'select': select ?? _i1.JsonQuery.groupBySelectSerializer(by),
+    };
+    final query = _i1.serializeJsonQuery(
+      args: args,
+      modelName: 'matchHistory',
+      action: _i1.JsonQueryAction.groupBy,
+      datamodel: PrismaClient.datamodel,
+    );
+    final result = _client.$engine.request(
+      query,
+      headers: _client.$transaction.headers,
+      transaction: _client.$transaction.transaction,
+    );
+    return _i1.ActionClient<Iterable<_i3.MatchHistoryGroupByOutputType>>(
+      action: 'groupBymatchHistory',
+      result: result,
+      factory: (values) => (values as Iterable)
+          .map((e) => _i3.MatchHistoryGroupByOutputType.fromJson(e)),
+    );
+  }
+
+  _i1.ActionClient<_i3.AggregateMatchHistory> aggregate({
+    _i3.MatchHistoryWhereInput? where,
+    _i1.PrismaUnion<Iterable<_i3.MatchHistoryOrderByWithRelationInput>,
+            _i3.MatchHistoryOrderByWithRelationInput>?
+        orderBy,
+    _i3.MatchHistoryWhereUniqueInput? cursor,
+    int? take,
+    int? skip,
+    _i3.AggregateMatchHistorySelect? select,
+  }) {
+    final args = {
+      'where': where,
+      'orderBy': orderBy,
+      'cursor': cursor,
+      'take': take,
+      'skip': skip,
+      'select': select,
+    };
+    final query = _i1.serializeJsonQuery(
+      args: args,
+      modelName: 'matchHistory',
+      action: _i1.JsonQueryAction.aggregate,
+      datamodel: PrismaClient.datamodel,
+    );
+    final result = _client.$engine.request(
+      query,
+      headers: _client.$transaction.headers,
+      transaction: _client.$transaction.transaction,
+    );
+    return _i1.ActionClient<_i3.AggregateMatchHistory>(
+      action: 'aggregatematchHistory',
+      result: result,
+      factory: (e) => _i3.AggregateMatchHistory.fromJson(e),
+    );
+  }
+}
+
 class PrismaClient extends _i1.BasePrismaClient<PrismaClient> {
   PrismaClient({
     super.datasourceUrl,
@@ -4102,6 +4603,12 @@ class PrismaClient extends _i1.BasePrismaClient<PrismaClient> {
             'name': 'DELETE_PLAYED',
             'dbName': null,
           },
+        ],
+        'dbName': null,
+      },
+      {
+        'name': 'MatchEvent',
+        'values': [
           {
             'name': 'CREATE_CAN_PLAY',
             'dbName': null,
@@ -4653,6 +5160,22 @@ class PrismaClient extends _i1.BasePrismaClient<PrismaClient> {
             'isGenerated': false,
             'isUpdatedAt': false,
           },
+          {
+            'name': 'matchHistory',
+            'kind': 'object',
+            'isList': true,
+            'isRequired': true,
+            'isUnique': false,
+            'isId': false,
+            'isReadOnly': false,
+            'hasDefaultValue': false,
+            'type': 'matchHistory',
+            'relationName': 'matchHistory',
+            'relationFromFields': [],
+            'relationToFields': [],
+            'isGenerated': false,
+            'isUpdatedAt': false,
+          },
         ],
         'primaryKey': null,
         'uniqueFields': [],
@@ -5111,6 +5634,101 @@ class PrismaClient extends _i1.BasePrismaClient<PrismaClient> {
         'uniqueIndexes': [],
         'isGenerated': false,
       },
+      {
+        'name': 'matchHistory',
+        'dbName': null,
+        'fields': [
+          {
+            'name': 'id',
+            'kind': 'scalar',
+            'isList': false,
+            'isRequired': true,
+            'isUnique': false,
+            'isId': true,
+            'isReadOnly': false,
+            'hasDefaultValue': true,
+            'type': 'Int',
+            'default': {
+              'name': 'autoincrement',
+              'args': [],
+            },
+            'isGenerated': false,
+            'isUpdatedAt': false,
+          },
+          {
+            'name': 'match',
+            'kind': 'object',
+            'isList': false,
+            'isRequired': true,
+            'isUnique': false,
+            'isId': false,
+            'isReadOnly': false,
+            'hasDefaultValue': false,
+            'type': 'match',
+            'relationName': 'matchHistory',
+            'relationFromFields': ['matchId'],
+            'relationToFields': ['id'],
+            'isGenerated': false,
+            'isUpdatedAt': false,
+          },
+          {
+            'name': 'matchId',
+            'kind': 'scalar',
+            'isList': false,
+            'isRequired': true,
+            'isUnique': false,
+            'isId': false,
+            'isReadOnly': true,
+            'hasDefaultValue': false,
+            'type': 'Int',
+            'isGenerated': false,
+            'isUpdatedAt': false,
+          },
+          {
+            'name': 'eventType',
+            'kind': 'enum',
+            'isList': false,
+            'isRequired': true,
+            'isUnique': false,
+            'isId': false,
+            'isReadOnly': false,
+            'hasDefaultValue': false,
+            'type': 'MatchEvent',
+            'isGenerated': false,
+            'isUpdatedAt': false,
+          },
+          {
+            'name': 'time',
+            'kind': 'scalar',
+            'isList': false,
+            'isRequired': true,
+            'isUnique': false,
+            'isId': false,
+            'isReadOnly': false,
+            'hasDefaultValue': false,
+            'type': 'DateTime',
+            'isGenerated': false,
+            'isUpdatedAt': false,
+          },
+          {
+            'name': 'additionnal_informations',
+            'kind': 'scalar',
+            'isList': false,
+            'isRequired': true,
+            'isUnique': false,
+            'isId': false,
+            'isReadOnly': false,
+            'hasDefaultValue': false,
+            'type': 'String',
+            'isGenerated': false,
+            'isUpdatedAt': false,
+          },
+        ],
+        'primaryKey': null,
+        'uniqueFields': [],
+        'uniqueIndexes': [],
+        'isGenerated': false,
+      },
     ],
     'types': [],
     'indexes': [
@@ -5186,6 +5804,14 @@ class PrismaClient extends _i1.BasePrismaClient<PrismaClient> {
           {'name': 'id'}
         ],
       },
+      {
+        'model': 'matchHistory',
+        'type': 'id',
+        'isDefinedOnField': true,
+        'fields': [
+          {'name': 'id'}
+        ],
+      },
     ],
   });
 
@@ -5216,7 +5842,7 @@ class PrismaClient extends _i1.BasePrismaClient<PrismaClient> {
   @override
   get $engine => _engine ??= _i5.BinaryEngine(
         schema:
-            'generator client {\n  provider = "dart run orm"\n}\n\ndatasource db {\n  provider = "postgresql"\n  url      = env("DATABASE_URL")\n}\n\nmodel user {\n  id         Int       @id @default(autoincrement())\n  email      String    @unique\n  first_name String\n  last_name  String\n  password   String\n  salt       String\n  history    history[]\n}\n\nmodel team {\n  id      Int     @id @default(autoincrement())\n  name    String\n  fffId   Int\n  matches match[] @relation("matchteam")\n}\n\nenum Position {\n  Goalkeeper\n  CenterBack\n  LeftBack\n  RightBack\n  DefensiveMidfielder\n  CentralMidfielder\n  AttackingMidfielder\n  LeftWinger\n  RightWinger\n  Striker\n  Substitute\n}\n\nmodel player {\n  id         Int        @id @default(autoincrement())\n  first_name String\n  last_name  String\n  played     played[]\n  can_play   can_play[] @relation("can_play")\n}\n\nmodel match {\n  id            Int       @id @default(autoincrement())\n  team          team?     @relation("matchteam", fields: [teamId], references: [id])\n  teamId        Int?\n  opponent      Opponent  @relation("matchOpponent", fields: [opponentId], references: [id])\n  opponentId    Int\n  teamScore     Int\n  opponentScore Int\n  address       String\n  date          DateTime\n  isHome        Boolean\n  coach         String\n  played        played[]\n  state         GameState\n  startedTime   DateTime\n  isCup         Boolean\n}\n\nenum GameState {\n  notStarted\n  firstHalf\n  halfTime\n  secondHalf\n  end\n}\n\nmodel played {\n  id           Int      @id @default(autoincrement())\n  match        match    @relation(fields: [matchId], references: [id])\n  matchId      Int\n  player       player   @relation(fields: [playerId], references: [id])\n  playerId     Int\n  jerseyNumber Int\n  entryTime    DateTime\n  leaveTime    DateTime\n  goals        Int\n  blocked      Int\n  onTarget     Int\n  offTarget    Int\n  assists      Int\n  yellow       Boolean\n  red          Boolean\n}\n\nmodel can_play {\n  id       Int      @id @default(autoincrement())\n  player   player   @relation("can_play", fields: [playerId], references: [id])\n  playerId Int\n  position Position\n}\n\nenum action_type {\n  CREATE_USER\n  UPDATE_USER\n  DELETE_USER\n  CREATE_TEAM\n  UPDATE_TEAM\n  DELETE_TEAM\n  CREATE_PLAYER\n  UPDATE_PLAYER\n  DELETE_PLAYER\n  CREATE_MATCH\n  UPDATE_MATCH\n  DELETE_MATCH\n  CREATE_PLAYED\n  UPDATE_PLAYED\n  DELETE_PLAYED\n  CREATE_CAN_PLAY\n  UPDATE_CAN_PLAY\n  DELETE_CAN_PLAY\n  ADD_GOAL\n  REMOVE_GOAL\n  ADD_ASSIST\n  REMOVE_ASSIST\n  ADD_YELLOW_CARD\n  REMOVE_YELLOW_CARD\n  ADD_RED_CARD\n  REMOVE_RED_CARD\n  ADD_BLOCKED_SHOT\n  REMOVE_BLOCKED_SHOT\n  ADD_ON_TARGET_SHOT\n  REMOVE_ON_TARGET_SHOT\n  ADD_OFF_TARGET_SHOT\n  REMOVE_OFF_TARGET_SHOT\n  SWITCH_PLAYER\n}\n\nmodel history {\n  id                       Int         @id @default(autoincrement())\n  author                   user        @relation(fields: [authorId], references: [id])\n  authorId                 Int\n  created_at               DateTime    @default(now())\n  action_type              action_type\n  additionnal_informations String\n}\n\nmodel Opponent {\n  id      Int     @id @default(autoincrement())\n  name    String\n  fffId   Int\n  matches match[] @relation("matchOpponent")\n}\n',
+            'generator client {\n  provider = "dart run orm"\n}\n\ndatasource db {\n  provider = "postgresql"\n  url      = env("DATABASE_URL")\n}\n\nmodel user {\n  id         Int       @id @default(autoincrement())\n  email      String    @unique\n  first_name String\n  last_name  String\n  password   String\n  salt       String\n  history    history[]\n}\n\nmodel team {\n  id      Int     @id @default(autoincrement())\n  name    String\n  fffId   Int\n  matches match[] @relation("matchteam")\n}\n\nenum Position {\n  Goalkeeper\n  CenterBack\n  LeftBack\n  RightBack\n  DefensiveMidfielder\n  CentralMidfielder\n  AttackingMidfielder\n  LeftWinger\n  RightWinger\n  Striker\n  Substitute\n}\n\nmodel player {\n  id         Int        @id @default(autoincrement())\n  first_name String\n  last_name  String\n  played     played[]\n  can_play   can_play[] @relation("can_play")\n}\n\nmodel match {\n  id            Int            @id @default(autoincrement())\n  team          team?          @relation("matchteam", fields: [teamId], references: [id])\n  teamId        Int?\n  opponent      Opponent       @relation("matchOpponent", fields: [opponentId], references: [id])\n  opponentId    Int\n  teamScore     Int\n  opponentScore Int\n  address       String\n  date          DateTime\n  isHome        Boolean\n  coach         String\n  played        played[]\n  state         GameState\n  startedTime   DateTime\n  isCup         Boolean\n  matchHistory  matchHistory[] @relation("matchHistory")\n}\n\nenum GameState {\n  notStarted\n  firstHalf\n  halfTime\n  secondHalf\n  end\n}\n\nmodel played {\n  id           Int      @id @default(autoincrement())\n  match        match    @relation(fields: [matchId], references: [id])\n  matchId      Int\n  player       player   @relation(fields: [playerId], references: [id])\n  playerId     Int\n  jerseyNumber Int\n  entryTime    DateTime\n  leaveTime    DateTime\n  goals        Int\n  blocked      Int\n  onTarget     Int\n  offTarget    Int\n  assists      Int\n  yellow       Boolean\n  red          Boolean\n}\n\nmodel can_play {\n  id       Int      @id @default(autoincrement())\n  player   player   @relation("can_play", fields: [playerId], references: [id])\n  playerId Int\n  position Position\n}\n\nenum action_type {\n  CREATE_USER\n  UPDATE_USER\n  DELETE_USER\n  CREATE_TEAM\n  UPDATE_TEAM\n  DELETE_TEAM\n  CREATE_PLAYER\n  UPDATE_PLAYER\n  DELETE_PLAYER\n  CREATE_MATCH\n  UPDATE_MATCH\n  DELETE_MATCH\n  CREATE_PLAYED\n  UPDATE_PLAYED\n  DELETE_PLAYED\n}\n\nmodel history {\n  id                       Int         @id @default(autoincrement())\n  author                   user        @relation(fields: [authorId], references: [id])\n  authorId                 Int\n  created_at               DateTime    @default(now())\n  action_type              action_type\n  additionnal_informations String\n}\n\nmodel Opponent {\n  id      Int     @id @default(autoincrement())\n  name    String\n  fffId   Int\n  matches match[] @relation("matchOpponent")\n}\n\nmodel matchHistory {\n  id                       Int        @id @default(autoincrement())\n  match                    match      @relation("matchHistory", fields: [matchId], references: [id])\n  matchId                  Int\n  eventType                MatchEvent\n  time                     DateTime\n  additionnal_informations String\n}\n\nenum MatchEvent {\n  CREATE_CAN_PLAY\n  UPDATE_CAN_PLAY\n  DELETE_CAN_PLAY\n  ADD_GOAL\n  REMOVE_GOAL\n  ADD_ASSIST\n  REMOVE_ASSIST\n  ADD_YELLOW_CARD\n  REMOVE_YELLOW_CARD\n  ADD_RED_CARD\n  REMOVE_RED_CARD\n  ADD_BLOCKED_SHOT\n  REMOVE_BLOCKED_SHOT\n  ADD_ON_TARGET_SHOT\n  REMOVE_ON_TARGET_SHOT\n  ADD_OFF_TARGET_SHOT\n  REMOVE_OFF_TARGET_SHOT\n  SWITCH_PLAYER\n}\n',
         datasources: const {
           'db': _i1.Datasource(
             _i1.DatasourceType.environment,
@@ -5244,4 +5870,6 @@ class PrismaClient extends _i1.BasePrismaClient<PrismaClient> {
   HistoryDelegate get history => HistoryDelegate._(this);
 
   OpponentDelegate get opponent => OpponentDelegate._(this);
+
+  MatchHistoryDelegate get matchHistory => MatchHistoryDelegate._(this);
 }

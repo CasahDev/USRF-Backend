@@ -19,25 +19,7 @@ enum ActionType implements _i1.PrismaEnum {
   deleteMatch._('DELETE_MATCH'),
   createPlayed._('CREATE_PLAYED'),
   updatePlayed._('UPDATE_PLAYED'),
-  deletePlayed._('DELETE_PLAYED'),
-  createCanPlay._('CREATE_CAN_PLAY'),
-  updateCanPlay._('UPDATE_CAN_PLAY'),
-  deleteCanPlay._('DELETE_CAN_PLAY'),
-  addGoal._('ADD_GOAL'),
-  removeGoal._('REMOVE_GOAL'),
-  addAssist._('ADD_ASSIST'),
-  removeAssist._('REMOVE_ASSIST'),
-  addYellowCard._('ADD_YELLOW_CARD'),
-  removeYellowCard._('REMOVE_YELLOW_CARD'),
-  addRedCard._('ADD_RED_CARD'),
-  removeRedCard._('REMOVE_RED_CARD'),
-  addBlockedShot._('ADD_BLOCKED_SHOT'),
-  removeBlockedShot._('REMOVE_BLOCKED_SHOT'),
-  addOnTargetShot._('ADD_ON_TARGET_SHOT'),
-  removeOnTargetShot._('REMOVE_ON_TARGET_SHOT'),
-  addOffTargetShot._('ADD_OFF_TARGET_SHOT'),
-  removeOffTargetShot._('REMOVE_OFF_TARGET_SHOT'),
-  switchPlayer._('SWITCH_PLAYER');
+  deletePlayed._('DELETE_PLAYED');
 
   const ActionType._(this.name);
 
@@ -435,6 +417,80 @@ class Played {
       };
 }
 
+enum MatchEvent implements _i1.PrismaEnum {
+  createCanPlay._('CREATE_CAN_PLAY'),
+  updateCanPlay._('UPDATE_CAN_PLAY'),
+  deleteCanPlay._('DELETE_CAN_PLAY'),
+  addGoal._('ADD_GOAL'),
+  removeGoal._('REMOVE_GOAL'),
+  addAssist._('ADD_ASSIST'),
+  removeAssist._('REMOVE_ASSIST'),
+  addYellowCard._('ADD_YELLOW_CARD'),
+  removeYellowCard._('REMOVE_YELLOW_CARD'),
+  addRedCard._('ADD_RED_CARD'),
+  removeRedCard._('REMOVE_RED_CARD'),
+  addBlockedShot._('ADD_BLOCKED_SHOT'),
+  removeBlockedShot._('REMOVE_BLOCKED_SHOT'),
+  addOnTargetShot._('ADD_ON_TARGET_SHOT'),
+  removeOnTargetShot._('REMOVE_ON_TARGET_SHOT'),
+  addOffTargetShot._('ADD_OFF_TARGET_SHOT'),
+  removeOffTargetShot._('REMOVE_OFF_TARGET_SHOT'),
+  switchPlayer._('SWITCH_PLAYER');
+
+  const MatchEvent._(this.name);
+
+  @override
+  final String name;
+}
+
+class MatchHistory {
+  const MatchHistory({
+    this.id,
+    this.matchId,
+    this.eventType,
+    this.time,
+    this.additionnalInformations,
+    this.match,
+  });
+
+  factory MatchHistory.fromJson(Map json) => MatchHistory(
+        id: json['id'],
+        matchId: json['matchId'],
+        eventType: json['eventType'] != null
+            ? _i2.MatchEvent.values
+                .firstWhere((e) => e.name == json['eventType'])
+            : null,
+        time: switch (json['time']) {
+          DateTime value => value,
+          String value => DateTime.parse(value),
+          _ => json['time']
+        },
+        additionnalInformations: json['additionnal_informations'],
+        match: json['match'] is Map ? _i2.Match.fromJson(json['match']) : null,
+      );
+
+  final int? id;
+
+  final int? matchId;
+
+  final _i2.MatchEvent? eventType;
+
+  final DateTime? time;
+
+  final String? additionnalInformations;
+
+  final _i2.Match? match;
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'matchId': matchId,
+        'eventType': eventType?.name,
+        'time': time?.toIso8601String(),
+        'additionnal_informations': additionnalInformations,
+        'match': match?.toJson(),
+      };
+}
+
 class Match {
   const Match({
     this.id,
@@ -452,6 +508,7 @@ class Match {
     this.team,
     this.opponent,
     this.played,
+    this.matchHistory,
     this.$count,
   });
 
@@ -484,6 +541,8 @@ class Match {
             : null,
         played: (json['played'] as Iterable?)
             ?.map((json) => _i2.Played.fromJson(json)),
+        matchHistory: (json['matchHistory'] as Iterable?)
+            ?.map((json) => _i2.MatchHistory.fromJson(json)),
         $count: json['_count'] is Map
             ? _i3.MatchCountOutputType.fromJson(json['_count'])
             : null,
@@ -519,6 +578,8 @@ class Match {
 
   final Iterable<_i2.Played>? played;
 
+  final Iterable<_i2.MatchHistory>? matchHistory;
+
   final _i3.MatchCountOutputType? $count;
 
   Map<String, dynamic> toJson() => {
@@ -537,6 +598,7 @@ class Match {
         'team': team?.toJson(),
         'opponent': opponent?.toJson(),
         'played': played?.map((e) => e.toJson()),
+        'matchHistory': matchHistory?.map((e) => e.toJson()),
         '_count': $count?.toJson(),
       };
 }
@@ -933,5 +995,54 @@ class CreateManyOpponentAndReturnOutputType {
         'id': id,
         'name': name,
         'fffId': fffId,
+      };
+}
+
+class CreateManymatchHistoryAndReturnOutputType {
+  const CreateManymatchHistoryAndReturnOutputType({
+    this.id,
+    this.matchId,
+    this.eventType,
+    this.time,
+    this.additionnalInformations,
+    this.match,
+  });
+
+  factory CreateManymatchHistoryAndReturnOutputType.fromJson(Map json) =>
+      CreateManymatchHistoryAndReturnOutputType(
+        id: json['id'],
+        matchId: json['matchId'],
+        eventType: json['eventType'] != null
+            ? _i2.MatchEvent.values
+                .firstWhere((e) => e.name == json['eventType'])
+            : null,
+        time: switch (json['time']) {
+          DateTime value => value,
+          String value => DateTime.parse(value),
+          _ => json['time']
+        },
+        additionnalInformations: json['additionnal_informations'],
+        match: json['match'] is Map ? _i2.Match.fromJson(json['match']) : null,
+      );
+
+  final int? id;
+
+  final int? matchId;
+
+  final _i2.MatchEvent? eventType;
+
+  final DateTime? time;
+
+  final String? additionnalInformations;
+
+  final _i2.Match? match;
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'matchId': matchId,
+        'eventType': eventType?.name,
+        'time': time?.toIso8601String(),
+        'additionnal_informations': additionnalInformations,
+        'match': match?.toJson(),
       };
 }

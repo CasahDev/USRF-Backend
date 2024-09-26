@@ -47,10 +47,10 @@ model player {
 }
 
 model match {
-  id            Int       @id @default(autoincrement())
-  team          team?     @relation("matchteam", fields: [teamId], references: [id])
+  id            Int            @id @default(autoincrement())
+  team          team?          @relation("matchteam", fields: [teamId], references: [id])
   teamId        Int?
-  opponent      Opponent  @relation("matchOpponent", fields: [opponentId], references: [id])
+  opponent      Opponent       @relation("matchOpponent", fields: [opponentId], references: [id])
   opponentId    Int
   teamScore     Int
   opponentScore Int
@@ -62,6 +62,7 @@ model match {
   state         GameState
   startedTime   DateTime
   isCup         Boolean
+  matchHistory  matchHistory[] @relation("matchHistory")
 }
 
 enum GameState {
@@ -113,6 +114,34 @@ enum action_type {
   CREATE_PLAYED
   UPDATE_PLAYED
   DELETE_PLAYED
+}
+
+model history {
+  id                       Int         @id @default(autoincrement())
+  author                   user        @relation(fields: [authorId], references: [id])
+  authorId                 Int
+  created_at               DateTime    @default(now())
+  action_type              action_type
+  additionnal_informations String
+}
+
+model Opponent {
+  id      Int     @id @default(autoincrement())
+  name    String
+  fffId   Int
+  matches match[] @relation("matchOpponent")
+}
+
+model matchHistory {
+  id                       Int        @id @default(autoincrement())
+  match                    match      @relation("matchHistory", fields: [matchId], references: [id])
+  matchId                  Int
+  eventType                MatchEvent
+  time                     DateTime
+  additionnal_informations String
+}
+
+enum MatchEvent {
   CREATE_CAN_PLAY
   UPDATE_CAN_PLAY
   DELETE_CAN_PLAY
@@ -131,20 +160,4 @@ enum action_type {
   ADD_OFF_TARGET_SHOT
   REMOVE_OFF_TARGET_SHOT
   SWITCH_PLAYER
-}
-
-model history {
-  id                       Int         @id @default(autoincrement())
-  author                   user        @relation(fields: [authorId], references: [id])
-  authorId                 Int
-  created_at               DateTime    @default(now())
-  action_type              action_type
-  additionnal_informations String
-}
-
-model Opponent {
-  id      Int     @id @default(autoincrement())
-  name    String
-  fffId   Int
-  matches match[] @relation("matchOpponent")
 }

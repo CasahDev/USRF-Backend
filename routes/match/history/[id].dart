@@ -1,10 +1,10 @@
 import 'package:dart_frog/dart_frog.dart';
 
-import '../../../Data/Implementation/HistoryDAO.dart';
-import '../../../Service/Implemantation/ServiceHistory.dart';
-import '../../../Service/Interface/IServiceHistory.dart';
+import '../../../Data/Implementation/MatchHistoryDAO.dart';
+import '../../../Service/Implemantation/ServiceMatchHistory.dart';
+import '../../../Service/Interface/IServiceMatchHistory.dart';
 
-IServiceHistory service = ServiceHistory(HistoryDAO());
+IServiceMatchHistory service = ServiceMatchHistory(MatchHistoryDAO());
 
 Future<Response> onRequest(
   RequestContext context,

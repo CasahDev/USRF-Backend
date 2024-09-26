@@ -2928,14 +2928,24 @@ class PlayerCountOutputType {
 }
 
 class MatchCountOutputType {
-  const MatchCountOutputType({this.played});
+  const MatchCountOutputType({
+    this.played,
+    this.matchHistory,
+  });
 
-  factory MatchCountOutputType.fromJson(Map json) =>
-      MatchCountOutputType(played: json['played']);
+  factory MatchCountOutputType.fromJson(Map json) => MatchCountOutputType(
+        played: json['played'],
+        matchHistory: json['matchHistory'],
+      );
 
   final int? played;
 
-  Map<String, dynamic> toJson() => {'played': played};
+  final int? matchHistory;
+
+  Map<String, dynamic> toJson() => {
+        'played': played,
+        'matchHistory': matchHistory,
+      };
 }
 
 class TeamCountOutputType {
@@ -3507,6 +3517,132 @@ class PlayedListRelationFilter
       };
 }
 
+class NestedEnumMatchEventFilter
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const NestedEnumMatchEventFilter({
+    this.equals,
+    this.$in,
+    this.notIn,
+    this.not,
+  });
+
+  final _i1.PrismaUnion<_i3.MatchEvent, _i1.Reference<_i3.MatchEvent>>? equals;
+
+  final _i1.PrismaUnion<Iterable<_i3.MatchEvent>,
+      _i1.Reference<Iterable<_i3.MatchEvent>>>? $in;
+
+  final _i1.PrismaUnion<Iterable<_i3.MatchEvent>,
+      _i1.Reference<Iterable<_i3.MatchEvent>>>? notIn;
+
+  final _i1.PrismaUnion<_i3.MatchEvent, _i2.NestedEnumMatchEventFilter>? not;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'equals': equals,
+        'in': $in,
+        'notIn': notIn,
+        'not': not,
+      };
+}
+
+class EnumMatchEventFilter
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const EnumMatchEventFilter({
+    this.equals,
+    this.$in,
+    this.notIn,
+    this.not,
+  });
+
+  final _i1.PrismaUnion<_i3.MatchEvent, _i1.Reference<_i3.MatchEvent>>? equals;
+
+  final _i1.PrismaUnion<Iterable<_i3.MatchEvent>,
+      _i1.Reference<Iterable<_i3.MatchEvent>>>? $in;
+
+  final _i1.PrismaUnion<Iterable<_i3.MatchEvent>,
+      _i1.Reference<Iterable<_i3.MatchEvent>>>? notIn;
+
+  final _i1.PrismaUnion<_i3.MatchEvent, _i2.NestedEnumMatchEventFilter>? not;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'equals': equals,
+        'in': $in,
+        'notIn': notIn,
+        'not': not,
+      };
+}
+
+class MatchHistoryWhereInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryWhereInput({
+    this.AND,
+    this.OR,
+    this.NOT,
+    this.id,
+    this.matchId,
+    this.eventType,
+    this.time,
+    this.additionnalInformations,
+    this.match,
+  });
+
+  final _i1.PrismaUnion<_i2.MatchHistoryWhereInput,
+      Iterable<_i2.MatchHistoryWhereInput>>? AND;
+
+  final Iterable<_i2.MatchHistoryWhereInput>? OR;
+
+  final _i1.PrismaUnion<_i2.MatchHistoryWhereInput,
+      Iterable<_i2.MatchHistoryWhereInput>>? NOT;
+
+  final _i1.PrismaUnion<_i2.IntFilter, int>? id;
+
+  final _i1.PrismaUnion<_i2.IntFilter, int>? matchId;
+
+  final _i1.PrismaUnion<_i2.EnumMatchEventFilter, _i3.MatchEvent>? eventType;
+
+  final _i1.PrismaUnion<_i2.DateTimeFilter, DateTime>? time;
+
+  final _i1.PrismaUnion<_i2.StringFilter, String>? additionnalInformations;
+
+  final _i1.PrismaUnion<_i2.MatchRelationFilter, _i2.MatchWhereInput>? match;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'AND': AND,
+        'OR': OR,
+        'NOT': NOT,
+        'id': id,
+        'matchId': matchId,
+        'eventType': eventType,
+        'time': time,
+        'additionnal_informations': additionnalInformations,
+        'match': match,
+      };
+}
+
+class MatchHistoryListRelationFilter
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryListRelationFilter({
+    this.every,
+    this.some,
+    this.none,
+  });
+
+  final _i2.MatchHistoryWhereInput? every;
+
+  final _i2.MatchHistoryWhereInput? some;
+
+  final _i2.MatchHistoryWhereInput? none;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'every': every,
+        'some': some,
+        'none': none,
+      };
+}
+
 class MatchWhereInput implements _i1.JsonConvertible<Map<String, dynamic>> {
   const MatchWhereInput({
     this.AND,
@@ -3527,6 +3663,7 @@ class MatchWhereInput implements _i1.JsonConvertible<Map<String, dynamic>> {
     this.team,
     this.opponent,
     this.played,
+    this.matchHistory,
   });
 
   final _i1.PrismaUnion<_i2.MatchWhereInput, Iterable<_i2.MatchWhereInput>>?
@@ -3571,6 +3708,8 @@ class MatchWhereInput implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i2.PlayedListRelationFilter? played;
 
+  final _i2.MatchHistoryListRelationFilter? matchHistory;
+
   @override
   Map<String, dynamic> toJson() => {
         'AND': AND,
@@ -3591,6 +3730,7 @@ class MatchWhereInput implements _i1.JsonConvertible<Map<String, dynamic>> {
         'team': team,
         'opponent': opponent,
         'played': played,
+        'matchHistory': matchHistory,
       };
 }
 
@@ -3811,6 +3951,16 @@ class PlayedOrderByRelationAggregateInput
   Map<String, dynamic> toJson() => {'_count': $count};
 }
 
+class MatchHistoryOrderByRelationAggregateInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryOrderByRelationAggregateInput({this.$count});
+
+  final _i2.SortOrder? $count;
+
+  @override
+  Map<String, dynamic> toJson() => {'_count': $count};
+}
+
 class MatchOrderByWithRelationInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const MatchOrderByWithRelationInput({
@@ -3829,6 +3979,7 @@ class MatchOrderByWithRelationInput
     this.team,
     this.opponent,
     this.played,
+    this.matchHistory,
   });
 
   final _i2.SortOrder? id;
@@ -3861,6 +4012,8 @@ class MatchOrderByWithRelationInput
 
   final _i2.PlayedOrderByRelationAggregateInput? played;
 
+  final _i2.MatchHistoryOrderByRelationAggregateInput? matchHistory;
+
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -3878,6 +4031,7 @@ class MatchOrderByWithRelationInput
         'team': team,
         'opponent': opponent,
         'played': played,
+        'matchHistory': matchHistory,
       };
 }
 
@@ -3902,6 +4056,7 @@ class MatchWhereUniqueInput
     this.team,
     this.opponent,
     this.played,
+    this.matchHistory,
   });
 
   final int? id;
@@ -3946,6 +4101,8 @@ class MatchWhereUniqueInput
 
   final _i2.PlayedListRelationFilter? played;
 
+  final _i2.MatchHistoryListRelationFilter? matchHistory;
+
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -3966,6 +4123,7 @@ class MatchWhereUniqueInput
         'team': team,
         'opponent': opponent,
         'played': played,
+        'matchHistory': matchHistory,
       };
 }
 
@@ -4802,14 +4960,228 @@ class MatchPlayedArgs implements _i1.JsonConvertible<Map<String, dynamic>> {
       };
 }
 
+class MatchHistoryMatchArgs
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryMatchArgs({
+    this.select,
+    this.include,
+  });
+
+  final _i2.MatchSelect? select;
+
+  final _i2.MatchInclude? include;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'select': select,
+        'include': include,
+      };
+}
+
+class MatchHistorySelect implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistorySelect({
+    this.id,
+    this.matchId,
+    this.eventType,
+    this.time,
+    this.additionnalInformations,
+    this.match,
+  });
+
+  final bool? id;
+
+  final bool? matchId;
+
+  final bool? eventType;
+
+  final bool? time;
+
+  final bool? additionnalInformations;
+
+  final _i1.PrismaUnion<bool, _i2.MatchHistoryMatchArgs>? match;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'matchId': matchId,
+        'eventType': eventType,
+        'time': time,
+        'additionnal_informations': additionnalInformations,
+        'match': match,
+      };
+}
+
+class MatchHistoryInclude implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryInclude({this.match});
+
+  final _i1.PrismaUnion<bool, _i2.MatchHistoryMatchArgs>? match;
+
+  @override
+  Map<String, dynamic> toJson() => {'match': match};
+}
+
+class MatchHistoryOrderByWithRelationInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryOrderByWithRelationInput({
+    this.id,
+    this.matchId,
+    this.eventType,
+    this.time,
+    this.additionnalInformations,
+    this.match,
+  });
+
+  final _i2.SortOrder? id;
+
+  final _i2.SortOrder? matchId;
+
+  final _i2.SortOrder? eventType;
+
+  final _i2.SortOrder? time;
+
+  final _i2.SortOrder? additionnalInformations;
+
+  final _i2.MatchOrderByWithRelationInput? match;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'matchId': matchId,
+        'eventType': eventType,
+        'time': time,
+        'additionnal_informations': additionnalInformations,
+        'match': match,
+      };
+}
+
+class MatchHistoryWhereUniqueInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryWhereUniqueInput({
+    this.id,
+    this.AND,
+    this.OR,
+    this.NOT,
+    this.matchId,
+    this.eventType,
+    this.time,
+    this.additionnalInformations,
+    this.match,
+  });
+
+  final int? id;
+
+  final _i1.PrismaUnion<_i2.MatchHistoryWhereInput,
+      Iterable<_i2.MatchHistoryWhereInput>>? AND;
+
+  final Iterable<_i2.MatchHistoryWhereInput>? OR;
+
+  final _i1.PrismaUnion<_i2.MatchHistoryWhereInput,
+      Iterable<_i2.MatchHistoryWhereInput>>? NOT;
+
+  final _i1.PrismaUnion<_i2.IntFilter, int>? matchId;
+
+  final _i1.PrismaUnion<_i2.EnumMatchEventFilter, _i3.MatchEvent>? eventType;
+
+  final _i1.PrismaUnion<_i2.DateTimeFilter, DateTime>? time;
+
+  final _i1.PrismaUnion<_i2.StringFilter, String>? additionnalInformations;
+
+  final _i1.PrismaUnion<_i2.MatchRelationFilter, _i2.MatchWhereInput>? match;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'AND': AND,
+        'OR': OR,
+        'NOT': NOT,
+        'matchId': matchId,
+        'eventType': eventType,
+        'time': time,
+        'additionnal_informations': additionnalInformations,
+        'match': match,
+      };
+}
+
+enum MatchHistoryScalar<T> implements _i1.PrismaEnum, _i1.Reference<T> {
+  id<int>('id', 'matchHistory'),
+  matchId<int>('matchId', 'matchHistory'),
+  eventType<_i3.MatchEvent>('eventType', 'matchHistory'),
+  time<DateTime>('time', 'matchHistory'),
+  additionnalInformations<String>('additionnal_informations', 'matchHistory');
+
+  const MatchHistoryScalar(
+    this.name,
+    this.model,
+  );
+
+  @override
+  final String name;
+
+  @override
+  final String model;
+}
+
+class MatchMatchHistoryArgs
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchMatchHistoryArgs({
+    this.where,
+    this.orderBy,
+    this.cursor,
+    this.take,
+    this.skip,
+    this.distinct,
+    this.select,
+    this.include,
+  });
+
+  final _i2.MatchHistoryWhereInput? where;
+
+  final _i1.PrismaUnion<Iterable<_i2.MatchHistoryOrderByWithRelationInput>,
+      _i2.MatchHistoryOrderByWithRelationInput>? orderBy;
+
+  final _i2.MatchHistoryWhereUniqueInput? cursor;
+
+  final int? take;
+
+  final int? skip;
+
+  final _i1
+      .PrismaUnion<_i2.MatchHistoryScalar, Iterable<_i2.MatchHistoryScalar>>?
+      distinct;
+
+  final _i2.MatchHistorySelect? select;
+
+  final _i2.MatchHistoryInclude? include;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'where': where,
+        'orderBy': orderBy,
+        'cursor': cursor,
+        'take': take,
+        'skip': skip,
+        'distinct': distinct,
+        'select': select,
+        'include': include,
+      };
+}
+
 class MatchCountOutputTypeSelect
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const MatchCountOutputTypeSelect({this.played});
+  const MatchCountOutputTypeSelect({
+    this.played,
+    this.matchHistory,
+  });
 
   final bool? played;
 
+  final bool? matchHistory;
+
   @override
-  Map<String, dynamic> toJson() => {'played': played};
+  Map<String, dynamic> toJson() => {
+        'played': played,
+        'matchHistory': matchHistory,
+      };
 }
 
 class MatchCountArgs implements _i1.JsonConvertible<Map<String, dynamic>> {
@@ -4826,6 +5198,7 @@ class MatchInclude implements _i1.JsonConvertible<Map<String, dynamic>> {
     this.team,
     this.opponent,
     this.played,
+    this.matchHistory,
     this.$count,
   });
 
@@ -4835,6 +5208,8 @@ class MatchInclude implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i1.PrismaUnion<bool, _i2.MatchPlayedArgs>? played;
 
+  final _i1.PrismaUnion<bool, _i2.MatchMatchHistoryArgs>? matchHistory;
+
   final _i1.PrismaUnion<bool, _i2.MatchCountArgs>? $count;
 
   @override
@@ -4842,6 +5217,7 @@ class MatchInclude implements _i1.JsonConvertible<Map<String, dynamic>> {
         'team': team,
         'opponent': opponent,
         'played': played,
+        'matchHistory': matchHistory,
         '_count': $count,
       };
 }
@@ -4941,6 +5317,7 @@ class MatchSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
     this.team,
     this.opponent,
     this.played,
+    this.matchHistory,
     this.$count,
   });
 
@@ -4974,6 +5351,8 @@ class MatchSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i1.PrismaUnion<bool, _i2.MatchPlayedArgs>? played;
 
+  final _i1.PrismaUnion<bool, _i2.MatchMatchHistoryArgs>? matchHistory;
+
   final _i1.PrismaUnion<bool, _i2.MatchCountArgs>? $count;
 
   @override
@@ -4993,6 +5372,7 @@ class MatchSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
         'team': team,
         'opponent': opponent,
         'played': played,
+        'matchHistory': matchHistory,
         '_count': $count,
       };
 }
@@ -5692,6 +6072,153 @@ class PlayedCreateNestedManyWithoutMatchInput
       };
 }
 
+class MatchHistoryCreateWithoutMatchInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryCreateWithoutMatchInput({
+    required this.eventType,
+    required this.time,
+    required this.additionnalInformations,
+  });
+
+  final _i3.MatchEvent eventType;
+
+  final DateTime time;
+
+  final String additionnalInformations;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'eventType': eventType,
+        'time': time,
+        'additionnal_informations': additionnalInformations,
+      };
+}
+
+class MatchHistoryUncheckedCreateWithoutMatchInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryUncheckedCreateWithoutMatchInput({
+    this.id,
+    required this.eventType,
+    required this.time,
+    required this.additionnalInformations,
+  });
+
+  final int? id;
+
+  final _i3.MatchEvent eventType;
+
+  final DateTime time;
+
+  final String additionnalInformations;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'eventType': eventType,
+        'time': time,
+        'additionnal_informations': additionnalInformations,
+      };
+}
+
+class MatchHistoryCreateOrConnectWithoutMatchInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryCreateOrConnectWithoutMatchInput({
+    required this.where,
+    required this.create,
+  });
+
+  final _i2.MatchHistoryWhereUniqueInput where;
+
+  final _i1.PrismaUnion<_i2.MatchHistoryCreateWithoutMatchInput,
+      _i2.MatchHistoryUncheckedCreateWithoutMatchInput> create;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'where': where,
+        'create': create,
+      };
+}
+
+class MatchHistoryCreateManyMatchInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryCreateManyMatchInput({
+    this.id,
+    required this.eventType,
+    required this.time,
+    required this.additionnalInformations,
+  });
+
+  final int? id;
+
+  final _i3.MatchEvent eventType;
+
+  final DateTime time;
+
+  final String additionnalInformations;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'eventType': eventType,
+        'time': time,
+        'additionnal_informations': additionnalInformations,
+      };
+}
+
+class MatchHistoryCreateManyMatchInputEnvelope
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryCreateManyMatchInputEnvelope({
+    required this.data,
+    this.skipDuplicates,
+  });
+
+  final _i1.PrismaUnion<_i2.MatchHistoryCreateManyMatchInput,
+      Iterable<_i2.MatchHistoryCreateManyMatchInput>> data;
+
+  final bool? skipDuplicates;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'data': data,
+        'skipDuplicates': skipDuplicates,
+      };
+}
+
+class MatchHistoryCreateNestedManyWithoutMatchInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryCreateNestedManyWithoutMatchInput({
+    this.create,
+    this.connectOrCreate,
+    this.createMany,
+    this.connect,
+  });
+
+  final _i1.PrismaUnion<
+          _i2.MatchHistoryCreateWithoutMatchInput,
+          _i1.PrismaUnion<
+              Iterable<_i2.MatchHistoryCreateWithoutMatchInput>,
+              _i1.PrismaUnion<_i2.MatchHistoryUncheckedCreateWithoutMatchInput,
+                  Iterable<_i2.MatchHistoryUncheckedCreateWithoutMatchInput>>>>?
+      create;
+
+  final _i1.PrismaUnion<_i2.MatchHistoryCreateOrConnectWithoutMatchInput,
+          Iterable<_i2.MatchHistoryCreateOrConnectWithoutMatchInput>>?
+      connectOrCreate;
+
+  final _i2.MatchHistoryCreateManyMatchInputEnvelope? createMany;
+
+  final _i1.PrismaUnion<_i2.MatchHistoryWhereUniqueInput,
+      Iterable<_i2.MatchHistoryWhereUniqueInput>>? connect;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'create': create,
+        'connectOrCreate': connectOrCreate,
+        'createMany': createMany,
+        'connect': connect,
+      };
+}
+
 class MatchCreateWithoutTeamInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const MatchCreateWithoutTeamInput({
@@ -5706,6 +6233,7 @@ class MatchCreateWithoutTeamInput
     required this.isCup,
     required this.opponent,
     this.played,
+    this.matchHistory,
   });
 
   final int teamScore;
@@ -5730,6 +6258,8 @@ class MatchCreateWithoutTeamInput
 
   final _i2.PlayedCreateNestedManyWithoutMatchInput? played;
 
+  final _i2.MatchHistoryCreateNestedManyWithoutMatchInput? matchHistory;
+
   @override
   Map<String, dynamic> toJson() => {
         'teamScore': teamScore,
@@ -5743,6 +6273,7 @@ class MatchCreateWithoutTeamInput
         'isCup': isCup,
         'opponent': opponent,
         'played': played,
+        'matchHistory': matchHistory,
       };
 }
 
@@ -5779,6 +6310,41 @@ class PlayedUncheckedCreateNestedManyWithoutMatchInput
       };
 }
 
+class MatchHistoryUncheckedCreateNestedManyWithoutMatchInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryUncheckedCreateNestedManyWithoutMatchInput({
+    this.create,
+    this.connectOrCreate,
+    this.createMany,
+    this.connect,
+  });
+
+  final _i1.PrismaUnion<
+          _i2.MatchHistoryCreateWithoutMatchInput,
+          _i1.PrismaUnion<
+              Iterable<_i2.MatchHistoryCreateWithoutMatchInput>,
+              _i1.PrismaUnion<_i2.MatchHistoryUncheckedCreateWithoutMatchInput,
+                  Iterable<_i2.MatchHistoryUncheckedCreateWithoutMatchInput>>>>?
+      create;
+
+  final _i1.PrismaUnion<_i2.MatchHistoryCreateOrConnectWithoutMatchInput,
+          Iterable<_i2.MatchHistoryCreateOrConnectWithoutMatchInput>>?
+      connectOrCreate;
+
+  final _i2.MatchHistoryCreateManyMatchInputEnvelope? createMany;
+
+  final _i1.PrismaUnion<_i2.MatchHistoryWhereUniqueInput,
+      Iterable<_i2.MatchHistoryWhereUniqueInput>>? connect;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'create': create,
+        'connectOrCreate': connectOrCreate,
+        'createMany': createMany,
+        'connect': connect,
+      };
+}
+
 class MatchUncheckedCreateWithoutTeamInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const MatchUncheckedCreateWithoutTeamInput({
@@ -5794,6 +6360,7 @@ class MatchUncheckedCreateWithoutTeamInput
     required this.startedTime,
     required this.isCup,
     this.played,
+    this.matchHistory,
   });
 
   final int? id;
@@ -5820,6 +6387,9 @@ class MatchUncheckedCreateWithoutTeamInput
 
   final _i2.PlayedUncheckedCreateNestedManyWithoutMatchInput? played;
 
+  final _i2.MatchHistoryUncheckedCreateNestedManyWithoutMatchInput?
+      matchHistory;
+
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -5834,6 +6404,7 @@ class MatchUncheckedCreateWithoutTeamInput
         'startedTime': startedTime,
         'isCup': isCup,
         'played': played,
+        'matchHistory': matchHistory,
       };
 }
 
@@ -7091,6 +7662,297 @@ class PlayedUpdateManyWithoutMatchNestedInput
       };
 }
 
+class EnumMatchEventFieldUpdateOperationsInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const EnumMatchEventFieldUpdateOperationsInput({this.set});
+
+  final _i3.MatchEvent? set;
+
+  @override
+  Map<String, dynamic> toJson() => {'set': set};
+}
+
+class MatchHistoryUpdateWithoutMatchInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryUpdateWithoutMatchInput({
+    this.eventType,
+    this.time,
+    this.additionnalInformations,
+  });
+
+  final _i1.PrismaUnion<_i3.MatchEvent,
+      _i2.EnumMatchEventFieldUpdateOperationsInput>? eventType;
+
+  final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>? time;
+
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>?
+      additionnalInformations;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'eventType': eventType,
+        'time': time,
+        'additionnal_informations': additionnalInformations,
+      };
+}
+
+class MatchHistoryUncheckedUpdateWithoutMatchInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryUncheckedUpdateWithoutMatchInput({
+    this.id,
+    this.eventType,
+    this.time,
+    this.additionnalInformations,
+  });
+
+  final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? id;
+
+  final _i1.PrismaUnion<_i3.MatchEvent,
+      _i2.EnumMatchEventFieldUpdateOperationsInput>? eventType;
+
+  final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>? time;
+
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>?
+      additionnalInformations;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'eventType': eventType,
+        'time': time,
+        'additionnal_informations': additionnalInformations,
+      };
+}
+
+class MatchHistoryUpsertWithWhereUniqueWithoutMatchInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryUpsertWithWhereUniqueWithoutMatchInput({
+    required this.where,
+    required this.update,
+    required this.create,
+  });
+
+  final _i2.MatchHistoryWhereUniqueInput where;
+
+  final _i1.PrismaUnion<_i2.MatchHistoryUpdateWithoutMatchInput,
+      _i2.MatchHistoryUncheckedUpdateWithoutMatchInput> update;
+
+  final _i1.PrismaUnion<_i2.MatchHistoryCreateWithoutMatchInput,
+      _i2.MatchHistoryUncheckedCreateWithoutMatchInput> create;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'where': where,
+        'update': update,
+        'create': create,
+      };
+}
+
+class MatchHistoryUpdateWithWhereUniqueWithoutMatchInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryUpdateWithWhereUniqueWithoutMatchInput({
+    required this.where,
+    required this.data,
+  });
+
+  final _i2.MatchHistoryWhereUniqueInput where;
+
+  final _i1.PrismaUnion<_i2.MatchHistoryUpdateWithoutMatchInput,
+      _i2.MatchHistoryUncheckedUpdateWithoutMatchInput> data;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'where': where,
+        'data': data,
+      };
+}
+
+class MatchHistoryScalarWhereInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryScalarWhereInput({
+    this.AND,
+    this.OR,
+    this.NOT,
+    this.id,
+    this.matchId,
+    this.eventType,
+    this.time,
+    this.additionnalInformations,
+  });
+
+  final _i1.PrismaUnion<_i2.MatchHistoryScalarWhereInput,
+      Iterable<_i2.MatchHistoryScalarWhereInput>>? AND;
+
+  final Iterable<_i2.MatchHistoryScalarWhereInput>? OR;
+
+  final _i1.PrismaUnion<_i2.MatchHistoryScalarWhereInput,
+      Iterable<_i2.MatchHistoryScalarWhereInput>>? NOT;
+
+  final _i1.PrismaUnion<_i2.IntFilter, int>? id;
+
+  final _i1.PrismaUnion<_i2.IntFilter, int>? matchId;
+
+  final _i1.PrismaUnion<_i2.EnumMatchEventFilter, _i3.MatchEvent>? eventType;
+
+  final _i1.PrismaUnion<_i2.DateTimeFilter, DateTime>? time;
+
+  final _i1.PrismaUnion<_i2.StringFilter, String>? additionnalInformations;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'AND': AND,
+        'OR': OR,
+        'NOT': NOT,
+        'id': id,
+        'matchId': matchId,
+        'eventType': eventType,
+        'time': time,
+        'additionnal_informations': additionnalInformations,
+      };
+}
+
+class MatchHistoryUpdateManyMutationInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryUpdateManyMutationInput({
+    this.eventType,
+    this.time,
+    this.additionnalInformations,
+  });
+
+  final _i1.PrismaUnion<_i3.MatchEvent,
+      _i2.EnumMatchEventFieldUpdateOperationsInput>? eventType;
+
+  final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>? time;
+
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>?
+      additionnalInformations;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'eventType': eventType,
+        'time': time,
+        'additionnal_informations': additionnalInformations,
+      };
+}
+
+class MatchHistoryUncheckedUpdateManyWithoutMatchInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryUncheckedUpdateManyWithoutMatchInput({
+    this.id,
+    this.eventType,
+    this.time,
+    this.additionnalInformations,
+  });
+
+  final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? id;
+
+  final _i1.PrismaUnion<_i3.MatchEvent,
+      _i2.EnumMatchEventFieldUpdateOperationsInput>? eventType;
+
+  final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>? time;
+
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>?
+      additionnalInformations;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'eventType': eventType,
+        'time': time,
+        'additionnal_informations': additionnalInformations,
+      };
+}
+
+class MatchHistoryUpdateManyWithWhereWithoutMatchInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryUpdateManyWithWhereWithoutMatchInput({
+    required this.where,
+    required this.data,
+  });
+
+  final _i2.MatchHistoryScalarWhereInput where;
+
+  final _i1.PrismaUnion<_i2.MatchHistoryUpdateManyMutationInput,
+      _i2.MatchHistoryUncheckedUpdateManyWithoutMatchInput> data;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'where': where,
+        'data': data,
+      };
+}
+
+class MatchHistoryUpdateManyWithoutMatchNestedInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryUpdateManyWithoutMatchNestedInput({
+    this.create,
+    this.connectOrCreate,
+    this.upsert,
+    this.createMany,
+    this.set,
+    this.disconnect,
+    this.delete,
+    this.connect,
+    this.update,
+    this.updateMany,
+    this.deleteMany,
+  });
+
+  final _i1.PrismaUnion<
+          _i2.MatchHistoryCreateWithoutMatchInput,
+          _i1.PrismaUnion<
+              Iterable<_i2.MatchHistoryCreateWithoutMatchInput>,
+              _i1.PrismaUnion<_i2.MatchHistoryUncheckedCreateWithoutMatchInput,
+                  Iterable<_i2.MatchHistoryUncheckedCreateWithoutMatchInput>>>>?
+      create;
+
+  final _i1.PrismaUnion<_i2.MatchHistoryCreateOrConnectWithoutMatchInput,
+          Iterable<_i2.MatchHistoryCreateOrConnectWithoutMatchInput>>?
+      connectOrCreate;
+
+  final _i1.PrismaUnion<_i2.MatchHistoryUpsertWithWhereUniqueWithoutMatchInput,
+      Iterable<_i2.MatchHistoryUpsertWithWhereUniqueWithoutMatchInput>>? upsert;
+
+  final _i2.MatchHistoryCreateManyMatchInputEnvelope? createMany;
+
+  final _i1.PrismaUnion<_i2.MatchHistoryWhereUniqueInput,
+      Iterable<_i2.MatchHistoryWhereUniqueInput>>? set;
+
+  final _i1.PrismaUnion<_i2.MatchHistoryWhereUniqueInput,
+      Iterable<_i2.MatchHistoryWhereUniqueInput>>? disconnect;
+
+  final _i1.PrismaUnion<_i2.MatchHistoryWhereUniqueInput,
+      Iterable<_i2.MatchHistoryWhereUniqueInput>>? delete;
+
+  final _i1.PrismaUnion<_i2.MatchHistoryWhereUniqueInput,
+      Iterable<_i2.MatchHistoryWhereUniqueInput>>? connect;
+
+  final _i1.PrismaUnion<_i2.MatchHistoryUpdateWithWhereUniqueWithoutMatchInput,
+      Iterable<_i2.MatchHistoryUpdateWithWhereUniqueWithoutMatchInput>>? update;
+
+  final _i1.PrismaUnion<_i2.MatchHistoryUpdateManyWithWhereWithoutMatchInput,
+          Iterable<_i2.MatchHistoryUpdateManyWithWhereWithoutMatchInput>>?
+      updateMany;
+
+  final _i1.PrismaUnion<_i2.MatchHistoryScalarWhereInput,
+      Iterable<_i2.MatchHistoryScalarWhereInput>>? deleteMany;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'create': create,
+        'connectOrCreate': connectOrCreate,
+        'upsert': upsert,
+        'createMany': createMany,
+        'set': set,
+        'disconnect': disconnect,
+        'delete': delete,
+        'connect': connect,
+        'update': update,
+        'updateMany': updateMany,
+        'deleteMany': deleteMany,
+      };
+}
+
 class MatchUpdateWithoutTeamInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const MatchUpdateWithoutTeamInput({
@@ -7105,6 +7967,7 @@ class MatchUpdateWithoutTeamInput
     this.isCup,
     this.opponent,
     this.played,
+    this.matchHistory,
   });
 
   final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? teamScore;
@@ -7132,6 +7995,8 @@ class MatchUpdateWithoutTeamInput
 
   final _i2.PlayedUpdateManyWithoutMatchNestedInput? played;
 
+  final _i2.MatchHistoryUpdateManyWithoutMatchNestedInput? matchHistory;
+
   @override
   Map<String, dynamic> toJson() => {
         'teamScore': teamScore,
@@ -7145,6 +8010,7 @@ class MatchUpdateWithoutTeamInput
         'isCup': isCup,
         'opponent': opponent,
         'played': played,
+        'matchHistory': matchHistory,
       };
 }
 
@@ -7216,6 +8082,77 @@ class PlayedUncheckedUpdateManyWithoutMatchNestedInput
       };
 }
 
+class MatchHistoryUncheckedUpdateManyWithoutMatchNestedInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryUncheckedUpdateManyWithoutMatchNestedInput({
+    this.create,
+    this.connectOrCreate,
+    this.upsert,
+    this.createMany,
+    this.set,
+    this.disconnect,
+    this.delete,
+    this.connect,
+    this.update,
+    this.updateMany,
+    this.deleteMany,
+  });
+
+  final _i1.PrismaUnion<
+          _i2.MatchHistoryCreateWithoutMatchInput,
+          _i1.PrismaUnion<
+              Iterable<_i2.MatchHistoryCreateWithoutMatchInput>,
+              _i1.PrismaUnion<_i2.MatchHistoryUncheckedCreateWithoutMatchInput,
+                  Iterable<_i2.MatchHistoryUncheckedCreateWithoutMatchInput>>>>?
+      create;
+
+  final _i1.PrismaUnion<_i2.MatchHistoryCreateOrConnectWithoutMatchInput,
+          Iterable<_i2.MatchHistoryCreateOrConnectWithoutMatchInput>>?
+      connectOrCreate;
+
+  final _i1.PrismaUnion<_i2.MatchHistoryUpsertWithWhereUniqueWithoutMatchInput,
+      Iterable<_i2.MatchHistoryUpsertWithWhereUniqueWithoutMatchInput>>? upsert;
+
+  final _i2.MatchHistoryCreateManyMatchInputEnvelope? createMany;
+
+  final _i1.PrismaUnion<_i2.MatchHistoryWhereUniqueInput,
+      Iterable<_i2.MatchHistoryWhereUniqueInput>>? set;
+
+  final _i1.PrismaUnion<_i2.MatchHistoryWhereUniqueInput,
+      Iterable<_i2.MatchHistoryWhereUniqueInput>>? disconnect;
+
+  final _i1.PrismaUnion<_i2.MatchHistoryWhereUniqueInput,
+      Iterable<_i2.MatchHistoryWhereUniqueInput>>? delete;
+
+  final _i1.PrismaUnion<_i2.MatchHistoryWhereUniqueInput,
+      Iterable<_i2.MatchHistoryWhereUniqueInput>>? connect;
+
+  final _i1.PrismaUnion<_i2.MatchHistoryUpdateWithWhereUniqueWithoutMatchInput,
+      Iterable<_i2.MatchHistoryUpdateWithWhereUniqueWithoutMatchInput>>? update;
+
+  final _i1.PrismaUnion<_i2.MatchHistoryUpdateManyWithWhereWithoutMatchInput,
+          Iterable<_i2.MatchHistoryUpdateManyWithWhereWithoutMatchInput>>?
+      updateMany;
+
+  final _i1.PrismaUnion<_i2.MatchHistoryScalarWhereInput,
+      Iterable<_i2.MatchHistoryScalarWhereInput>>? deleteMany;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'create': create,
+        'connectOrCreate': connectOrCreate,
+        'upsert': upsert,
+        'createMany': createMany,
+        'set': set,
+        'disconnect': disconnect,
+        'delete': delete,
+        'connect': connect,
+        'update': update,
+        'updateMany': updateMany,
+        'deleteMany': deleteMany,
+      };
+}
+
 class MatchUncheckedUpdateWithoutTeamInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const MatchUncheckedUpdateWithoutTeamInput({
@@ -7231,6 +8168,7 @@ class MatchUncheckedUpdateWithoutTeamInput
     this.startedTime,
     this.isCup,
     this.played,
+    this.matchHistory,
   });
 
   final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? id;
@@ -7260,6 +8198,9 @@ class MatchUncheckedUpdateWithoutTeamInput
 
   final _i2.PlayedUncheckedUpdateManyWithoutMatchNestedInput? played;
 
+  final _i2.MatchHistoryUncheckedUpdateManyWithoutMatchNestedInput?
+      matchHistory;
+
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -7274,6 +8215,7 @@ class MatchUncheckedUpdateWithoutTeamInput
         'startedTime': startedTime,
         'isCup': isCup,
         'played': played,
+        'matchHistory': matchHistory,
       };
 }
 
@@ -8549,6 +9491,7 @@ class MatchCreateWithoutPlayedInput
     required this.isCup,
     this.team,
     required this.opponent,
+    this.matchHistory,
   });
 
   final int teamScore;
@@ -8573,6 +9516,8 @@ class MatchCreateWithoutPlayedInput
 
   final _i2.OpponentCreateNestedOneWithoutMatchesInput opponent;
 
+  final _i2.MatchHistoryCreateNestedManyWithoutMatchInput? matchHistory;
+
   @override
   Map<String, dynamic> toJson() => {
         'teamScore': teamScore,
@@ -8586,6 +9531,7 @@ class MatchCreateWithoutPlayedInput
         'isCup': isCup,
         'team': team,
         'opponent': opponent,
+        'matchHistory': matchHistory,
       };
 }
 
@@ -8604,6 +9550,7 @@ class MatchUncheckedCreateWithoutPlayedInput
     required this.state,
     required this.startedTime,
     required this.isCup,
+    this.matchHistory,
   });
 
   final int? id;
@@ -8630,6 +9577,9 @@ class MatchUncheckedCreateWithoutPlayedInput
 
   final bool isCup;
 
+  final _i2.MatchHistoryUncheckedCreateNestedManyWithoutMatchInput?
+      matchHistory;
+
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -8644,6 +9594,7 @@ class MatchUncheckedCreateWithoutPlayedInput
         'state': state,
         'startedTime': startedTime,
         'isCup': isCup,
+        'matchHistory': matchHistory,
       };
 }
 
@@ -9201,6 +10152,7 @@ class MatchUpdateWithoutPlayedInput
     this.isCup,
     this.team,
     this.opponent,
+    this.matchHistory,
   });
 
   final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? teamScore;
@@ -9228,6 +10180,8 @@ class MatchUpdateWithoutPlayedInput
 
   final _i2.OpponentUpdateOneRequiredWithoutMatchesNestedInput? opponent;
 
+  final _i2.MatchHistoryUpdateManyWithoutMatchNestedInput? matchHistory;
+
   @override
   Map<String, dynamic> toJson() => {
         'teamScore': teamScore,
@@ -9241,6 +10195,7 @@ class MatchUpdateWithoutPlayedInput
         'isCup': isCup,
         'team': team,
         'opponent': opponent,
+        'matchHistory': matchHistory,
       };
 }
 
@@ -9289,6 +10244,7 @@ class MatchUncheckedUpdateWithoutPlayedInput
     this.state,
     this.startedTime,
     this.isCup,
+    this.matchHistory,
   });
 
   final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? id;
@@ -9321,6 +10277,9 @@ class MatchUncheckedUpdateWithoutPlayedInput
 
   final _i1.PrismaUnion<bool, _i2.BoolFieldUpdateOperationsInput>? isCup;
 
+  final _i2.MatchHistoryUncheckedUpdateManyWithoutMatchNestedInput?
+      matchHistory;
+
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -9335,6 +10294,7 @@ class MatchUncheckedUpdateWithoutPlayedInput
         'state': state,
         'startedTime': startedTime,
         'isCup': isCup,
+        'matchHistory': matchHistory,
       };
 }
 
@@ -10543,6 +11503,7 @@ class MatchCreateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
     this.team,
     required this.opponent,
     this.played,
+    this.matchHistory,
   });
 
   final int teamScore;
@@ -10569,6 +11530,8 @@ class MatchCreateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i2.PlayedCreateNestedManyWithoutMatchInput? played;
 
+  final _i2.MatchHistoryCreateNestedManyWithoutMatchInput? matchHistory;
+
   @override
   Map<String, dynamic> toJson() => {
         'teamScore': teamScore,
@@ -10583,6 +11546,7 @@ class MatchCreateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
         'team': team,
         'opponent': opponent,
         'played': played,
+        'matchHistory': matchHistory,
       };
 }
 
@@ -10602,6 +11566,7 @@ class MatchUncheckedCreateInput
     required this.startedTime,
     required this.isCup,
     this.played,
+    this.matchHistory,
   });
 
   final int? id;
@@ -10630,6 +11595,9 @@ class MatchUncheckedCreateInput
 
   final _i2.PlayedUncheckedCreateNestedManyWithoutMatchInput? played;
 
+  final _i2.MatchHistoryUncheckedCreateNestedManyWithoutMatchInput?
+      matchHistory;
+
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -10645,6 +11613,7 @@ class MatchUncheckedCreateInput
         'startedTime': startedTime,
         'isCup': isCup,
         'played': played,
+        'matchHistory': matchHistory,
       };
 }
 
@@ -10850,6 +11819,7 @@ class MatchUpdateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
     this.team,
     this.opponent,
     this.played,
+    this.matchHistory,
   });
 
   final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? teamScore;
@@ -10879,6 +11849,8 @@ class MatchUpdateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i2.PlayedUpdateManyWithoutMatchNestedInput? played;
 
+  final _i2.MatchHistoryUpdateManyWithoutMatchNestedInput? matchHistory;
+
   @override
   Map<String, dynamic> toJson() => {
         'teamScore': teamScore,
@@ -10893,6 +11865,7 @@ class MatchUpdateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
         'team': team,
         'opponent': opponent,
         'played': played,
+        'matchHistory': matchHistory,
       };
 }
 
@@ -10912,6 +11885,7 @@ class MatchUncheckedUpdateInput
     this.startedTime,
     this.isCup,
     this.played,
+    this.matchHistory,
   });
 
   final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? id;
@@ -10946,6 +11920,9 @@ class MatchUncheckedUpdateInput
 
   final _i2.PlayedUncheckedUpdateManyWithoutMatchNestedInput? played;
 
+  final _i2.MatchHistoryUncheckedUpdateManyWithoutMatchNestedInput?
+      matchHistory;
+
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -10961,6 +11938,7 @@ class MatchUncheckedUpdateInput
         'startedTime': startedTime,
         'isCup': isCup,
         'played': played,
+        'matchHistory': matchHistory,
       };
 }
 
@@ -17365,6 +18343,7 @@ class MatchCreateWithoutOpponentInput
     required this.isCup,
     this.team,
     this.played,
+    this.matchHistory,
   });
 
   final int teamScore;
@@ -17389,6 +18368,8 @@ class MatchCreateWithoutOpponentInput
 
   final _i2.PlayedCreateNestedManyWithoutMatchInput? played;
 
+  final _i2.MatchHistoryCreateNestedManyWithoutMatchInput? matchHistory;
+
   @override
   Map<String, dynamic> toJson() => {
         'teamScore': teamScore,
@@ -17402,6 +18383,7 @@ class MatchCreateWithoutOpponentInput
         'isCup': isCup,
         'team': team,
         'played': played,
+        'matchHistory': matchHistory,
       };
 }
 
@@ -17420,6 +18402,7 @@ class MatchUncheckedCreateWithoutOpponentInput
     required this.startedTime,
     required this.isCup,
     this.played,
+    this.matchHistory,
   });
 
   final int? id;
@@ -17446,6 +18429,9 @@ class MatchUncheckedCreateWithoutOpponentInput
 
   final _i2.PlayedUncheckedCreateNestedManyWithoutMatchInput? played;
 
+  final _i2.MatchHistoryUncheckedCreateNestedManyWithoutMatchInput?
+      matchHistory;
+
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -17460,6 +18446,7 @@ class MatchUncheckedCreateWithoutOpponentInput
         'startedTime': startedTime,
         'isCup': isCup,
         'played': played,
+        'matchHistory': matchHistory,
       };
 }
 
@@ -17726,6 +18713,7 @@ class MatchUpdateWithoutOpponentInput
     this.isCup,
     this.team,
     this.played,
+    this.matchHistory,
   });
 
   final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? teamScore;
@@ -17753,6 +18741,8 @@ class MatchUpdateWithoutOpponentInput
 
   final _i2.PlayedUpdateManyWithoutMatchNestedInput? played;
 
+  final _i2.MatchHistoryUpdateManyWithoutMatchNestedInput? matchHistory;
+
   @override
   Map<String, dynamic> toJson() => {
         'teamScore': teamScore,
@@ -17766,6 +18756,7 @@ class MatchUpdateWithoutOpponentInput
         'isCup': isCup,
         'team': team,
         'played': played,
+        'matchHistory': matchHistory,
       };
 }
 
@@ -17784,6 +18775,7 @@ class MatchUncheckedUpdateWithoutOpponentInput
     this.startedTime,
     this.isCup,
     this.played,
+    this.matchHistory,
   });
 
   final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? id;
@@ -17816,6 +18808,9 @@ class MatchUncheckedUpdateWithoutOpponentInput
 
   final _i2.PlayedUncheckedUpdateManyWithoutMatchNestedInput? played;
 
+  final _i2.MatchHistoryUncheckedUpdateManyWithoutMatchNestedInput?
+      matchHistory;
+
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -17830,6 +18825,7 @@ class MatchUncheckedUpdateWithoutOpponentInput
         'startedTime': startedTime,
         'isCup': isCup,
         'played': played,
+        'matchHistory': matchHistory,
       };
 }
 
@@ -18863,6 +19859,1530 @@ class AggregateOpponentSelect
   final _i1.PrismaUnion<bool, _i2.AggregateOpponentMinArgs>? $min;
 
   final _i1.PrismaUnion<bool, _i2.AggregateOpponentMaxArgs>? $max;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        '_count': $count,
+        '_avg': $avg,
+        '_sum': $sum,
+        '_min': $min,
+        '_max': $max,
+      };
+}
+
+class MatchCreateWithoutMatchHistoryInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchCreateWithoutMatchHistoryInput({
+    required this.teamScore,
+    required this.opponentScore,
+    required this.address,
+    required this.date,
+    required this.isHome,
+    required this.coach,
+    required this.state,
+    required this.startedTime,
+    required this.isCup,
+    this.team,
+    required this.opponent,
+    this.played,
+  });
+
+  final int teamScore;
+
+  final int opponentScore;
+
+  final String address;
+
+  final DateTime date;
+
+  final bool isHome;
+
+  final String coach;
+
+  final _i3.GameState state;
+
+  final DateTime startedTime;
+
+  final bool isCup;
+
+  final _i2.TeamCreateNestedOneWithoutMatchesInput? team;
+
+  final _i2.OpponentCreateNestedOneWithoutMatchesInput opponent;
+
+  final _i2.PlayedCreateNestedManyWithoutMatchInput? played;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'teamScore': teamScore,
+        'opponentScore': opponentScore,
+        'address': address,
+        'date': date,
+        'isHome': isHome,
+        'coach': coach,
+        'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
+        'team': team,
+        'opponent': opponent,
+        'played': played,
+      };
+}
+
+class MatchUncheckedCreateWithoutMatchHistoryInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchUncheckedCreateWithoutMatchHistoryInput({
+    this.id,
+    this.teamId,
+    required this.opponentId,
+    required this.teamScore,
+    required this.opponentScore,
+    required this.address,
+    required this.date,
+    required this.isHome,
+    required this.coach,
+    required this.state,
+    required this.startedTime,
+    required this.isCup,
+    this.played,
+  });
+
+  final int? id;
+
+  final _i1.PrismaUnion<int, _i1.PrismaNull>? teamId;
+
+  final int opponentId;
+
+  final int teamScore;
+
+  final int opponentScore;
+
+  final String address;
+
+  final DateTime date;
+
+  final bool isHome;
+
+  final String coach;
+
+  final _i3.GameState state;
+
+  final DateTime startedTime;
+
+  final bool isCup;
+
+  final _i2.PlayedUncheckedCreateNestedManyWithoutMatchInput? played;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'teamId': teamId,
+        'opponentId': opponentId,
+        'teamScore': teamScore,
+        'opponentScore': opponentScore,
+        'address': address,
+        'date': date,
+        'isHome': isHome,
+        'coach': coach,
+        'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
+        'played': played,
+      };
+}
+
+class MatchCreateOrConnectWithoutMatchHistoryInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchCreateOrConnectWithoutMatchHistoryInput({
+    required this.where,
+    required this.create,
+  });
+
+  final _i2.MatchWhereUniqueInput where;
+
+  final _i1.PrismaUnion<_i2.MatchCreateWithoutMatchHistoryInput,
+      _i2.MatchUncheckedCreateWithoutMatchHistoryInput> create;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'where': where,
+        'create': create,
+      };
+}
+
+class MatchCreateNestedOneWithoutMatchHistoryInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchCreateNestedOneWithoutMatchHistoryInput({
+    this.create,
+    this.connectOrCreate,
+    this.connect,
+  });
+
+  final _i1.PrismaUnion<_i2.MatchCreateWithoutMatchHistoryInput,
+      _i2.MatchUncheckedCreateWithoutMatchHistoryInput>? create;
+
+  final _i2.MatchCreateOrConnectWithoutMatchHistoryInput? connectOrCreate;
+
+  final _i2.MatchWhereUniqueInput? connect;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'create': create,
+        'connectOrCreate': connectOrCreate,
+        'connect': connect,
+      };
+}
+
+class MatchHistoryCreateInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryCreateInput({
+    required this.eventType,
+    required this.time,
+    required this.additionnalInformations,
+    required this.match,
+  });
+
+  final _i3.MatchEvent eventType;
+
+  final DateTime time;
+
+  final String additionnalInformations;
+
+  final _i2.MatchCreateNestedOneWithoutMatchHistoryInput match;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'eventType': eventType,
+        'time': time,
+        'additionnal_informations': additionnalInformations,
+        'match': match,
+      };
+}
+
+class MatchHistoryUncheckedCreateInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryUncheckedCreateInput({
+    this.id,
+    required this.matchId,
+    required this.eventType,
+    required this.time,
+    required this.additionnalInformations,
+  });
+
+  final int? id;
+
+  final int matchId;
+
+  final _i3.MatchEvent eventType;
+
+  final DateTime time;
+
+  final String additionnalInformations;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'matchId': matchId,
+        'eventType': eventType,
+        'time': time,
+        'additionnal_informations': additionnalInformations,
+      };
+}
+
+class MatchHistoryCreateManyInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryCreateManyInput({
+    this.id,
+    required this.matchId,
+    required this.eventType,
+    required this.time,
+    required this.additionnalInformations,
+  });
+
+  final int? id;
+
+  final int matchId;
+
+  final _i3.MatchEvent eventType;
+
+  final DateTime time;
+
+  final String additionnalInformations;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'matchId': matchId,
+        'eventType': eventType,
+        'time': time,
+        'additionnal_informations': additionnalInformations,
+      };
+}
+
+class CreateManymatchHistoryAndReturnOutputTypeMatchArgs
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const CreateManymatchHistoryAndReturnOutputTypeMatchArgs({
+    this.select,
+    this.include,
+  });
+
+  final _i2.MatchSelect? select;
+
+  final _i2.MatchInclude? include;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'select': select,
+        'include': include,
+      };
+}
+
+class CreateManymatchHistoryAndReturnOutputTypeSelect
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const CreateManymatchHistoryAndReturnOutputTypeSelect({
+    this.id,
+    this.matchId,
+    this.eventType,
+    this.time,
+    this.additionnalInformations,
+    this.match,
+  });
+
+  final bool? id;
+
+  final bool? matchId;
+
+  final bool? eventType;
+
+  final bool? time;
+
+  final bool? additionnalInformations;
+
+  final _i1.PrismaUnion<bool,
+      _i2.CreateManymatchHistoryAndReturnOutputTypeMatchArgs>? match;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'matchId': matchId,
+        'eventType': eventType,
+        'time': time,
+        'additionnal_informations': additionnalInformations,
+        'match': match,
+      };
+}
+
+class CreateManymatchHistoryAndReturnOutputTypeInclude
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const CreateManymatchHistoryAndReturnOutputTypeInclude({this.match});
+
+  final _i1.PrismaUnion<bool,
+      _i2.CreateManymatchHistoryAndReturnOutputTypeMatchArgs>? match;
+
+  @override
+  Map<String, dynamic> toJson() => {'match': match};
+}
+
+class MatchUpdateWithoutMatchHistoryInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchUpdateWithoutMatchHistoryInput({
+    this.teamScore,
+    this.opponentScore,
+    this.address,
+    this.date,
+    this.isHome,
+    this.coach,
+    this.state,
+    this.startedTime,
+    this.isCup,
+    this.team,
+    this.opponent,
+    this.played,
+  });
+
+  final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? teamScore;
+
+  final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? opponentScore;
+
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? address;
+
+  final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>? date;
+
+  final _i1.PrismaUnion<bool, _i2.BoolFieldUpdateOperationsInput>? isHome;
+
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? coach;
+
+  final _i1
+      .PrismaUnion<_i3.GameState, _i2.EnumGameStateFieldUpdateOperationsInput>?
+      state;
+
+  final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
+      startedTime;
+
+  final _i1.PrismaUnion<bool, _i2.BoolFieldUpdateOperationsInput>? isCup;
+
+  final _i2.TeamUpdateOneWithoutMatchesNestedInput? team;
+
+  final _i2.OpponentUpdateOneRequiredWithoutMatchesNestedInput? opponent;
+
+  final _i2.PlayedUpdateManyWithoutMatchNestedInput? played;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'teamScore': teamScore,
+        'opponentScore': opponentScore,
+        'address': address,
+        'date': date,
+        'isHome': isHome,
+        'coach': coach,
+        'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
+        'team': team,
+        'opponent': opponent,
+        'played': played,
+      };
+}
+
+class MatchUncheckedUpdateWithoutMatchHistoryInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchUncheckedUpdateWithoutMatchHistoryInput({
+    this.id,
+    this.teamId,
+    this.opponentId,
+    this.teamScore,
+    this.opponentScore,
+    this.address,
+    this.date,
+    this.isHome,
+    this.coach,
+    this.state,
+    this.startedTime,
+    this.isCup,
+    this.played,
+  });
+
+  final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? id;
+
+  final _i1.PrismaUnion<
+      int,
+      _i1.PrismaUnion<_i2.NullableIntFieldUpdateOperationsInput,
+          _i1.PrismaNull>>? teamId;
+
+  final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? opponentId;
+
+  final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? teamScore;
+
+  final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? opponentScore;
+
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? address;
+
+  final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>? date;
+
+  final _i1.PrismaUnion<bool, _i2.BoolFieldUpdateOperationsInput>? isHome;
+
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? coach;
+
+  final _i1
+      .PrismaUnion<_i3.GameState, _i2.EnumGameStateFieldUpdateOperationsInput>?
+      state;
+
+  final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
+      startedTime;
+
+  final _i1.PrismaUnion<bool, _i2.BoolFieldUpdateOperationsInput>? isCup;
+
+  final _i2.PlayedUncheckedUpdateManyWithoutMatchNestedInput? played;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'teamId': teamId,
+        'opponentId': opponentId,
+        'teamScore': teamScore,
+        'opponentScore': opponentScore,
+        'address': address,
+        'date': date,
+        'isHome': isHome,
+        'coach': coach,
+        'state': state,
+        'startedTime': startedTime,
+        'isCup': isCup,
+        'played': played,
+      };
+}
+
+class MatchUpsertWithoutMatchHistoryInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchUpsertWithoutMatchHistoryInput({
+    required this.update,
+    required this.create,
+    this.where,
+  });
+
+  final _i1.PrismaUnion<_i2.MatchUpdateWithoutMatchHistoryInput,
+      _i2.MatchUncheckedUpdateWithoutMatchHistoryInput> update;
+
+  final _i1.PrismaUnion<_i2.MatchCreateWithoutMatchHistoryInput,
+      _i2.MatchUncheckedCreateWithoutMatchHistoryInput> create;
+
+  final _i2.MatchWhereInput? where;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'update': update,
+        'create': create,
+        'where': where,
+      };
+}
+
+class MatchUpdateToOneWithWhereWithoutMatchHistoryInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchUpdateToOneWithWhereWithoutMatchHistoryInput({
+    this.where,
+    required this.data,
+  });
+
+  final _i2.MatchWhereInput? where;
+
+  final _i1.PrismaUnion<_i2.MatchUpdateWithoutMatchHistoryInput,
+      _i2.MatchUncheckedUpdateWithoutMatchHistoryInput> data;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'where': where,
+        'data': data,
+      };
+}
+
+class MatchUpdateOneRequiredWithoutMatchHistoryNestedInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchUpdateOneRequiredWithoutMatchHistoryNestedInput({
+    this.create,
+    this.connectOrCreate,
+    this.upsert,
+    this.connect,
+    this.update,
+  });
+
+  final _i1.PrismaUnion<_i2.MatchCreateWithoutMatchHistoryInput,
+      _i2.MatchUncheckedCreateWithoutMatchHistoryInput>? create;
+
+  final _i2.MatchCreateOrConnectWithoutMatchHistoryInput? connectOrCreate;
+
+  final _i2.MatchUpsertWithoutMatchHistoryInput? upsert;
+
+  final _i2.MatchWhereUniqueInput? connect;
+
+  final _i1.PrismaUnion<
+      _i2.MatchUpdateToOneWithWhereWithoutMatchHistoryInput,
+      _i1.PrismaUnion<_i2.MatchUpdateWithoutMatchHistoryInput,
+          _i2.MatchUncheckedUpdateWithoutMatchHistoryInput>>? update;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'create': create,
+        'connectOrCreate': connectOrCreate,
+        'upsert': upsert,
+        'connect': connect,
+        'update': update,
+      };
+}
+
+class MatchHistoryUpdateInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryUpdateInput({
+    this.eventType,
+    this.time,
+    this.additionnalInformations,
+    this.match,
+  });
+
+  final _i1.PrismaUnion<_i3.MatchEvent,
+      _i2.EnumMatchEventFieldUpdateOperationsInput>? eventType;
+
+  final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>? time;
+
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>?
+      additionnalInformations;
+
+  final _i2.MatchUpdateOneRequiredWithoutMatchHistoryNestedInput? match;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'eventType': eventType,
+        'time': time,
+        'additionnal_informations': additionnalInformations,
+        'match': match,
+      };
+}
+
+class MatchHistoryUncheckedUpdateInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryUncheckedUpdateInput({
+    this.id,
+    this.matchId,
+    this.eventType,
+    this.time,
+    this.additionnalInformations,
+  });
+
+  final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? id;
+
+  final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? matchId;
+
+  final _i1.PrismaUnion<_i3.MatchEvent,
+      _i2.EnumMatchEventFieldUpdateOperationsInput>? eventType;
+
+  final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>? time;
+
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>?
+      additionnalInformations;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'matchId': matchId,
+        'eventType': eventType,
+        'time': time,
+        'additionnal_informations': additionnalInformations,
+      };
+}
+
+class MatchHistoryUncheckedUpdateManyInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryUncheckedUpdateManyInput({
+    this.id,
+    this.matchId,
+    this.eventType,
+    this.time,
+    this.additionnalInformations,
+  });
+
+  final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? id;
+
+  final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? matchId;
+
+  final _i1.PrismaUnion<_i3.MatchEvent,
+      _i2.EnumMatchEventFieldUpdateOperationsInput>? eventType;
+
+  final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>? time;
+
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>?
+      additionnalInformations;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'matchId': matchId,
+        'eventType': eventType,
+        'time': time,
+        'additionnal_informations': additionnalInformations,
+      };
+}
+
+class MatchHistoryCountAggregateOutputType {
+  const MatchHistoryCountAggregateOutputType({
+    this.id,
+    this.matchId,
+    this.eventType,
+    this.time,
+    this.additionnalInformations,
+    this.$all,
+  });
+
+  factory MatchHistoryCountAggregateOutputType.fromJson(Map json) =>
+      MatchHistoryCountAggregateOutputType(
+        id: json['id'],
+        matchId: json['matchId'],
+        eventType: json['eventType'],
+        time: json['time'],
+        additionnalInformations: json['additionnal_informations'],
+        $all: json['_all'],
+      );
+
+  final int? id;
+
+  final int? matchId;
+
+  final int? eventType;
+
+  final int? time;
+
+  final int? additionnalInformations;
+
+  final int? $all;
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'matchId': matchId,
+        'eventType': eventType,
+        'time': time,
+        'additionnal_informations': additionnalInformations,
+        '_all': $all,
+      };
+}
+
+class MatchHistoryAvgAggregateOutputType {
+  const MatchHistoryAvgAggregateOutputType({
+    this.id,
+    this.matchId,
+  });
+
+  factory MatchHistoryAvgAggregateOutputType.fromJson(Map json) =>
+      MatchHistoryAvgAggregateOutputType(
+        id: json['id'],
+        matchId: json['matchId'],
+      );
+
+  final double? id;
+
+  final double? matchId;
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'matchId': matchId,
+      };
+}
+
+class MatchHistorySumAggregateOutputType {
+  const MatchHistorySumAggregateOutputType({
+    this.id,
+    this.matchId,
+  });
+
+  factory MatchHistorySumAggregateOutputType.fromJson(Map json) =>
+      MatchHistorySumAggregateOutputType(
+        id: json['id'],
+        matchId: json['matchId'],
+      );
+
+  final int? id;
+
+  final int? matchId;
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'matchId': matchId,
+      };
+}
+
+class MatchHistoryMinAggregateOutputType {
+  const MatchHistoryMinAggregateOutputType({
+    this.id,
+    this.matchId,
+    this.eventType,
+    this.time,
+    this.additionnalInformations,
+  });
+
+  factory MatchHistoryMinAggregateOutputType.fromJson(Map json) =>
+      MatchHistoryMinAggregateOutputType(
+        id: json['id'],
+        matchId: json['matchId'],
+        eventType: json['eventType'] != null
+            ? _i3.MatchEvent.values
+                .firstWhere((e) => e.name == json['eventType'])
+            : null,
+        time: switch (json['time']) {
+          DateTime value => value,
+          String value => DateTime.parse(value),
+          _ => json['time']
+        },
+        additionnalInformations: json['additionnal_informations'],
+      );
+
+  final int? id;
+
+  final int? matchId;
+
+  final _i3.MatchEvent? eventType;
+
+  final DateTime? time;
+
+  final String? additionnalInformations;
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'matchId': matchId,
+        'eventType': eventType?.name,
+        'time': time?.toIso8601String(),
+        'additionnal_informations': additionnalInformations,
+      };
+}
+
+class MatchHistoryMaxAggregateOutputType {
+  const MatchHistoryMaxAggregateOutputType({
+    this.id,
+    this.matchId,
+    this.eventType,
+    this.time,
+    this.additionnalInformations,
+  });
+
+  factory MatchHistoryMaxAggregateOutputType.fromJson(Map json) =>
+      MatchHistoryMaxAggregateOutputType(
+        id: json['id'],
+        matchId: json['matchId'],
+        eventType: json['eventType'] != null
+            ? _i3.MatchEvent.values
+                .firstWhere((e) => e.name == json['eventType'])
+            : null,
+        time: switch (json['time']) {
+          DateTime value => value,
+          String value => DateTime.parse(value),
+          _ => json['time']
+        },
+        additionnalInformations: json['additionnal_informations'],
+      );
+
+  final int? id;
+
+  final int? matchId;
+
+  final _i3.MatchEvent? eventType;
+
+  final DateTime? time;
+
+  final String? additionnalInformations;
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'matchId': matchId,
+        'eventType': eventType?.name,
+        'time': time?.toIso8601String(),
+        'additionnal_informations': additionnalInformations,
+      };
+}
+
+class MatchHistoryGroupByOutputType {
+  const MatchHistoryGroupByOutputType({
+    this.id,
+    this.matchId,
+    this.eventType,
+    this.time,
+    this.additionnalInformations,
+    this.$count,
+    this.$avg,
+    this.$sum,
+    this.$min,
+    this.$max,
+  });
+
+  factory MatchHistoryGroupByOutputType.fromJson(Map json) =>
+      MatchHistoryGroupByOutputType(
+        id: json['id'],
+        matchId: json['matchId'],
+        eventType: json['eventType'] != null
+            ? _i3.MatchEvent.values
+                .firstWhere((e) => e.name == json['eventType'])
+            : null,
+        time: switch (json['time']) {
+          DateTime value => value,
+          String value => DateTime.parse(value),
+          _ => json['time']
+        },
+        additionnalInformations: json['additionnal_informations'],
+        $count: json['_count'] is Map
+            ? _i2.MatchHistoryCountAggregateOutputType.fromJson(json['_count'])
+            : null,
+        $avg: json['_avg'] is Map
+            ? _i2.MatchHistoryAvgAggregateOutputType.fromJson(json['_avg'])
+            : null,
+        $sum: json['_sum'] is Map
+            ? _i2.MatchHistorySumAggregateOutputType.fromJson(json['_sum'])
+            : null,
+        $min: json['_min'] is Map
+            ? _i2.MatchHistoryMinAggregateOutputType.fromJson(json['_min'])
+            : null,
+        $max: json['_max'] is Map
+            ? _i2.MatchHistoryMaxAggregateOutputType.fromJson(json['_max'])
+            : null,
+      );
+
+  final int? id;
+
+  final int? matchId;
+
+  final _i3.MatchEvent? eventType;
+
+  final DateTime? time;
+
+  final String? additionnalInformations;
+
+  final _i2.MatchHistoryCountAggregateOutputType? $count;
+
+  final _i2.MatchHistoryAvgAggregateOutputType? $avg;
+
+  final _i2.MatchHistorySumAggregateOutputType? $sum;
+
+  final _i2.MatchHistoryMinAggregateOutputType? $min;
+
+  final _i2.MatchHistoryMaxAggregateOutputType? $max;
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'matchId': matchId,
+        'eventType': eventType?.name,
+        'time': time?.toIso8601String(),
+        'additionnal_informations': additionnalInformations,
+        '_count': $count?.toJson(),
+        '_avg': $avg?.toJson(),
+        '_sum': $sum?.toJson(),
+        '_min': $min?.toJson(),
+        '_max': $max?.toJson(),
+      };
+}
+
+class MatchHistoryCountOrderByAggregateInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryCountOrderByAggregateInput({
+    this.id,
+    this.matchId,
+    this.eventType,
+    this.time,
+    this.additionnalInformations,
+  });
+
+  final _i2.SortOrder? id;
+
+  final _i2.SortOrder? matchId;
+
+  final _i2.SortOrder? eventType;
+
+  final _i2.SortOrder? time;
+
+  final _i2.SortOrder? additionnalInformations;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'matchId': matchId,
+        'eventType': eventType,
+        'time': time,
+        'additionnal_informations': additionnalInformations,
+      };
+}
+
+class MatchHistoryAvgOrderByAggregateInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryAvgOrderByAggregateInput({
+    this.id,
+    this.matchId,
+  });
+
+  final _i2.SortOrder? id;
+
+  final _i2.SortOrder? matchId;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'matchId': matchId,
+      };
+}
+
+class MatchHistoryMaxOrderByAggregateInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryMaxOrderByAggregateInput({
+    this.id,
+    this.matchId,
+    this.eventType,
+    this.time,
+    this.additionnalInformations,
+  });
+
+  final _i2.SortOrder? id;
+
+  final _i2.SortOrder? matchId;
+
+  final _i2.SortOrder? eventType;
+
+  final _i2.SortOrder? time;
+
+  final _i2.SortOrder? additionnalInformations;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'matchId': matchId,
+        'eventType': eventType,
+        'time': time,
+        'additionnal_informations': additionnalInformations,
+      };
+}
+
+class MatchHistoryMinOrderByAggregateInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryMinOrderByAggregateInput({
+    this.id,
+    this.matchId,
+    this.eventType,
+    this.time,
+    this.additionnalInformations,
+  });
+
+  final _i2.SortOrder? id;
+
+  final _i2.SortOrder? matchId;
+
+  final _i2.SortOrder? eventType;
+
+  final _i2.SortOrder? time;
+
+  final _i2.SortOrder? additionnalInformations;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'matchId': matchId,
+        'eventType': eventType,
+        'time': time,
+        'additionnal_informations': additionnalInformations,
+      };
+}
+
+class MatchHistorySumOrderByAggregateInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistorySumOrderByAggregateInput({
+    this.id,
+    this.matchId,
+  });
+
+  final _i2.SortOrder? id;
+
+  final _i2.SortOrder? matchId;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'matchId': matchId,
+      };
+}
+
+class MatchHistoryOrderByWithAggregationInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryOrderByWithAggregationInput({
+    this.id,
+    this.matchId,
+    this.eventType,
+    this.time,
+    this.additionnalInformations,
+    this.$count,
+    this.$avg,
+    this.$max,
+    this.$min,
+    this.$sum,
+  });
+
+  final _i2.SortOrder? id;
+
+  final _i2.SortOrder? matchId;
+
+  final _i2.SortOrder? eventType;
+
+  final _i2.SortOrder? time;
+
+  final _i2.SortOrder? additionnalInformations;
+
+  final _i2.MatchHistoryCountOrderByAggregateInput? $count;
+
+  final _i2.MatchHistoryAvgOrderByAggregateInput? $avg;
+
+  final _i2.MatchHistoryMaxOrderByAggregateInput? $max;
+
+  final _i2.MatchHistoryMinOrderByAggregateInput? $min;
+
+  final _i2.MatchHistorySumOrderByAggregateInput? $sum;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'matchId': matchId,
+        'eventType': eventType,
+        'time': time,
+        'additionnal_informations': additionnalInformations,
+        '_count': $count,
+        '_avg': $avg,
+        '_max': $max,
+        '_min': $min,
+        '_sum': $sum,
+      };
+}
+
+class NestedEnumMatchEventWithAggregatesFilter
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const NestedEnumMatchEventWithAggregatesFilter({
+    this.equals,
+    this.$in,
+    this.notIn,
+    this.not,
+    this.$count,
+    this.$min,
+    this.$max,
+  });
+
+  final _i1.PrismaUnion<_i3.MatchEvent, _i1.Reference<_i3.MatchEvent>>? equals;
+
+  final _i1.PrismaUnion<Iterable<_i3.MatchEvent>,
+      _i1.Reference<Iterable<_i3.MatchEvent>>>? $in;
+
+  final _i1.PrismaUnion<Iterable<_i3.MatchEvent>,
+      _i1.Reference<Iterable<_i3.MatchEvent>>>? notIn;
+
+  final _i1.PrismaUnion<_i3.MatchEvent,
+      _i2.NestedEnumMatchEventWithAggregatesFilter>? not;
+
+  final _i2.NestedIntFilter? $count;
+
+  final _i2.NestedEnumMatchEventFilter? $min;
+
+  final _i2.NestedEnumMatchEventFilter? $max;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'equals': equals,
+        'in': $in,
+        'notIn': notIn,
+        'not': not,
+        '_count': $count,
+        '_min': $min,
+        '_max': $max,
+      };
+}
+
+class EnumMatchEventWithAggregatesFilter
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const EnumMatchEventWithAggregatesFilter({
+    this.equals,
+    this.$in,
+    this.notIn,
+    this.not,
+    this.$count,
+    this.$min,
+    this.$max,
+  });
+
+  final _i1.PrismaUnion<_i3.MatchEvent, _i1.Reference<_i3.MatchEvent>>? equals;
+
+  final _i1.PrismaUnion<Iterable<_i3.MatchEvent>,
+      _i1.Reference<Iterable<_i3.MatchEvent>>>? $in;
+
+  final _i1.PrismaUnion<Iterable<_i3.MatchEvent>,
+      _i1.Reference<Iterable<_i3.MatchEvent>>>? notIn;
+
+  final _i1.PrismaUnion<_i3.MatchEvent,
+      _i2.NestedEnumMatchEventWithAggregatesFilter>? not;
+
+  final _i2.NestedIntFilter? $count;
+
+  final _i2.NestedEnumMatchEventFilter? $min;
+
+  final _i2.NestedEnumMatchEventFilter? $max;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'equals': equals,
+        'in': $in,
+        'notIn': notIn,
+        'not': not,
+        '_count': $count,
+        '_min': $min,
+        '_max': $max,
+      };
+}
+
+class MatchHistoryScalarWhereWithAggregatesInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryScalarWhereWithAggregatesInput({
+    this.AND,
+    this.OR,
+    this.NOT,
+    this.id,
+    this.matchId,
+    this.eventType,
+    this.time,
+    this.additionnalInformations,
+  });
+
+  final _i1.PrismaUnion<_i2.MatchHistoryScalarWhereWithAggregatesInput,
+      Iterable<_i2.MatchHistoryScalarWhereWithAggregatesInput>>? AND;
+
+  final Iterable<_i2.MatchHistoryScalarWhereWithAggregatesInput>? OR;
+
+  final _i1.PrismaUnion<_i2.MatchHistoryScalarWhereWithAggregatesInput,
+      Iterable<_i2.MatchHistoryScalarWhereWithAggregatesInput>>? NOT;
+
+  final _i1.PrismaUnion<_i2.IntWithAggregatesFilter, int>? id;
+
+  final _i1.PrismaUnion<_i2.IntWithAggregatesFilter, int>? matchId;
+
+  final _i1.PrismaUnion<_i2.EnumMatchEventWithAggregatesFilter, _i3.MatchEvent>?
+      eventType;
+
+  final _i1.PrismaUnion<_i2.DateTimeWithAggregatesFilter, DateTime>? time;
+
+  final _i1.PrismaUnion<_i2.StringWithAggregatesFilter, String>?
+      additionnalInformations;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'AND': AND,
+        'OR': OR,
+        'NOT': NOT,
+        'id': id,
+        'matchId': matchId,
+        'eventType': eventType,
+        'time': time,
+        'additionnal_informations': additionnalInformations,
+      };
+}
+
+class MatchHistoryCountAggregateOutputTypeSelect
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryCountAggregateOutputTypeSelect({
+    this.id,
+    this.matchId,
+    this.eventType,
+    this.time,
+    this.additionnalInformations,
+    this.$all,
+  });
+
+  final bool? id;
+
+  final bool? matchId;
+
+  final bool? eventType;
+
+  final bool? time;
+
+  final bool? additionnalInformations;
+
+  final bool? $all;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'matchId': matchId,
+        'eventType': eventType,
+        'time': time,
+        'additionnal_informations': additionnalInformations,
+        '_all': $all,
+      };
+}
+
+class MatchHistoryGroupByOutputTypeCountArgs
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryGroupByOutputTypeCountArgs({this.select});
+
+  final _i2.MatchHistoryCountAggregateOutputTypeSelect? select;
+
+  @override
+  Map<String, dynamic> toJson() => {'select': select};
+}
+
+class MatchHistoryAvgAggregateOutputTypeSelect
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryAvgAggregateOutputTypeSelect({
+    this.id,
+    this.matchId,
+  });
+
+  final bool? id;
+
+  final bool? matchId;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'matchId': matchId,
+      };
+}
+
+class MatchHistoryGroupByOutputTypeAvgArgs
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryGroupByOutputTypeAvgArgs({this.select});
+
+  final _i2.MatchHistoryAvgAggregateOutputTypeSelect? select;
+
+  @override
+  Map<String, dynamic> toJson() => {'select': select};
+}
+
+class MatchHistorySumAggregateOutputTypeSelect
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistorySumAggregateOutputTypeSelect({
+    this.id,
+    this.matchId,
+  });
+
+  final bool? id;
+
+  final bool? matchId;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'matchId': matchId,
+      };
+}
+
+class MatchHistoryGroupByOutputTypeSumArgs
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryGroupByOutputTypeSumArgs({this.select});
+
+  final _i2.MatchHistorySumAggregateOutputTypeSelect? select;
+
+  @override
+  Map<String, dynamic> toJson() => {'select': select};
+}
+
+class MatchHistoryMinAggregateOutputTypeSelect
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryMinAggregateOutputTypeSelect({
+    this.id,
+    this.matchId,
+    this.eventType,
+    this.time,
+    this.additionnalInformations,
+  });
+
+  final bool? id;
+
+  final bool? matchId;
+
+  final bool? eventType;
+
+  final bool? time;
+
+  final bool? additionnalInformations;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'matchId': matchId,
+        'eventType': eventType,
+        'time': time,
+        'additionnal_informations': additionnalInformations,
+      };
+}
+
+class MatchHistoryGroupByOutputTypeMinArgs
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryGroupByOutputTypeMinArgs({this.select});
+
+  final _i2.MatchHistoryMinAggregateOutputTypeSelect? select;
+
+  @override
+  Map<String, dynamic> toJson() => {'select': select};
+}
+
+class MatchHistoryMaxAggregateOutputTypeSelect
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryMaxAggregateOutputTypeSelect({
+    this.id,
+    this.matchId,
+    this.eventType,
+    this.time,
+    this.additionnalInformations,
+  });
+
+  final bool? id;
+
+  final bool? matchId;
+
+  final bool? eventType;
+
+  final bool? time;
+
+  final bool? additionnalInformations;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'matchId': matchId,
+        'eventType': eventType,
+        'time': time,
+        'additionnal_informations': additionnalInformations,
+      };
+}
+
+class MatchHistoryGroupByOutputTypeMaxArgs
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryGroupByOutputTypeMaxArgs({this.select});
+
+  final _i2.MatchHistoryMaxAggregateOutputTypeSelect? select;
+
+  @override
+  Map<String, dynamic> toJson() => {'select': select};
+}
+
+class MatchHistoryGroupByOutputTypeSelect
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const MatchHistoryGroupByOutputTypeSelect({
+    this.id,
+    this.matchId,
+    this.eventType,
+    this.time,
+    this.additionnalInformations,
+    this.$count,
+    this.$avg,
+    this.$sum,
+    this.$min,
+    this.$max,
+  });
+
+  final bool? id;
+
+  final bool? matchId;
+
+  final bool? eventType;
+
+  final bool? time;
+
+  final bool? additionnalInformations;
+
+  final _i1.PrismaUnion<bool, _i2.MatchHistoryGroupByOutputTypeCountArgs>?
+      $count;
+
+  final _i1.PrismaUnion<bool, _i2.MatchHistoryGroupByOutputTypeAvgArgs>? $avg;
+
+  final _i1.PrismaUnion<bool, _i2.MatchHistoryGroupByOutputTypeSumArgs>? $sum;
+
+  final _i1.PrismaUnion<bool, _i2.MatchHistoryGroupByOutputTypeMinArgs>? $min;
+
+  final _i1.PrismaUnion<bool, _i2.MatchHistoryGroupByOutputTypeMaxArgs>? $max;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'matchId': matchId,
+        'eventType': eventType,
+        'time': time,
+        'additionnal_informations': additionnalInformations,
+        '_count': $count,
+        '_avg': $avg,
+        '_sum': $sum,
+        '_min': $min,
+        '_max': $max,
+      };
+}
+
+class AggregateMatchHistory {
+  const AggregateMatchHistory({
+    this.$count,
+    this.$avg,
+    this.$sum,
+    this.$min,
+    this.$max,
+  });
+
+  factory AggregateMatchHistory.fromJson(Map json) => AggregateMatchHistory(
+        $count: json['_count'] is Map
+            ? _i2.MatchHistoryCountAggregateOutputType.fromJson(json['_count'])
+            : null,
+        $avg: json['_avg'] is Map
+            ? _i2.MatchHistoryAvgAggregateOutputType.fromJson(json['_avg'])
+            : null,
+        $sum: json['_sum'] is Map
+            ? _i2.MatchHistorySumAggregateOutputType.fromJson(json['_sum'])
+            : null,
+        $min: json['_min'] is Map
+            ? _i2.MatchHistoryMinAggregateOutputType.fromJson(json['_min'])
+            : null,
+        $max: json['_max'] is Map
+            ? _i2.MatchHistoryMaxAggregateOutputType.fromJson(json['_max'])
+            : null,
+      );
+
+  final _i2.MatchHistoryCountAggregateOutputType? $count;
+
+  final _i2.MatchHistoryAvgAggregateOutputType? $avg;
+
+  final _i2.MatchHistorySumAggregateOutputType? $sum;
+
+  final _i2.MatchHistoryMinAggregateOutputType? $min;
+
+  final _i2.MatchHistoryMaxAggregateOutputType? $max;
+
+  Map<String, dynamic> toJson() => {
+        '_count': $count?.toJson(),
+        '_avg': $avg?.toJson(),
+        '_sum': $sum?.toJson(),
+        '_min': $min?.toJson(),
+        '_max': $max?.toJson(),
+      };
+}
+
+class AggregateMatchHistoryCountArgs
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const AggregateMatchHistoryCountArgs({this.select});
+
+  final _i2.MatchHistoryCountAggregateOutputTypeSelect? select;
+
+  @override
+  Map<String, dynamic> toJson() => {'select': select};
+}
+
+class AggregateMatchHistoryAvgArgs
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const AggregateMatchHistoryAvgArgs({this.select});
+
+  final _i2.MatchHistoryAvgAggregateOutputTypeSelect? select;
+
+  @override
+  Map<String, dynamic> toJson() => {'select': select};
+}
+
+class AggregateMatchHistorySumArgs
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const AggregateMatchHistorySumArgs({this.select});
+
+  final _i2.MatchHistorySumAggregateOutputTypeSelect? select;
+
+  @override
+  Map<String, dynamic> toJson() => {'select': select};
+}
+
+class AggregateMatchHistoryMinArgs
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const AggregateMatchHistoryMinArgs({this.select});
+
+  final _i2.MatchHistoryMinAggregateOutputTypeSelect? select;
+
+  @override
+  Map<String, dynamic> toJson() => {'select': select};
+}
+
+class AggregateMatchHistoryMaxArgs
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const AggregateMatchHistoryMaxArgs({this.select});
+
+  final _i2.MatchHistoryMaxAggregateOutputTypeSelect? select;
+
+  @override
+  Map<String, dynamic> toJson() => {'select': select};
+}
+
+class AggregateMatchHistorySelect
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const AggregateMatchHistorySelect({
+    this.$count,
+    this.$avg,
+    this.$sum,
+    this.$min,
+    this.$max,
+  });
+
+  final _i1.PrismaUnion<bool, _i2.AggregateMatchHistoryCountArgs>? $count;
+
+  final _i1.PrismaUnion<bool, _i2.AggregateMatchHistoryAvgArgs>? $avg;
+
+  final _i1.PrismaUnion<bool, _i2.AggregateMatchHistorySumArgs>? $sum;
+
+  final _i1.PrismaUnion<bool, _i2.AggregateMatchHistoryMinArgs>? $min;
+
+  final _i1.PrismaUnion<bool, _i2.AggregateMatchHistoryMaxArgs>? $max;
 
   @override
   Map<String, dynamic> toJson() => {

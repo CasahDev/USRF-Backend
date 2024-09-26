@@ -11,12 +11,7 @@ class ServiceHistory implements IServiceHistory {
   final IHistoryDAO dao;
 
   @override
-  Future<Response> addEventToMatchHistory(String id, Map<String, dynamic> event) {
-    return dao.addEventToMatchHistory(id, event);
-  }
-
-  @override
-  Future<Response> addHistory(History history) {
+  Future<Response> addHistory(Map<String, dynamic> history) {
     return dao.addHistory(history);
   }
 
@@ -36,7 +31,12 @@ class ServiceHistory implements IServiceHistory {
   }
 
   @override
-  Future<Response> getMatchHistory(String id) {
-    return dao.getMatchHistory(id);
+  Future<Response> deleteHistoryById(String id) {
+    return dao.deleteHistoryById(id);
+  }
+
+  @override
+  Future<Response> getHistoryById(String id) {
+    return dao.getHistoryById(id);
   }
 }
