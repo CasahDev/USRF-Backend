@@ -15,4 +15,5 @@ build/
 # Test related files
 coverage/
 
-*.env
+/.idea/
+/.env
