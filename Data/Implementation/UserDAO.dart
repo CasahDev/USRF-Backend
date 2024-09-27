@@ -4,7 +4,6 @@ import 'package:dart_frog/dart_frog.dart';
 import 'package:orm/orm.dart';
 
 import '../../prisma/generated_dart_client/client.dart';
-import '../../prisma/generated_dart_client/model.dart';
 import '../../prisma/generated_dart_client/prisma.dart';
 import '../DataFormating/Interface/IHashClient.dart';
 import '../Interface/IUserDAO.dart';
@@ -18,36 +17,37 @@ class UserDAO with IUserDAO {
   late IHashClient hashClient;
 
   /// Insert a new User into the database
+  ///
+  /// [data] is a Map<String, dynamic> that contains the data of the User to insert
+  ///
+  /// Return a Response with a message indicating if the User has been created or not
   @override
   Future<Response> createUser(Map<String, dynamic> data) async {
-    try {
-      final salt = hashClient.generateSalt();
-      await prismaClient.user.create(
-        data: PrismaUnion.$1(
-          UserCreateInput(
-            firstName: data['firstName'] as String,
-            lastName: data['lastName'] as String,
-            email: data['email'] as String,
-            password: hashClient.hash(salt + (data['password'] as String)),
-            salt: salt,
-            history: const HistoryCreateNestedManyWithoutAuthorInput(
-              create: PrismaUnion.$1(
-                HistoryCreateWithoutAuthorInput(
-                  additionnalInformations: '',
-                  actionType: ActionType.createUser,
-                ),
-              ),
-            ),
+    final salt = hashClient.generateSalt();
+    await prismaClient.user.create(
+      data: PrismaUnion.$1(
+        UserCreateInput(
+          firstName: data['firstName'] as String,
+          lastName: data['lastName'] as String,
+          email: data['email'] as String,
+          password: hashClient.hash(salt + (data['password'] as String)),
+          salt: salt,
           ),
         ),
-      );
-      return Response.json(body: {'message': 'User succesfully created'});
-    } catch (e) {
+    );
+
+    var user = await prismaClient.user.findUnique(
+      where: UserWhereUniqueInput(email: data['email'] as String),
+    );
+
+    if (user == null) {
       return Response.json(
-        body: {'message': 'User succesfully created'},
+        body: {'message': 'User could not be created'},
         statusCode: 500,
       );
     }
+
+    return Response.json(body: {'message': 'User succesfully created'});
   }
 
   @override

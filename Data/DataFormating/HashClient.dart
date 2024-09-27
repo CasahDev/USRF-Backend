@@ -1,4 +1,7 @@
+import 'dart:convert';
 import 'dart:math';
+
+import 'package:crypto/crypto.dart';
 
 import 'Interface/IHashClient.dart';
 
@@ -14,7 +17,11 @@ class HashClient with IHashClient {
 
   @override
   String hash(String data) {
-    return hash(data);
+
+    final bytes = utf8.encode(data);
+    final digest = sha256.convert(bytes);
+
+    return digest.toString();
   }
 
 }

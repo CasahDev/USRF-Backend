@@ -6,4 +6,5 @@ mixin IServiceUser {
   Future<Response> getUserById(int id);
   Future<Response> updateUser(int id, Map<String, dynamic> data);
   Future<Response> deleteUser(int id);
+  Future<Response> login(Map<String, dynamic> data);
 }

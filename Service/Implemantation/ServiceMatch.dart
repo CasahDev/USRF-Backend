@@ -33,4 +33,9 @@ class ServiceMatch implements IServiceMatch {
     return dao.updateMatch(id, data);
   }
 
+  @override
+  Future<Response> getLastMatchByTeam(String team) {
+    return dao.getLastMatchByTeam(team);
+  }
+
 }

@@ -22,5 +22,17 @@ Future<Response> _createMatch(RequestContext context) async {
 }
 
 Future<Response> _getMatch(String id) async {
-  return service.getMatchById(id as int);
+  if (int.tryParse(id) != null) {
+    return _getMatchById(id);
+  } else {
+    return _getLastMatchByTeam(id);
+  }
+}
+
+Future<Response> _getMatchById(String id) async {
+  return service.getMatchById(int.parse(id));
+}
+
+Future<Response> _getLastMatchByTeam(String team) async {
+  return service.getLastMatchByTeam(team);
 }

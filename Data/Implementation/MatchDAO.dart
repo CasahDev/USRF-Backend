@@ -14,49 +14,63 @@ class MatchDAO implements IMatchDAO {
   late PrismaClient prismaClient;
 
   @override
-  Future<Response> getLastMatchByTeam(int teamId) async {
+  Future<Response> getLastMatchByTeam(String teamId) async {
+    print("debug");
     final match = await prismaClient.match.findFirst(
       where: MatchWhereInput(
         teamId: PrismaUnion.$1(
-          teamId as IntNullableFilter,
+          (await prismaClient.team.findFirst(
+            where: TeamWhereInput(
+              name: PrismaUnion.$1(
+                StringFilter(
+                  equals: PrismaUnion.$1(teamId),
+                ),
+              ),
+            ),
+          ))!
+              .id! as IntNullableFilter,
         ),
       ),
       orderBy: const PrismaUnion.$2(
         MatchOrderByWithRelationInput(date: SortOrder.desc),
       ),
     );
+
+
     if (match == null) {
       return Response.json(
         body: {'message': 'Match not found'},
         statusCode: 404,
       );
-    }
-    return Response.json(
-      body: {
-        'message': 'Match found',
-        'match': {
-          'id': match.id,
-          'team': match.team,
-          'opponent': match.opponent,
-          'teamScore': match.teamScore,
-          'opponentScore': match.opponentScore,
-          'date': match.date,
-          'startingTime' : match.startedTime,
-          'isCup' : match.isCup,
+    } else {
+      return Response.json(
+        body: {
+          'message': 'Match found',
+          'match': {
+            'match': match,
+            'id': match.id,
+            'team': match.team,
+            'opponent': match.opponent,
+            'teamScore': match.teamScore,
+            'opponentScore': match.opponentScore,
+            'date': match.date,
+            'startingTime': match.startedTime,
+            'isCup': match.isCup,
+          },
         },
-      },
-    );
+      );
+    }
   }
 
   @override
   Future<Response> getNextMatchs() async {
-    final teamCount =
-        await prismaClient.$raw.query('SELECT COUNT(*) FROM Team;');
+    final teams = await prismaClient.team.findMany();
 
     final result = StringBuffer();
-    for (var i = 0; i < teamCount.length; i++) {
-      final match = await getLastMatchByTeam(i + 1);
-      result.write((await match.json())['match']);
+    for (final team in teams) {
+      final match =
+          await getLastMatchByTeam(team.name ?? '') as Map<String, dynamic>;
+      result.write(match['match']);
     }
 
     return Response.json(
@@ -105,34 +119,14 @@ class MatchDAO implements IMatchDAO {
   }
 
   @override
-  Future<Response> getMatchById(int matchId) async {
-    try {
-      final match = await prismaClient.match.findFirst(
-        where: MatchWhereInput(id: PrismaUnion.$1(matchId as IntFilter)),
-      );
-
-      return Response.json(
-        body: {
-          'message': 'Match found !',
-          'match': {
-            'team': match?.team!.name,
-            'opponent': match?.opponent,
-            'teamScore': match?.teamScore,
-            'opponentScore': match?.opponentScore,
-            'date': match?.date,
-            'address': match?.address,
-            'isHome': match?.isHome,
-            'coach': match?.coach,
-          },
-        },
-      );
-    } catch (e) {
-      return Response.json(
-        body: {
-          'message': e.toString(),
-        },
-      );
-    }
+  Future<Response> getMatchs() async {
+    final matchs = await prismaClient.match.findMany();
+    return Response.json(
+      body: {
+        'message': 'Matchs found !',
+        'matchs': matchs,
+      },
+    );
   }
 
   @override
@@ -149,12 +143,32 @@ class MatchDAO implements IMatchDAO {
   }
 
   @override
-  Future<Response> getMatchs() async {
-    var matchs = await prismaClient.match.findMany();
+  Future<Response> getMatchById(int id) async {
+    final match = await prismaClient.match.findUnique(
+      where: MatchWhereUniqueInput(id: id),
+    );
+
+    if (match == null) {
+      return Response.json(
+        body: {'message': 'Match not found'},
+        statusCode: 404,
+      );
+    }
+
     return Response.json(
       body: {
-        'message': 'Matchs found !',
-        'matchs': matchs,
+        'message': 'Match found !',
+        'match': {
+          'team': match.team!.name,
+          'opponent': match.opponent,
+          'teamScore': match.teamScore,
+          'opponentScore': match.opponentScore,
+          'date': match.date,
+          'address': match.address,
+          'isHome': match.isHome,
+          'coach': match.coach,
+          'isCup': match.isCup,
+        },
       },
     );
   }
@@ -171,6 +185,7 @@ class MatchDAO implements IMatchDAO {
           isHome: PrismaUnion.$1(data['isHome'] as bool),
           coach: PrismaUnion.$1(data['coach'] as String),
           state: PrismaUnion.$1(data['state'] as GameState),
+          isCup: PrismaUnion.$1(data['isCup'] as bool),
         ),
       ),
       where: MatchWhereUniqueInput(id: id),

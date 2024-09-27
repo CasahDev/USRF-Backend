@@ -6,4 +6,5 @@ mixin IServiceMatch {
   Future<Response> updateMatch(int id, Map<String, dynamic> data);
   Future<Response> deleteMatch(int id);
   Future<Response> getMatchs();
+  Future<Response> getLastMatchByTeam(String team);
 }

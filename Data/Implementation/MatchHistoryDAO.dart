@@ -17,7 +17,7 @@ class MatchHistoryDAO implements IMatchHistoryDAO {
   Future<Response> addEventToMatchHistory(
       String id, Map<String, dynamic> body) async {
     var match = await prismaClient.match.findUnique(
-      where: MatchWhereUniqueInput(id: id as int),
+      where: MatchWhereUniqueInput(id: int.parse(id)),
     );
 
     if (match == null) {
