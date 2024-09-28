@@ -38,4 +38,29 @@ class ServiceMatch implements IServiceMatch {
     return dao.getLastMatchByTeam(team);
   }
 
+  @override
+  Future<Response> changeMatchState(int id, Map<String, dynamic> data) {
+    return dao.changeMatchState(id, data);
+  }
+
+  @override
+  Future<Response> getMatchState(int id) {
+    return dao.getMatchState(id);
+  }
+
+  @override
+  Future<Response> getNextMatchs() {
+    return dao.getNextMatchs();
+  }
+
+  @override
+  Future<Response> deleteLastAction(int matchId) async {
+    return dao.deleteLastAction(matchId);
+  }
+
+  @override
+  Future<Response> getLastAction(int matchId) async {
+    return dao.getLastAction(matchId);
+  }
+
 }

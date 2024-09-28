@@ -8,7 +8,7 @@ import '../../../Service/Interface/IServiceUser.dart';
 IServiceUser service = ServiceUser(UserDAO(HashClient()));
 
 Future<Response> onRequest(RequestContext context) async {
-  return context.request.method == HttpMethod.get
+  return context.request.method == HttpMethod.post
       ? await _login(context)
       : Response(body: 'Method not allowed', statusCode: 405);
 }

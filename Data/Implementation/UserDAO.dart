@@ -16,11 +16,6 @@ class UserDAO with IUserDAO {
   late PrismaClient prismaClient;
   late IHashClient hashClient;
 
-  /// Insert a new User into the database
-  ///
-  /// [data] is a Map<String, dynamic> that contains the data of the User to insert
-  ///
-  /// Return a Response with a message indicating if the User has been created or not
   @override
   Future<Response> createUser(Map<String, dynamic> data) async {
     final salt = hashClient.generateSalt();
@@ -36,7 +31,7 @@ class UserDAO with IUserDAO {
         ),
     );
 
-    var user = await prismaClient.user.findUnique(
+    final user = await prismaClient.user.findUnique(
       where: UserWhereUniqueInput(email: data['email'] as String),
     );
 
@@ -115,7 +110,8 @@ class UserDAO with IUserDAO {
       data.forEach((key, value) async {
         const userUpdateInput = UserUpdateInput();
 
-        // Utiliser la réflexion pour définir la valeur de la variable finale correspondante à la clé
+        /// Utiliser la réflexion pour définir la valeur de la
+        /// variable finale correspondante à la clé
         final instanceMirror = reflect(userUpdateInput);
         final variableMirror = instanceMirror.type.declarations[Symbol(key)];
         if (variableMirror != null && variableMirror is VariableMirror) {

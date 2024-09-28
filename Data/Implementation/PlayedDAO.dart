@@ -16,6 +16,49 @@ class PlayedDAO implements IPlayedDAO {
 
   @override
   Future<Response> addPlayerToLineUp(int playerId, String id) async {
+
+    final player = await prismaClient.player.findUnique(
+      where: PlayerWhereUniqueInput(id: playerId),
+    );
+
+    if (player == null) {
+      return Response.json(
+        body: {
+          'message': 'Player not found',
+        },
+        statusCode: 404,
+      );
+    }
+
+    final match = await prismaClient.match.findUnique(
+      where: MatchWhereUniqueInput(id: int.parse(id)),
+    );
+
+    if (match == null) {
+      return Response.json(
+        body: {
+          'message': 'Match not found',
+        },
+        statusCode: 404,
+      );
+    }
+
+    final played = await prismaClient.played.findUnique(
+      where: PlayedWhereUniqueInput(
+        matchId: PrismaUnion.$1(int.parse(id) as IntFilter),
+        playerId: PrismaUnion.$1(playerId as IntFilter),
+      ),
+    );
+
+    if (played != null) {
+      return Response.json(
+        body: {
+          'message': 'Player already in the lineup',
+        },
+        statusCode: 400,
+      );
+    }
+
     await prismaClient.played.create(
       data: PrismaUnion.$1(
         PlayedCreateInput(

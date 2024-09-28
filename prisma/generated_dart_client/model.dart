@@ -435,7 +435,11 @@ enum MatchEvent implements _i1.PrismaEnum {
   removeOnTargetShot._('REMOVE_ON_TARGET_SHOT'),
   addOffTargetShot._('ADD_OFF_TARGET_SHOT'),
   removeOffTargetShot._('REMOVE_OFF_TARGET_SHOT'),
-  switchPlayer._('SWITCH_PLAYER');
+  switchPlayer._('SWITCH_PLAYER'),
+  addPenalty._('ADD_PENALTY'),
+  removePenalty._('REMOVE_PENALTY'),
+  addInjury._('ADD_INJURY'),
+  removeInjury._('REMOVE_INJURY');
 
   const MatchEvent._(this.name);
 
