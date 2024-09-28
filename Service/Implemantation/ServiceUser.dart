@@ -34,7 +34,7 @@ class ServiceUser with IServiceUser {
   }
 
   @override
-  Future<Response> login(Map<String, dynamic> data) {
+  Future<Response> login(String data) {
     return dao.login(data);
   }
 }

@@ -15,6 +15,8 @@ class MatchDAO implements IMatchDAO {
 
   @override
   Future<Response> getLastMatchByTeam(String teamId) async {
+
+
     final match = await prismaClient.match.findFirst(
       where: MatchWhereInput(
         teamId: PrismaUnion.$1(
@@ -34,6 +36,8 @@ class MatchDAO implements IMatchDAO {
         MatchOrderByWithRelationInput(date: SortOrder.desc),
       ),
     );
+
+    print('debug');
 
     if (match == null) {
       return Response.json(

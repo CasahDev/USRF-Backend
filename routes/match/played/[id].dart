@@ -23,7 +23,7 @@ Future<Response> _addPlayerToLineUp(RequestContext context, String id) async {
   final data = jsonEncode(await context.request.body()) as Map<String, dynamic>;
   return service.addPlayerToLineUp(
       int.parse(data['playerId'] as String),
-      id);
+      id,);
 }
 
 Future<Response> _getLineup(String id) async {

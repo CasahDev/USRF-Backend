@@ -15,6 +15,6 @@ Future<Response> onRequest(RequestContext context) async {
 
 Future<Response> _login(RequestContext context) async {
   return service.login(
-    await context.request.json() as Map<String, dynamic>,
+    await context.request.body(),
   );
 }

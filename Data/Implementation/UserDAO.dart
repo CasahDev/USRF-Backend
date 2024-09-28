@@ -27,8 +27,8 @@ class UserDAO with IUserDAO {
           email: data['email'] as String,
           password: hashClient.hash(salt + (data['password'] as String)),
           salt: salt,
-          ),
         ),
+      ),
     );
 
     final user = await prismaClient.user.findUnique(
@@ -61,7 +61,7 @@ class UserDAO with IUserDAO {
   @override
   Future<Response> getUserById(int id) async {
     final user =
-    await prismaClient.user.findUnique(where: UserWhereUniqueInput(id: id));
+        await prismaClient.user.findUnique(where: UserWhereUniqueInput(id: id));
     if (user.toString() == '') {
       return Response.json(
         body: {'message': 'User not found'},
@@ -90,15 +90,14 @@ class UserDAO with IUserDAO {
         'message': 'Users found',
         'users': users
             .map(
-              (e) =>
-          {
-            'id': e.id,
-            'firstName': e.firstName,
-            'lastName': e.lastName,
-            'email': e.email,
-            'history': e.history,
-          },
-        )
+              (e) => {
+                'id': e.id,
+                'firstName': e.firstName,
+                'lastName': e.lastName,
+                'email': e.email,
+                'history': e.history,
+              },
+            )
             .toList(),
       },
     );
@@ -133,9 +132,18 @@ class UserDAO with IUserDAO {
   }
 
   @override
-  Future<Response> login(Map<String, dynamic> data) async {
+  Future<Response> login(String data) async {
+    final connectionInfos = new List<String>.from(data.split('&'));
+
+    connectionInfos[0] = connectionInfos[0].split('=')[1];
+    connectionInfos[1] = connectionInfos[1].split('=')[1];
+
+    connectionInfos[0] = Uri.decodeComponent(connectionInfos[0]);
+    connectionInfos[1] = Uri.decodeComponent(connectionInfos[1]);
+
+    print(connectionInfos);
     final user = await prismaClient.user.findUnique(
-      where: UserWhereUniqueInput(email: data['email'] as String),
+      where: UserWhereUniqueInput(email: connectionInfos[0]),
     );
     if (user == null) {
       return Response.json(
@@ -143,8 +151,9 @@ class UserDAO with IUserDAO {
         statusCode: 404,
       );
     }
+
     final hashedPassword =
-    hashClient.hash(user.salt! + (data['password'] as String));
+        hashClient.hash(user.salt! + (connectionInfos[1] as String));
     if (user.password == hashedPassword) {
       return Response.json(
         body: {
@@ -158,6 +167,7 @@ class UserDAO with IUserDAO {
         },
       );
     }
+
     return Response.json(
       body: {'message': 'Invalid password !'},
       statusCode: 401,

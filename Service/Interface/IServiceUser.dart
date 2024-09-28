@@ -61,5 +61,5 @@ mixin IServiceUser {
   /// Returns a response with the message 'Password is incorrect' and the status code [401] if the password is incorrect
   ///
   /// Returns a response with the message 'User could not be logged in (error: $e)' and the status code [500] if the user could not be logged in
-  Future<Response> login(Map<String, dynamic> data);
+  Future<Response> login(String data);
 }
