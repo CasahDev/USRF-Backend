@@ -5,11 +5,12 @@ import 'package:orm/orm.dart';
 
 import '../../prisma/generated_dart_client/client.dart';
 import '../../prisma/generated_dart_client/prisma.dart';
+import '../Data.dart';
 import '../Interface/IPlayedDAO.dart';
 
 class PlayedDAO implements IPlayedDAO {
   PlayedDAO() {
-    prismaClient = PrismaClient();
+    prismaClient = Data.getDAO();
   }
 
   late PrismaClient prismaClient;

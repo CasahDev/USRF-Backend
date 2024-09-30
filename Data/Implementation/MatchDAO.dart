@@ -4,40 +4,45 @@ import 'package:orm/orm.dart';
 import '../../prisma/generated_dart_client/client.dart';
 import '../../prisma/generated_dart_client/model.dart';
 import '../../prisma/generated_dart_client/prisma.dart';
+import '../Data.dart';
 import '../Interface/IMatchDAO.dart';
 
 class MatchDAO implements IMatchDAO {
   MatchDAO() {
-    prismaClient = PrismaClient();
+    prismaClient = Data.getDAO();
   }
 
   late PrismaClient prismaClient;
 
   @override
   Future<Response> getLastMatchByTeam(String teamId) async {
+    final id = (await prismaClient.team.findFirst(
+      where: TeamWhereInput(
+        name: PrismaUnion.$1(
+          StringFilter(
+            equals: PrismaUnion.$1(teamId),
+          ),
+        ),
+      ),
+    ))?.id;
 
+    if (id == null) {
+      return Response.json(
+        body: {'message': 'Team not found'},
+        statusCode: 404,
+      );
+    }
 
     final match = await prismaClient.match.findFirst(
       where: MatchWhereInput(
         teamId: PrismaUnion.$1(
-          (await prismaClient.team.findFirst(
-            where: TeamWhereInput(
-              name: PrismaUnion.$1(
-                StringFilter(
-                  equals: PrismaUnion.$1(teamId),
-                ),
-              ),
-            ),
-          ))!
-              .id! as IntNullableFilter,
+          IntNullableFilter(equals: PrismaUnion.$1(id)),
         ),
       ),
       orderBy: const PrismaUnion.$2(
         MatchOrderByWithRelationInput(date: SortOrder.desc),
       ),
     );
-
-    print('debug');
 
     if (match == null) {
       return Response.json(
@@ -109,7 +114,8 @@ class MatchDAO implements IMatchDAO {
 
     final match = await prismaClient.match.findFirst(
       where: MatchWhereInput(
-        teamId: PrismaUnion.$1(data['teamId'] as IntNullableFilter),
+        teamId: PrismaUnion.$1(
+            IntNullableFilter(equals: PrismaUnion.$1(data['teamId'] as int))),
         opponentId: PrismaUnion.$1(data['opponentId'] as IntFilter),
         teamScore: PrismaUnion.$1(data['teamScore'] as IntFilter),
         opponentScore: PrismaUnion.$1(data['opponentScore'] as IntFilter),
@@ -367,7 +373,6 @@ class MatchDAO implements IMatchDAO {
 
   @override
   Future<Response> getLastAction(int matchId) async {
-
     final match = await prismaClient.match.findUnique(
       where: MatchWhereUniqueInput(id: matchId),
     );

@@ -4,11 +4,12 @@ import 'package:orm/orm.dart';
 import '../../prisma/generated_dart_client/client.dart';
 import '../../prisma/generated_dart_client/model.dart';
 import '../../prisma/generated_dart_client/prisma.dart';
+import '../Data.dart';
 import '../Interface/IHistoryDAO.dart';
 
 class HistoryDAO implements IHistoryDAO {
   HistoryDAO() {
-    prismaClient = PrismaClient();
+    prismaClient = Data.getDAO();
   }
 
   late PrismaClient prismaClient;

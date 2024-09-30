@@ -1,3 +1,4 @@
 enum DataEnum {
-  PRISMA,
+  PRISMA_USER,
+  PRISMA
 }

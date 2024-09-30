@@ -5,12 +5,13 @@ import 'package:orm/orm.dart';
 
 import '../../prisma/generated_dart_client/client.dart';
 import '../../prisma/generated_dart_client/prisma.dart';
+import '../Data.dart';
 import '../DataFormating/Interface/IHashClient.dart';
 import '../Interface/IUserDAO.dart';
 
 class UserDAO with IUserDAO {
   UserDAO(this.hashClient) {
-    prismaClient = PrismaClient();
+    prismaClient = Data.getDAO();
   }
 
   late PrismaClient prismaClient;
@@ -141,7 +142,6 @@ class UserDAO with IUserDAO {
     connectionInfos[0] = Uri.decodeComponent(connectionInfos[0]);
     connectionInfos[1] = Uri.decodeComponent(connectionInfos[1]);
 
-    print(connectionInfos);
     final user = await prismaClient.user.findUnique(
       where: UserWhereUniqueInput(email: connectionInfos[0]),
     );
